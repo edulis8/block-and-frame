@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Site = React.createClass({
+class Site extends React.Component {
   componentDidMount() {
-    console.log('here', this.props.children);
-  },
+    console.log('Sites children', this.props);
+  }
 
   render() {
     return (
@@ -12,7 +12,7 @@ const Site = React.createClass({
         {this.props.children}
       </div>
     );
-  },
-});
+  }
+}
 
 export default Site;
