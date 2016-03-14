@@ -19,5 +19,6 @@
     "react/prefer-stateless-function": "off",
     "no-console": "off",
     "react/prefer-es6-class": "off",
+    "react/prop-types":"off",
   },
 }
