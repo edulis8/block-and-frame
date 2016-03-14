@@ -1,50 +1,38 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const NpmInstallPlugin = require('npm-install-webpack-plugin');
+const webpack = require('webpack');
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
-  build: path.join(__dirname, 'build'),
+  dist: path.join(__dirname, 'dist'),
 };
 
-
-const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: path.join(__dirname, '/app/index.html'),
-  filename: 'index.html',
-  inject: 'body',
-});
-
 module.exports = {
-  entry: {
-    app: PATHS.app,
-  },
+  devtool: 'eval-source-map',
+  context: PATHS.app,
+  entry: [
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+    './index.js',
+  ],
   output: {
-    path: PATHS.build,
+    path: PATHS.dist,
     filename: 'bundle.js',
+    publicPath: '/dist/',
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.jsx?$/,
-        loaders: ['eslint'],
-        include: PATHS.app,
-      },
-    ],
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: ['babel-loader'],
+        loaders: ['babel-loader', 'eslint-loader'],
         include: PATHS.app,
       },
+
     ],
   },
-
   plugins: [
-    HTMLWebpackPluginConfig,
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
 
-    // detects changes made to webpack config and automatically installs dependencies
-    new NpmInstallPlugin({
-      save: true,
-    }),
+    // No errors plugin keeps webpack from building when there are linter errors.
+    // new webpack.NoErrorsPlugin(),
   ],
 };

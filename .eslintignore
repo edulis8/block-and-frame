@@ -1,5 +1,7 @@
 # Ignore built files
 build/
+dist/
+server/
 
 # Ignore test files (scripted in ES5)
 test/
