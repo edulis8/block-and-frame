@@ -25,7 +25,6 @@ module.exports = {
         loaders: ['babel-loader', 'eslint-loader'],
         include: PATHS.app,
       },
-
     ],
   },
   plugins: [

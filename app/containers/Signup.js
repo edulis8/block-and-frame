@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Signup extends Component {
   constructor(props) {
@@ -31,6 +32,14 @@ class Signup extends Component {
 
     console.log('Submit user signup here: ', user);
 
+    axios.post('/api/users/', user)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((res) => {
+      console.log(res);
+    });
+
     // clear forms
     this.setState({ username: '', password: '' });
   }
@@ -45,17 +54,17 @@ class Signup extends Component {
         <form
           onSubmit={this.preventDefaultSubmit}
         >
+          <label>Username: </label>
           <input
-            placeholder="username"
             value={this.state.username}
             onChange={this.onUsernameChange}
-          />
+          /><br />
+          <label>Password: </label>
           <input
-            placeholder="password"
             value={this.state.password}
             onChange={this.onPasswordChange}
-          />
-          <button
+          /><br />
+          <button className="ui button"
             onClick={this.onSignupSubmit}
           >Sign Up</button>
         </form>

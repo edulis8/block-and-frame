@@ -13,7 +13,7 @@ class App extends React.Component {
         <Link to={'/app/events'}>
           Become a Host! <br />
         </Link>
-        <Link to={'/users/dummydata'}>
+        <Link to={'/profile'}>
           Profile
         </Link>
         <EventList>list</EventList>
