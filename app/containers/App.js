@@ -1,13 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router';
+import EventList from './EventList';
 
-const App = React.createClass({
+class App extends React.Component {
+  componentDidMount() {
+    console.log('Apps children', this.props);
+  }
+
   render() {
     return (
       <div>
-        App
+        <Link to={'/app/events'}>
+          Become a Host! <br />
+        </Link>
+        <Link to={'/users/dummydata'}>
+          Profile
+        </Link>
+        <EventList>list</EventList>
       </div>
+
     );
-  },
-});
+  }
+}
 
 export default App;

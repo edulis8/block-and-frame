@@ -1,13 +1,16 @@
 import React from 'react';
+import Event from './Event';
 
-const EventList = React.createClass({
+class EventList extends React.Component {
+  componentDidMount() {
+    console.log('EventLists children', this.props);
+  }
+
   render() {
     return (
-      <div>
-        Event List
-      </div>
+      <Event>.</Event>
     );
-  },
-});
+  }
+}
 
 export default EventList;

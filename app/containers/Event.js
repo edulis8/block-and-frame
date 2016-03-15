@@ -1,13 +1,17 @@
 import React from 'react';
 
-const Event = React.createClass({
+class Event extends React.Component {
   render() {
     return (
       <div>
-        Event
+        Event 1
+        <br />
+        Event 2
+        <br />
+        Event 3
       </div>
     );
-  },
-});
+  }
+}
 
 export default Event;
