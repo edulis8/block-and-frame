@@ -79,6 +79,4 @@ bookshelf.knex.schema.hasTable('events_users').then(function (exists) {
 //   }
 // });
 
-
-
 module.exports = bookshelf;

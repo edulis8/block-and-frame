@@ -6,20 +6,19 @@ import Site from './containers/Site';
 import App from './containers/App';
 import Event from './containers/Event';
 import EventList from './containers/EventList';
-import Login from './containers/Login';
+import Signin from './containers/Signin';
 import Signup from './containers/Signup';
 import UserProfile from './containers/UserProfile';
 
 const routes = (
   <Router history={browserHistory}>
     <Route path="/" component={Site}>
-      <Route path="login" component={Login} />
+      <Route path="signin" component={Signin} />
       <Route path="signup" component={Signup} />
-      <Route path="app" component={App}>
-        <Route path="users/:userName" component={UserProfile} />
-        <Route path="events" component={EventList} />
-        <Route path="events/:eventID" component={Event} />
-      </Route>
+      <Route path="app" component={App} />
+      <Route path="profile" component={UserProfile} />
+      <Route path="events" component={EventList} />
+      <Route path="events/:eventID" component={Event} />
     </Route>
   </Router>
 );
@@ -27,7 +26,7 @@ const routes = (
 ReactDOM.render(routes, document.getElementById('root'));
 
 // Site
-//   / Component: Login
+//   / Component: Signin
 
 //   / Component: Profile                  food.com/app/   user/:username
 //     / Component: user Profile
