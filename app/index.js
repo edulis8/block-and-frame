@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 
 import Site from './containers/Site';
 import App from './containers/App';
@@ -10,7 +10,7 @@ import Login from './containers/Login';
 import UserProfile from './containers/UserProfile';
 
 const routes = (
-  <Router history={hashHistory}>
+  <Router history={browserHistory}>
     <Route path="/" component={Site}>
       <Route path="login" component={Login} />
       <Route path="app" component={App}>

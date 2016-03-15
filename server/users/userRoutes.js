@@ -10,4 +10,3 @@ module.exports = function (router) {
   router.put('/:userId', userController.editUser);
   router.delete('/:userId', userController.deleteUser);
 };
-

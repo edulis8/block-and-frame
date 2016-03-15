@@ -101,4 +101,3 @@ module.exports = {
 
 // to add a user
 // curl -H "Content-Type: application/json" -X POST -d '{"username":"User","password":"xyz","email":"example@example.com"}' http://localhost:8080/api/users
-

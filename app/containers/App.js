@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link, browserHistory } from 'react-router';
+import EventList from './EventList';
 
 class App extends React.Component {
   componentDidMount() {
@@ -8,9 +10,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        App
-        {this.props.children}
+        <Link to={'/app/events'}>
+          Become a Host! <br />
+        </Link>
+        <Link to={'/users/dummydata'}>
+          Profile
+        </Link>
+        <EventList>list</EventList>
       </div>
+
     );
   }
 }

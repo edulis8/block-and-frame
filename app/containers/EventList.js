@@ -1,4 +1,5 @@
 import React from 'react';
+import Event from './Event';
 
 class EventList extends React.Component {
   componentDidMount() {
@@ -7,9 +8,7 @@ class EventList extends React.Component {
 
   render() {
     return (
-      <div>
-        Event List
-      </div>
+      <Event>.</Event>
     );
   }
 }
