@@ -1,8 +1,9 @@
-var express = require('express');
-var userRoutes = require('../users/userRoutes');
-var router = express.Router();
+// var express = require('express');
+// var userRoutes = require('../users/userRoutes');
 
-router.use('/users', userRoutes);
-// events
+// var router = express.Router();
 
-module.exports = router;
+// router.use('/api/users', userRoutes);
+// router.use('/api/events', eventRoutes);
+
+// module.exports = router;

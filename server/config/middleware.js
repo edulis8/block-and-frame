@@ -24,6 +24,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware')(compiler, {
 
 module.exports = (app, express) => {
   const userRouter = express.Router();
+  const eventRouter = express.Router();
 
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,6 +36,7 @@ module.exports = (app, express) => {
   app.use(express.static(path.join(__dirname, '/../../dist')));
 
   app.use('/api/users', userRouter); // use user router for all user requests
+  app.use('/api/events', eventRouter); // use user router for all user requests
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../dist/index.html'));
@@ -43,4 +45,5 @@ module.exports = (app, express) => {
 
   // inject our routers into their respective route files
   require('../users/userRoutes.js')(userRouter);
+  require('../events/eventRoutes.js')(eventRouter);
 };
