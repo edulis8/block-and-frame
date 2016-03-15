@@ -36,14 +36,14 @@ bookshelf.knex.schema.hasTable('users').then(exists => {
 // Event schema
 bookshelf.knex.schema.hasTable('events').then(exists => {
   if (!exists) {
-    bookshelf.knex.schema.createTable('events', event =>{
+    bookshelf.knex.schema.createTable('events', event => {
       event.increments('id').primary();
       event.string('name', 100);
       event.string('location', 100);
       event.string('coordinates', 100);
       event.string('description', 1000);
       event.timestamps();
-    }).then(table) =>{
+    }).then(table => {
       console.log('Created events table');
     });
   }
