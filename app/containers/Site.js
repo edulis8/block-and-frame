@@ -1,5 +1,4 @@
 import React from 'react';
-import App from './App';
 
 class Site extends React.Component {
   componentDidMount() {
@@ -9,7 +8,7 @@ class Site extends React.Component {
   render() {
     return (
       <div>
-        <App>Site</App>
+        {this.props.children}
       </div>
     );
   }
