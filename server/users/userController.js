@@ -5,8 +5,14 @@ var Users = require('./userCollection');
 
 module.exports = { 
   getAllUsers: function (req, res) {
-    User.fetchAll()
+    User.fetchAll({
+      // TODO: fix
+      // using withRelated break column selection revealing password
+      // withRelated: ['events'],
+      columns: ['email', 'username', 'bio', 'city', 'country'],
+    })
     .then(function (users) {
+      console.log(users.models[0].relations.events)
       res.status(200).send(users.models);
     })
     .catch(function (err) {
@@ -17,7 +23,12 @@ module.exports = {
   getUserbyId: function (req, res) {
     // Forge: Simple helper function for retrieving all instances of the given model.
     User.where({ id: req.params.userId })
-    .fetch()
+    .fetch({
+      // TODO: fix
+      // using withRelated break column selection revealing password
+      // withRelated: ['events'],
+      columns: ['email', 'username', 'bio', 'city', 'country'],
+    })
     .then(function (user) {
       if (!user) {
         res.status(404).send('User not found');
@@ -30,6 +41,7 @@ module.exports = {
       res.status(500).send(err);
     });
   },
+
   createUser: function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
@@ -52,6 +64,7 @@ module.exports = {
         });
         newUser.save()
         .then(function(newUser) {
+          // TODO: omit password
           res.status(201).send(newUser);
         })
         .catch(function (err) {
@@ -60,6 +73,7 @@ module.exports = {
       } 
     });
   },
+
   editUser: function (req, res) {
     User.where({ id: req.params.userId })
     .fetch()
@@ -78,6 +92,7 @@ module.exports = {
       res.status(500).send(err);
     });
   },
+
   deleteUser: function (req, res) {
     User.where({ id: req.params.userId })
     .fetch()
