@@ -12,7 +12,7 @@ class UserProfile extends React.Component {
       city: '',
       country: '',
     };
-  } 
+  }
   componentDidMount() {
     // Mock token
     const token = window.localStorage.id;
@@ -37,7 +37,9 @@ class UserProfile extends React.Component {
         <div>
           Your email: { this.state.email }
         </div>
-        { this.state.username ? <p>{ this.state.username }</p> : <p>You haven't set a display name</p> }
+        { this.state.username ?
+          <p>{ this.state.username }</p> :
+          <p>You haven't set a display name</p> }
         <div>
         { this.state.city ? <p>{ this.state.city }</p> : <p>You haven't set a city</p> }
         </div>
@@ -45,7 +47,7 @@ class UserProfile extends React.Component {
         { this.state.country ? <p>{ this.state.country }</p> : <p>You haven't set a country</p> }
         </div>
         <div>
-        { this.state.bio ? <p>{ this.state.bio }</p> : <p>You haven't set a bio</p> } 
+        { this.state.bio ? <p>{ this.state.bio }</p> : <p>You haven't set a bio</p> }
         </div>
       </div>
     );
