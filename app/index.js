@@ -2,7 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 
-import Site from './containers/Site';
+// jQuery and CDN for Semantic-UI
+import $ from 'jquery';
+import jQuery from 'jquery';
+window.$ = $;
+window.jQuery = jQuery;
+$('head').append($('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">'));
+$('body').append($('<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>'));
+
+
+// import Site from './containers/Site';
 import App from './containers/App';
 import Event from './containers/Event';
 import EventList from './containers/EventList';
@@ -13,14 +22,14 @@ import UserProfile from './containers/UserProfile';
 
 const routes = (
   <Router history={browserHistory}>
-    <Route path="/" component={Site}>
+    <Route path="/" /* component={Site} */>
       <Route path="signin" component={Signin} />
       <Route path="signup" component={Signup} />
       <Route path="app" component={App} />
       <Route path="profile" component={UserProfile} />
       <Route path="events" component={EventList} />
       <Route path="events/:eventID" component={Event} />
-      <Route path="events/create" component={CreateEvent} />
+      <Route path="eventcreate" component={CreateEvent} />
     </Route>
   </Router>
 );
