@@ -39,10 +39,16 @@ class CreateEvent extends Component {
       description: this.state.description,
     };
 
-    // TODO: replace hardcoded userId in url depending on auth
-    axios.post('/api/events/1', event)
+    // TODO: change depending on auth
+    const userId = window.localStorage.getItem('id');
+    axios.post(`/api/events/${userId}`, event)
     .then((res) => {
       console.log(res);
+      this.context.router.push({
+        pathname: '/events',
+        // TODO: change path to /event once available
+        // state: res.data,
+      });
     })
     .catch((res) => {
       console.log(res);
@@ -103,5 +109,9 @@ class CreateEvent extends Component {
     );
   }
 }
+
+CreateEvent.contextTypes = {
+  router: React.PropTypes.object.isRequired,
+};
 
 export default CreateEvent;
