@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router';
 
 class Signup extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: '',
+      email: '',
       password: '',
+      showLink: false,
     };
 
     this.onUsernameChange = this.onUsernameChange.bind(this);
@@ -17,7 +19,7 @@ class Signup extends Component {
   }
 
   onUsernameChange(e) {
-    this.setState({ username: e.target.value });
+    this.setState({ email: e.target.value });
   }
 
   onPasswordChange(e) {
@@ -26,7 +28,7 @@ class Signup extends Component {
 
   onSignupSubmit() {
     const user = {
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password,
     };
 
@@ -35,13 +37,14 @@ class Signup extends Component {
     axios.post('/api/users/', user)
     .then((res) => {
       console.log(res);
+      const userId = res.data.id;
+      // mocking the usage of JWTs or the like:
+      window.localStorage.setItem('id', userId);
     })
     .catch((res) => {
       console.log(res);
     });
-
-    // clear forms
-    this.setState({ username: '', password: '' });
+    this.setState({ email: '', password: '', showLink: true });
   }
 
   preventDefaultSubmit(e) {
@@ -54,13 +57,15 @@ class Signup extends Component {
         <form
           onSubmit={this.preventDefaultSubmit}
         >
-          <label>Username: </label>
+          <label>Email: </label>
           <input
-            value={this.state.username}
+            placeholder="email"
+            value={this.state.email}
             onChange={this.onUsernameChange}
           /><br />
           <label>Password: </label>
           <input
+            placeholder="password"
             value={this.state.password}
             onChange={this.onPasswordChange}
           /><br />
@@ -68,6 +73,7 @@ class Signup extends Component {
             onClick={this.onSignupSubmit}
           >Sign Up</button>
         </form>
+        { this.state.showLink ? <Link to={'/profile'}> You have successfully signed up! Go to your new user profile. </Link> : null }
       </div>
     );
   }
