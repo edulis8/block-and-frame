@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const helpers = {
   getCurrentUserData(token) {
-    return axios.get('/api/users/' + token);
+    return axios.get(['/api/users/', token].join(''));
   },
 };
 

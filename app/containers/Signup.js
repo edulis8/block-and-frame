@@ -73,7 +73,11 @@ class Signup extends Component {
             onClick={this.onSignupSubmit}
           >Sign Up</button>
         </form>
-        { this.state.showLink ? <Link to={'/profile'}> You have successfully signed up! Go to your new user profile. </Link> : null }
+        { this.state.showLink ?
+          <Link to={'/profile'}>
+            You have successfully signed up! Go to your new user profile.
+          </Link> :
+          null }
       </div>
     );
   }

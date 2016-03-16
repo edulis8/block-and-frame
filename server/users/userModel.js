@@ -5,13 +5,13 @@ var User = bookshelf.Model.extend({
   hasTimestamps: true,
   events: function () {
     var Event = require('../events/eventModel');
-    return this.belongsToMany(Event);
+    return this.belongsToMany(Event).withPivot(['is_creator']);
   },
 });
 
 module.exports = User;
 
-//console.log(User);
+// console.log(User);
 // new User({
 //   username: 'testname',
 // })

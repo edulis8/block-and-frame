@@ -1,10 +1,18 @@
 var Event = require('./eventModel');
 var Events = require('./eventCollection');
 
-module.exports = {
+module.exports = eventController = {
   getAllEvents: function (req, res) {
-    Event.fetchAll()
+    Event.fetchAll({
+      withRelated: [{'users': function(qb) {
+        // omit password
+        qb.column('email', 'username', 'bio', 'city', 'country');
+      }}],
+    })
     .then(function (events) {
+      // events have related users and can be found thru .relations
+      // for example events.models[0].relations.users.models[0]) 
+      // the user that created the event is indicated by "_pivot_is_creator": true
       res.status(200).send(events.models);
     })
     .catch(function (err) {
@@ -13,9 +21,14 @@ module.exports = {
     });
   },
 
-  getEventbyId: function (req, res) {
-    Event.where({ id: req.params.eventId })
-    .fetch()
+  getEventbyId: function (req, res, next) {
+    Event.where({ id: req.userId || req.params.eventId })
+    .fetch({
+      withRelated: [{'users': function(qb){
+        // omit password
+        qb.column('email', 'username', 'bio', 'city', 'country');
+      }}],
+    })
     .then(function (event) {
       if (!event) {
         res.status(404);
@@ -31,7 +44,7 @@ module.exports = {
 
   // For now event info should be in the body and creator id should be in params
   // Creates event and puts creator's user.id and the event.id in events_users, sets is_creator to true for user.id who created the event
-  createEvent: function (req, res) {
+  createEvent: function (req, res, next) {
     var eventPointer;
     new Event({
       name: req.body.name,
@@ -51,7 +64,13 @@ module.exports = {
         });
       })
       .then(function (pivotStatus) {
-        res.status(201).send(event);
+        if(pivotStatus.add) {
+          // TODO: use a more reusable / less hacky solution
+          req.userId = event.id;
+          eventController.getEventbyId(req, res, next);
+        } else {
+          res.status(500).send(pivotStatus);
+        }
       })
       .catch(function (err) {
         res.status(500).send(err);
@@ -64,7 +83,12 @@ module.exports = {
 
   editEvent: function (req, res) {
     Event.where({ id: req.params.userId })
-    .fetch()
+    .fetch({
+      withRelated: [{'users': function(qb){
+        // omit password
+        qb.column('email', 'username', 'bio', 'city', 'country');
+      }}],
+    })
     .then(function (event) {
       if (!event) {
         res.sendStatus(404);
@@ -72,8 +96,8 @@ module.exports = {
         event.save(req.body);
       }
     })
-    .then(function (user) {
-      res.status(200).send(user);
+    .then(function (event) {
+      res.status(200).send(event);
     })
     .catch(function (err) {
       res.status(500).send(err);
