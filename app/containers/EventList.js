@@ -31,6 +31,7 @@ class EventList extends React.Component {
           location={event.location}
           description={event.description}
           id={event.id}
+          user={event.user.username}
         >
         .
         </Event>
