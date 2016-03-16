@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import MenuBar from '../components/MenuBar';
 
 class CreateEvent extends Component {
   constructor(props) {
@@ -60,41 +61,44 @@ class CreateEvent extends Component {
 
   render() {
     return (
-      <div className="ui container">
-        <h1 className="ui dividing header">Create an Event!</h1>
-        <form
-          className="ui form"
-          onSubmit={this.preventDefaultSubmit}
-        >
-          <div className="field">
-            <label>Event Name: </label>
-            <input
-              value={this.state.name}
-              onChange={this.onNameChange}
-            />
-          </div>
-          <div className="field"> 
-            <label>Location: </label>
-            <input
-              value={this.state.location}
-              onChange={this.onLocationChange}
-            />
-          </div>
-          <div className="field">
-            <label>Description</label>
-            <textarea
-              placeholder="Describe your event"
-              value={this.state.description}
-              onChange={this.onDescriptionChange} 
-            >
-            </textarea>
-          </div>
-          <button
-            className="ui button"
-            onClick={this.onEventSubmit}
-          >Create!
-          </button>
-        </form>
+        <div>
+        <MenuBar />
+        <div className="ui container">
+          <h1 className="ui dividing header">Create an Event!</h1>
+          <form
+            className="ui form"
+            onSubmit={this.preventDefaultSubmit}
+          >
+            <div className="field">
+              <label>Event Name: </label>
+              <input
+                value={this.state.name}
+                onChange={this.onNameChange}
+              />
+            </div>
+            <div className="field"> 
+              <label>Location: </label>
+              <input
+                value={this.state.location}
+                onChange={this.onLocationChange}
+              />
+            </div>
+            <div className="field">
+              <label>Description</label>
+              <textarea
+                placeholder="Describe your event"
+                value={this.state.description}
+                onChange={this.onDescriptionChange} 
+              >
+              </textarea>
+            </div>
+            <button
+              className="ui button"
+              onClick={this.onEventSubmit}
+            >Create!
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
