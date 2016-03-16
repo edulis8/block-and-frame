@@ -7,15 +7,14 @@ class EventList extends React.Component {
     super(props);
 
     this.state = {
-      data: '',
+      data: [],
     };
   }
 
   componentDidMount() {
     axios.get('/api/events')
       .then((response) => {
-        console.log(response);
-        this.state.data = response.data;
+        this.setState({ data: response.data });
       })
       .catch((error) => {
         console.log(error);
@@ -25,10 +24,15 @@ class EventList extends React.Component {
   render() {
     const eventNodes = this.state.data.map((event) => {
       return (
-        <Event key={event.id}>
-          {event.name}
-          {event.location}
-       </Event>
+        <Event
+          key={event.id}
+          name={event.name}
+          location={event.location}
+          description={event.description}
+          id={event.id}
+        >
+        .
+        </Event>
       );
     });
     return (
