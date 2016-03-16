@@ -1,6 +1,6 @@
 import React from 'react';
 import helpers from '../utils/helpers';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 import MenuBar from '../components/MenuBar';
 
 class UserProfile extends React.Component {
@@ -45,18 +45,18 @@ class UserProfile extends React.Component {
             <p>{ this.state.username }</p> :
             <p>You haven't set a display name</p> }
           <div>
-          { this.state.city ? 
-            <p>{ this.state.city }</p> : 
+          { this.state.city ?
+            <p>{ this.state.city }</p> :
             <p>You haven't set a city</p> }
           </div>
           <div>
-          { this.state.country ? 
-            <p>{ this.state.country }</p> : 
+          { this.state.country ?
+            <p>{ this.state.country }</p> :
             <p>You haven't set a country</p> }
           </div>
           <div>
-          { this.state.bio ? 
-            <p>{ this.state.bio }</p> : 
+          { this.state.bio ?
+            <p>{ this.state.bio }</p> :
             <p>You haven't set a bio</p> }
           </div>
         </div>
