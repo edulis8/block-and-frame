@@ -39,7 +39,7 @@ const MenuBar = () => {
             Edit Profile
         </Link>
         <a className="item"><i className="food icon"></i> My Events</a>
-         <a className="item"><i className="mail icon"></i> Messages</a>
+        <a className="item"><i className="mail icon"></i> Messages</a>
         <a className="item"><i className="settings icon"></i> Account Settings</a>
         <a className="item"><i className="sign out icon"></i> Log Out</a>
 
