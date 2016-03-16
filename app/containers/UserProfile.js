@@ -41,17 +41,17 @@ class UserProfile extends React.Component {
           <p>{ this.state.username }</p> :
           <p>You haven't set a display name</p> }
         <div>
-        { this.state.city ? 
+        { this.state.city ?
           <p>{ this.state.city }</p> : 
           <p>You haven't set a city</p> }
         </div>
         <div>
-        { this.state.country ? 
+        { this.state.country ?
           <p>{ this.state.country }</p> : 
           <p>You haven't set a country</p> }
         </div>
         <div>
-        { this.state.bio ? 
+        { this.state.bio ?
           <p>{ this.state.bio }</p> : 
           <p>You haven't set a bio</p> }
         </div>
