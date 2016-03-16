@@ -76,7 +76,7 @@ class CreateEvent extends Component {
                 onChange={this.onNameChange}
               />
             </div>
-            <div className="field"> 
+            <div className="field">
               <label>Location: </label>
               <input
                 value={this.state.location}
@@ -88,7 +88,7 @@ class CreateEvent extends Component {
               <textarea
                 placeholder="Describe your event"
                 value={this.state.description}
-                onChange={this.onDescriptionChange} 
+                onChange={this.onDescriptionChange}
               >
               </textarea>
             </div>

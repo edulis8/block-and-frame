@@ -11,7 +11,7 @@ class App extends React.Component {
     return (
       <div>
         <Link to={'/app/events'}>
-          Become a Host! <br />
+          Become a Host!<br />
         </Link>
         <Link to={'/profile'}>
           Profile
