@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Event from './Event';
+import MenuBar from '../components/MenuBar';
 
 class EventList extends React.Component {
   constructor(props) {
@@ -36,8 +37,11 @@ class EventList extends React.Component {
       );
     });
     return (
-      <div className="eventList">
-        {eventNodes}
+      <div>
+        <MenuBar />
+        <div className="eventList">
+          {eventNodes}
+        </div>
       </div>
     );
   }
