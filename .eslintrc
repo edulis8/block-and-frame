@@ -20,5 +20,7 @@
     "no-console": "off",
     "react/prefer-es6-class": "off",
     "react/prop-types":"off",
+    "semi":"warn",
+    "arrow-body-style":"off",
   },
 }

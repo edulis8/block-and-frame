@@ -4,13 +4,14 @@ const webpack = require('webpack');
 const PATHS = {
   app: path.join(__dirname, 'app'),
   dist: path.join(__dirname, 'dist'),
+  modules: path.join(__dirname, 'node_modules'),
 };
 
 module.exports = {
   devtool: 'eval-source-map',
   context: PATHS.app,
   entry: [
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+    'webpack-hot-middleware/client',
     './index.js',
   ],
   output: {
@@ -21,9 +22,14 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        loaders: ['babel-loader', 'eslint-loader'],
+        test: /\.js?$/,
+        loader: 'babel',
         include: PATHS.app,
+      },
+      {
+        test: /\.js?$/,
+        loader: 'eslint-loader',
+        exlude: [PATHS.modules, PATHS.dist],
       },
     ],
   },
