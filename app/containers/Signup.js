@@ -53,23 +53,34 @@ class Signup extends Component {
 
   render() {
     return (
-      <div>
+      <div className="ui centered padded grid container">
         <form
+          className="ui form signup"
           onSubmit={this.preventDefaultSubmit}
         >
-          <label>Email: </label>
-          <input
-            placeholder="email"
-            value={this.state.email}
-            onChange={this.onUsernameChange}
-          /><br />
-          <label>Password: </label>
-          <input
-            placeholder="password"
-            value={this.state.password}
-            onChange={this.onPasswordChange}
-          /><br />
-          <button className="ui button"
+          <div className="field">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={this.state.email}
+              onChange={this.onUsernameChange}
+            />
+          </div>
+          <div className="field">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.onPasswordChange}
+            />
+          </div>
+          <button
+            className="ui button"
+            type="submit"
             onClick={this.onSignupSubmit}
           >Sign Up</button>
         </form>

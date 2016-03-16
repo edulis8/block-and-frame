@@ -52,21 +52,35 @@ class Signin extends Component {
 
   render() {
     return (
-      <div>
+
+      <div className="ui centered padded grid container">
         <form
+          className="ui form signin"
           onSubmit={this.preventDefaultSubmit}
         >
-          <label>email: </label>
-          <input
-            value={this.state.email}
-            onChange={this.onUsernameChange}
-          /><br />
-          <label>Password: </label>
-          <input
-            value={this.state.password}
-            onChange={this.onPasswordChange}
-          /><br />
+          <div className="field">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={this.state.email}
+              onChange={this.onUsernameChange}
+            />
+          </div>
+          <div className="field">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.onPasswordChange}
+            />
+          </div>
           <button
+            className="ui button"
+            type="submit"
             onClick={this.onSigninSubmit}
           >Sign In</button>
         </form>
