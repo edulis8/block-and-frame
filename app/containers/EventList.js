@@ -15,7 +15,10 @@ class EventList extends React.Component {
   componentDidMount() {
     axios.get('/api/events')
       .then((response) => {
-        this.setState({ data: response.data });
+        this.setState({ data: [{"id": 1, "location": "here", "name": "my cool event", "description": "my cool description"},
+          {"id": 2, "location": "here", "name": "my cool event", "description": "my cool description"},
+          {"id": 3, "location": "here", "name": "my cool event", "description": "my cool description"},
+          ] });
       })
       .catch((error) => {
         console.log(error);
@@ -39,7 +42,7 @@ class EventList extends React.Component {
     return (
       <div>
         <MenuBar />
-        <div className="eventList">
+        <div className="ui segment">
           {eventNodes}
         </div>
       </div>
