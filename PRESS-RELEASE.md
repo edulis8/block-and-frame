@@ -19,26 +19,46 @@ Once the project moves into development, the press release can be used as a touc
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
+
+
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
 
+  **"Your friendly free app connecting foodies and travelers in communal mealshares"**
+
+  **"The picnic app for foodies,  travelers, and friends who haven't met yet"**
+
+  **"The app that is to mealsharing.com or eatwith.com what Courchsurfing is to Airbnb"**
+
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  
+  
+  
 
 ## Problem ##
   > Describe the problem your product solves.
 
+  **Couchsurfing puts so much onus on the host. We aim to help create communal experiences, mostly around food in public places like parks.**
+
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+
+  **Allows users to host picnic/potluck style foodie events and require contributions from all who 'friends who haven't met yet' who attend**
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
 
+  *'The food movement is really a communitarian movement' -- Michael Pollen*
+
 ## How to Get Started ##
   > Describe how easy it is to get started.
 
+  **Sign up, create an account, browse events wherever you are, or host one at a nearby park, plaza, or your home**
+
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
