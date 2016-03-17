@@ -11,7 +11,7 @@ class Event extends React.Component {
             <Link to={`/events${this.props.id}`} className="header">{this.props.name}</Link>
             <div className="location">{this.props.location}</div>
             <div className="host">
-              Hosted by {this.props.creator_name || this.props.creator_email}
+
             </div>
             <div className="description">{this.props.description}</div>
           </div>
@@ -20,5 +20,7 @@ class Event extends React.Component {
     );
   }
 }
+
+// Hosted by {this.props.creator_name || this.props.creator_email}
 
 export default Event;

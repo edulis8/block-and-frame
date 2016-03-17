@@ -30,13 +30,13 @@ class Signin extends Component {
       password: this.state.password,
     };
 
-
-    // TODO: fix login after auth route exists
     console.log('Submit user login here: ', user);
 
-    axios.post('/auth/signin/', user)
+    axios.post('/auth/signin', user)
     .then((res) => {
-      console.log(res);
+      console.log('Signin in response: ', res);
+      window.localStorage.setItem('token', res.data.token);
+      window.localStorage.setItem('id', res.data.id);
     })
     .catch((res) => {
       console.log(res);
@@ -53,7 +53,8 @@ class Signin extends Component {
   render() {
     return (
 
-      <div className="ui centered padded grid container">
+      <div className="ui centered padded container raised segment">
+        <h1 classNmae="ui header">Sign In</h1>
         <form
           className="ui form signin"
           onSubmit={this.preventDefaultSubmit}

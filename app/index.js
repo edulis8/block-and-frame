@@ -23,7 +23,7 @@ import UserProfile from './containers/UserProfile';
 
 const routes = (
   <Router history={browserHistory}>
-    <Route path="/" /* component={Site} */>
+    <Route path="/" >
       <Route path="signin" component={Signin} />
       <Route path="signup" component={Signup} />
       <Route path="app" component={App} />

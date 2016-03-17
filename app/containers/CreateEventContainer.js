@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import helpers from '../utils/helpers';
 import MenuBar from '../components/MenuBar';
 import CreateEventForm from '../components/CreateEventForm';
 
@@ -44,22 +44,13 @@ class CreateEvent extends Component {
       description: this.state.description,
     };
 
-    // TODO: change depending on auth
-    // TODO: put HTTP request in helpers.js
-    const userId = window.localStorage.getItem('id');
-    axios.post(`/api/events/${userId}`, event)
-    .then((res) => {
-      console.log(res);
-      this.context.router.push({
-        pathname: '/events',
-        // TODO: change path to /event once available
-        // state: res.data,
-      });
-    })
-    .catch((res) => {
-      console.log(res);
-    });
+    console.log('event in create event container', event);
 
+    const context = this;
+    // handle POST request for creating event
+    helpers.createEvent(event, context);
+
+    // reset forms
     this.setState({
       name: '',
       location: '',

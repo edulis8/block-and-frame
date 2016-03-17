@@ -35,11 +35,11 @@ class Signup extends Component {
     console.log('Submit user signup here: ', user);
 
     // TODO: put HTTP reqs in helpers.js:
-    axios.post('/api/users/', user)
+    axios.post('/auth/signup', user)
     .then((res) => {
       console.log(res);
       const userId = res.data.id;
-      // mocking the usage of JWTs or the like:
+
       window.localStorage.setItem('id', userId);
     })
     .catch((res) => {

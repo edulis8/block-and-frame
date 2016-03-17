@@ -11,11 +11,11 @@ const knex = require('knex')({
   // debug: true,
 });
 
-// As it creates a connection pool for the current database, 
+// As it creates a connection pool for the current database,
 // you should use the bookshelf instance returned throughout your library:
 const bookshelf = require('bookshelf')(knex);
 const jsonColumns = require('bookshelf-json-columns');
- 
+
 bookshelf.plugin(jsonColumns);
 // User schema
 bookshelf.knex.schema.hasTable('users').then(exists => {
@@ -29,7 +29,7 @@ bookshelf.knex.schema.hasTable('users').then(exists => {
       user.string('city', 20);
       user.string('country', 20);
       user.timestamps();
-    }).then(table => {
+    }).then(() => {
       console.log('Created users table');
     });
   }
@@ -45,7 +45,7 @@ bookshelf.knex.schema.hasTable('events').then(exists => {
       event.string('coordinates', 100);
       event.string('description', 1000);
       event.timestamps();
-    }).then(table => {
+    }).then(() => {
       console.log('Created events table');
     });
   }
@@ -61,7 +61,7 @@ bookshelf.knex.schema.hasTable('events_users').then(exists => {
       eventUser.integer('user_id').references('users.id').onDelete('CASCADE');
       eventUser.boolean('is_creator');
       eventUser.timestamps();
-    }).then(table => {
+    }).then(() => {
       console.log('Created events_users table');
     });
   }

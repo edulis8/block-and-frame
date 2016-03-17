@@ -13,14 +13,18 @@ class EventList extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/api/events')
-      .then((response) => {
-        console.log('EVENLISTDATA', response.data);
-        this.setState({ data: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    axios({
+      url: '/api/events/',
+      method: 'get',
+      headers: { Authorization: localStorage.getItem('token') },
+    })
+    .then((response) => {
+      console.log('EVENLISTDATA', response.data);
+      this.setState({ data: response.data });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   render() {
@@ -32,9 +36,8 @@ class EventList extends React.Component {
           location={event.location}
           description={event.description}
           id={event.id}
-          creator_name={event.users[0].username}
-          creator_email={event.users[0].email}
-
+          creator_name={event.users[0] ? event.users[0].username : 'Anonymous' }
+          creator_email={event.users[0] ? event.users[0].email : ''}
         >
         .
         </Event>
