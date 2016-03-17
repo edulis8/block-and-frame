@@ -34,10 +34,10 @@ class UserProfile extends React.Component {
     return (
       <div>
         <MenuBar />
+          <h1 className="ui dividing header">
+            Your Profile:
+          </h1>
         <div className="ui raised very padded text container segment">
-          <div>
-            User Profile:
-          </div>
           <div>
             Your email: { this.state.email }
           </div>

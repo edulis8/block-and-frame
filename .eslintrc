@@ -22,5 +22,6 @@
     "react/prop-types":"off",
     "semi":"warn",
     "arrow-body-style":"off",
+    "no-trailing-spaces":"warn",
   },
 }
