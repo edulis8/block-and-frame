@@ -15,6 +15,7 @@ class EventList extends React.Component {
   componentDidMount() {
     axios.get('/api/events')
       .then((response) => {
+        console.log('EVENLISTDATA', response.data)
         this.setState({ data: response.data });
       })
       .catch((error) => {
@@ -31,7 +32,9 @@ class EventList extends React.Component {
           location={event.location}
           description={event.description}
           id={event.id}
-          user={event.user.username}
+          creator_name={event.users[0].username}
+          creator_email={event.users[0].email}
+
         >
         .
         </Event>
