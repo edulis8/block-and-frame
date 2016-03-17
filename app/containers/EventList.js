@@ -43,6 +43,10 @@ class EventList extends React.Component {
     return (
       <div>
         <MenuBar />
+        <br />
+        <div className="ui container">
+          <h1 className="ui dividing header">Local Spreads</h1>
+        </div>
         <div className="ui segment">
           {eventNodes}
         </div>
