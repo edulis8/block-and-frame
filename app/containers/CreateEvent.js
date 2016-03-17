@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import MenuBar from '../components/MenuBar';
+import ToBring from '../components/ToBring';
 
 class CreateEvent extends Component {
   constructor(props) {
@@ -11,12 +12,18 @@ class CreateEvent extends Component {
       name: '',
       location: '',
       description: '',
+      toBring: [{
+        id: 0,
+        item: '',
+        notes: '',
+      }],
     };
 
     this.onNameChange = this.onNameChange.bind(this);
     this.onLocationChange = this.onLocationChange.bind(this);
     this.onDescriptionChange = this.onDescriptionChange.bind(this);
     this.onEventSubmit = this.onEventSubmit.bind(this);
+    this.onToBringAdd = this.onToBringAdd.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
   }
 
@@ -58,6 +65,23 @@ class CreateEvent extends Component {
       name: '',
       location: '',
       description: '',
+      toBring: [{
+        id: 0,
+        item: '',
+        notes: '',
+      }],
+    });
+  }
+
+  onToBringAdd(e) {
+    e.preventDefault();
+    const id = this.state.toBring[this.state.toBring.length - 1].id + 1;
+    this.setState({
+      toBring: this.state.toBring.concat([{
+        id,
+        item: '',
+        notes: '',
+      }]),
     });
   }
 
@@ -66,6 +90,17 @@ class CreateEvent extends Component {
   }
 
   render() {
+    const toBringNodes = this.state.toBring.map((toBring) => {
+      console.log(toBring);
+      return (
+        <ToBring
+          key={toBring.id}
+          item={toBring.item}
+          notes={toBring.notes}
+        >.</ToBring>
+      );
+    });
+
     return (
         <div>
         <MenuBar />
@@ -76,28 +111,44 @@ class CreateEvent extends Component {
             onSubmit={this.preventDefaultSubmit}
           >
             <div className="field">
-              <label>Event Name: </label>
+              <label>Name:</label>
               <input
                 value={this.state.name}
                 onChange={this.onNameChange}
               />
             </div>
             <div className="field">
-              <label>Location: </label>
+              <label>Location:</label>
               <input
                 value={this.state.location}
                 onChange={this.onLocationChange}
               />
             </div>
             <div className="field">
-              <label>Description</label>
+              <label>Description:</label>
               <textarea
-                placeholder="Describe your event"
                 value={this.state.description}
                 onChange={this.onDescriptionChange}
               >
               </textarea>
             </div>
+
+
+            <div className="inline fields">
+              <label>To Bring:</label>
+              <button
+                className="ui icon button"
+                onClick={this.onToBringAdd}
+              >
+                <i className="plus square icon"></i>
+              </button>
+            </div>
+
+            <div id="to-bring">
+              {toBringNodes}
+            </div>
+
+
             <button
               className="ui button"
               onClick={this.onEventSubmit}
