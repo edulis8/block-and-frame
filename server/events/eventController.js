@@ -1,7 +1,7 @@
 var Event = require('./eventModel');
 var Events = require('./eventCollection');
 
-module.exports = eventController = {
+var eventController = {
   getAllEvents: function (req, res) {
     Event.fetchAll({
       withRelated: [{'users': function(qb) {
@@ -108,3 +108,5 @@ module.exports = eventController = {
     });
   },
 };
+
+module.exports = eventController;

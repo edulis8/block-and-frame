@@ -15,7 +15,7 @@ class EventList extends React.Component {
   componentDidMount() {
     axios.get('/api/events')
       .then((response) => {
-        console.log('EVENLISTDATA', response.data)
+        console.log('EVENLISTDATA', response.data);
         this.setState({ data: response.data });
       })
       .catch((error) => {
