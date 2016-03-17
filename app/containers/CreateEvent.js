@@ -12,11 +12,7 @@ class CreateEvent extends Component {
       name: '',
       location: '',
       description: '',
-      toBring: [{
-        id: 0,
-        item: '',
-        notes: '',
-      }],
+      toBring: [],
     };
 
     this.onNameChange = this.onNameChange.bind(this);
@@ -24,6 +20,8 @@ class CreateEvent extends Component {
     this.onDescriptionChange = this.onDescriptionChange.bind(this);
     this.onEventSubmit = this.onEventSubmit.bind(this);
     this.onToBringAdd = this.onToBringAdd.bind(this);
+    this.onItemChange = this.onItemChange.bind(this);
+    this.onNotesChange = this.onNotesChange.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
   }
 
@@ -65,24 +63,27 @@ class CreateEvent extends Component {
       name: '',
       location: '',
       description: '',
-      toBring: [{
-        id: 0,
-        item: '',
-        notes: '',
-      }],
+      toBring: [],
     });
   }
 
   onToBringAdd(e) {
     e.preventDefault();
-    const id = this.state.toBring[this.state.toBring.length - 1].id + 1;
     this.setState({
       toBring: this.state.toBring.concat([{
-        id,
+        index: this.state.toBring.length,
         item: '',
         notes: '',
       }]),
     });
+  }
+
+  onItemChange(e) {
+    console.log(e);
+  }
+
+  onNotesChange(e) {
+    console.log(e);
   }
 
   preventDefaultSubmit(e) {
@@ -91,13 +92,14 @@ class CreateEvent extends Component {
 
   render() {
     const toBringNodes = this.state.toBring.map((toBring) => {
-      console.log(toBring);
       return (
         <ToBring
-          key={toBring.id}
+          onItemChange={this.onItemChange}
+          onNotesChange={this.onNotesChange}
+          key={toBring.index}
           item={toBring.item}
           notes={toBring.notes}
-        >.</ToBring>
+        />
       );
     });
 
