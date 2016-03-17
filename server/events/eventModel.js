@@ -9,28 +9,14 @@ var Event = bookshelf.Model.extend({
   },
 });
 
+Event.fetchAndPopulate = function (id) {
+  return this.where(id)
+  .fetch({
+    withRelated: [{'users': function (qb){
+      // omit password
+      qb.column('email', 'username', 'bio', 'city', 'country');
+    }}],
+  });
+};
+
 module.exports = Event;
-
-//console.log(Event)
-// new Event({
-//   name: 'test',
-// })
-// .save()
-// .then(function(event) {
-//   console.log('event created', event);
-// });
-
-
-// e.g. api/events/:eventName/:userId
-
-// get event with name and associate it to user with userId
-//add user to event join table
-// new Event({
-//   name: 'test',
-// })
-// .fetch()
-// .then(function(event) {
-//   console.log('found event', event);
-//   return event.users().attach([1]);
-// });
-//                              ^userId

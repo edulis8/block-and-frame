@@ -14,7 +14,9 @@ const knex = require('knex')({
 // As it creates a connection pool for the current database, 
 // you should use the bookshelf instance returned throughout your library:
 const bookshelf = require('bookshelf')(knex);
-
+const jsonColumns = require('bookshelf-json-columns');
+ 
+bookshelf.plugin(jsonColumns);
 // User schema
 bookshelf.knex.schema.hasTable('users').then(exists => {
   if (!exists) {

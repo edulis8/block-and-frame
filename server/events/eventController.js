@@ -11,7 +11,7 @@ module.exports = eventController = {
     })
     .then(function (events) {
       // events have related users and can be found thru .relations
-      // for example events.models[0].relations.users.models[0]) 
+      // for example events.models[0].relations.users.models[0]
       // the user that created the event is indicated by "_pivot_is_creator": true
       res.status(200).send(events.models);
     })
@@ -22,13 +22,7 @@ module.exports = eventController = {
   },
 
   getEventbyId: function (req, res, next) {
-    Event.where({ id: req.userId || req.params.eventId })
-    .fetch({
-      withRelated: [{'users': function(qb){
-        // omit password
-        qb.column('email', 'username', 'bio', 'city', 'country');
-      }}],
-    })
+    Event.fetchAndPopulate({ id: req.userId || req.params.eventId })
     .then(function (event) {
       if (!event) {
         res.status(404);
@@ -65,7 +59,6 @@ module.exports = eventController = {
       })
       .then(function (pivotStatus) {
         if(pivotStatus.add) {
-          // TODO: use a more reusable / less hacky solution
           req.userId = event.id;
           eventController.getEventbyId(req, res, next);
         } else {
@@ -82,13 +75,7 @@ module.exports = eventController = {
   },
 
   editEvent: function (req, res) {
-    Event.where({ id: req.params.userId })
-    .fetch({
-      withRelated: [{'users': function(qb){
-        // omit password
-        qb.column('email', 'username', 'bio', 'city', 'country');
-      }}],
-    })
+    Event.fetchAndPopulate({ id: req.params.userId })
     .then(function (event) {
       if (!event) {
         res.sendStatus(404);
@@ -105,8 +92,7 @@ module.exports = eventController = {
   },
 
   deleteEvent: function (req, res) {
-    Event.where({ id: req.params.eventId })
-    .fetch()
+    Event.fetchAndPopulate({ id: req.params.eventId })
     .then(function (event) {
       if (!event) {
         res.sendStatus(404);
