@@ -53,7 +53,8 @@ class Signup extends Component {
 
   render() {
     return (
-      <div className="ui centered padded grid container">
+      <div className="ui centered padded container raised segment">
+      <h1 className="ui header">Sign Up</h1>
         <form
           className="ui form signup"
           onSubmit={this.preventDefaultSubmit}
@@ -69,7 +70,7 @@ class Signup extends Component {
             />
           </div>
           <div className="field">
-            <label>Password</label>
+            <label>Pasword</label>
             <input
               type="password"
               name="password"
@@ -85,10 +86,13 @@ class Signup extends Component {
           >Sign Up</button>
         </form>
         { this.state.showLink ?
-          <Link to={'/profile'}>
-            You have successfully signed up! Go to your new user profile.
-          </Link> :
-          null }
+          <div className="ui centered padded segment">
+            <Link to={'/profile'}>
+                <h4>
+                  You have successfully signed up! Go to your new user profile.
+                </h4>
+            </Link>
+          </div> : null }
       </div>
     );
   }
