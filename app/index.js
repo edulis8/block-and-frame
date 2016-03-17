@@ -9,6 +9,7 @@ window.$ = $;
 window.jQuery = jQuery;
 $('head').append($('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">'));
 $('body').append($('<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>'));
+$('body').append($('<script src="../app/csstemp/main.css"></script>'));
 
 
 // import Site from './containers/Site';

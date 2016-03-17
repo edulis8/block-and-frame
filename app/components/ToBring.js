@@ -8,14 +8,14 @@ class ToBring extends Component {
           <input
             value={this.props.item}
             onChange={this.props.onItemChange}
-            placeholder="You'll bring ..."
+            placeholder="Contribution Item"
           />
         </div>
         <div className="twelve wide field">
           <input
             value={this.props.notes}
             onChange={this.props.onNotesChange}
-            placeholder="Notes"
+            placeholder="Where and how do they find it?"
           />
         </div>
       </div>

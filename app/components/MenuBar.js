@@ -5,27 +5,29 @@ import { Link } from 'react-router';
 const MenuBar = () => {
   return (
   <div className="ui attached stackable menu">
-    <div className="ui container">
+    
     <Link
       className="item"
-      to={'/app'}
+      to={'/events'}
     >
-      <i className="home icon"></i>
-      Home
+      <i className="big world icon"></i>
+      <b>
+        Spread Out
+      </b>
     </Link>
     <Link
       className="item"
       to={'/events'}
     >
         <i className="users icon"></i>
-        View Events
+        View Spreads
     </Link>
     <Link
       className="item"
       to={'/eventcreate'}
     >
       <i className="spoon icon"></i>
-      Host Something Awesome
+      Host A Spread
     </Link>
     <div className="ui simple dropdown item right item">
       My Account
@@ -38,13 +40,12 @@ const MenuBar = () => {
             <i className="edit icon"></i>
             Edit Profile
         </Link>
-        <a className="item"><i className="food icon"></i> My Events</a>
+        <a className="item"><i className="food icon"></i> My Spreads</a>
         <a className="item"><i className="mail icon"></i> Messages</a>
         <a className="item"><i className="settings icon"></i> Account Settings</a>
         <a className="item"><i className="sign out icon"></i> Log Out</a>
 
       </div>
-    </div>
   </div>
 </div>
   );

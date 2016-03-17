@@ -104,16 +104,19 @@ class CreateEvent extends Component {
     });
 
     return (
-        <div>
+      <div>
         <MenuBar />
+        <br />
         <div className="ui container">
-          <h1 className="ui dividing header">Create an Event!</h1>
+          <h1 className="ui dividing header">Host a Spread!</h1>
+        </div>
+        <div className="ui container">
           <form
             className="ui form"
             onSubmit={this.preventDefaultSubmit}
           >
             <div className="field">
-              <label>Name:</label>
+              <label>Give it a name:</label>
               <input
                 value={this.state.name}
                 onChange={this.onNameChange}
@@ -137,7 +140,7 @@ class CreateEvent extends Component {
 
 
             <div className="inline fields">
-              <label>To Bring:</label>
+              <label>What Can People Contribute?:</label>
               <button
                 className="ui icon button"
                 onClick={this.onToBringAdd}

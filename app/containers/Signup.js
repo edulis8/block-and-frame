@@ -54,7 +54,8 @@ class Signup extends Component {
   render() {
     return (
       <div className="ui centered padded container raised segment">
-      <h1 className="ui header">Sign Up</h1>
+      <h1 className="ui header center aligned">Spread Out</h1>
+      <h2 className="ui header">Sign Up</h2>
         <form
           className="ui form signup"
           onSubmit={this.preventDefaultSubmit}
