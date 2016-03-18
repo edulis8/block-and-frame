@@ -8,7 +8,7 @@ const knex = require('knex')({
     database: 'block-and-frame-test',
     charset: 'utf8',
   },
-  debug: true,
+  // debug: true,
 });
 
 // As it creates a connection pool for the current database, 

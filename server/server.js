@@ -1,14 +1,8 @@
-'use strict';
-
 const express = require('express');
-const app = express();
+const server = express();
 
-require('./config/middleware.js')(app, express);
+require('./config/middleware.js')(server, express);
 
-const PORT = process.env.PORT || 8080;
+server.set('port', (process.env.PORT || 8080));
 
-app.listen(PORT, () => {
-  console.log('Listening on port:', PORT);
-});
-
-module.exports = app;
+module.exports = server;

@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 const MenuBar = () => {
   return (
   <div className="ui attached stackable menu">
-    
+
     <Link
       className="item"
       to={'/events'}
