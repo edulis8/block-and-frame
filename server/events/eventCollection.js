@@ -1,7 +1,7 @@
-var bookshelf = require('../config/bookshelf');
-var Event = require('./eventModel');
+const bookshelf = require('../config/bookshelf');
+const Event = require('./eventModel');
 
-var Events = new bookshelf.Collection();
+const Events = new bookshelf.Collection();
 
 Events.model = Event;
 
