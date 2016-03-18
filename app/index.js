@@ -16,7 +16,7 @@ $('body').append($('<script src="../app/csstemp/main.css"></script>'));
 import App from './containers/App';
 import Event from './containers/Event';
 import EventList from './containers/EventList';
-import CreateEvent from './containers/CreateEvent';
+import CreateEvent from './containers/CreateEventContainer';
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
 import UserProfile from './containers/UserProfile';
