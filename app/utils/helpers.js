@@ -4,6 +4,7 @@ const token = window.localStorage.id;
 
 const helpers = {
   getCurrentUserData() {
+    console.log('getCurrentUserData called with', token)
     return axios.get(`/api/users/${token}`);
   },
   updateUser(stateAsUserUpdates) {

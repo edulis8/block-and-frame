@@ -37,7 +37,7 @@ class UserProfile extends React.Component {
     // Mock token
     helpers.getCurrentUserData()
     .then((user) => {
-      console.log('USER in componentDidMount promise', user);
+      console.log('USER.data in componentDidMount promise', user.data);
       // This is the shortcut for the commented out stuff that follows. I hope it works:
       this.setState(user.data);
       // const email = user, .data.email;
