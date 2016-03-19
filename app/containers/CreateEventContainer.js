@@ -45,7 +45,7 @@ class CreateEvent extends Component {
     };
 
     // TODO: change depending on auth
-    // TODO: put HTTP request in helpers.js 
+    // TODO: put HTTP request in helpers.js
     const userId = window.localStorage.getItem('id');
     axios.post(`/api/events/${userId}`, event)
     .then((res) => {

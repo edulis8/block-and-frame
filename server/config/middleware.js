@@ -17,7 +17,11 @@ module.exports = (app, express) => {
   const userRouter = express.Router();
   const eventRouter = express.Router();
 
-  app.use(morgan('dev'));
+  // Silence for testing
+  if (process.env.NODE_ENV !== 'test') {
+    app.use(morgan('dev'));
+  }
+
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 

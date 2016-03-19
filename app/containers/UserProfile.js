@@ -47,19 +47,19 @@ class UserProfile extends React.Component {
       // const country = user.data.country;
       // ... etc
       // object literal property value shorthand es6 is awesome:
-      //this.setState({ email, username, bio, city, country });
+      // this.setState({ email, username, bio, city, country });
     });
   }
   onNameChange(e) {
-    console.log('namechange, STATE', this.state)
+    console.log('namechange, STATE', this.state);
     this.setState({ username: e.target.value });
   }
   onEmailChange(e) {
-    console.log('emailchange, STATE', this.state)
+    console.log('emailchange, STATE', this.state);
     this.setState({ email: e.target.value });
   }
   onCityChange(e) {
-    console.log('CITYchange, STATE', this.state)
+    console.log('CITYchange, STATE', this.state);
 
     this.setState({ city: e.target.value });
   }
@@ -67,7 +67,7 @@ class UserProfile extends React.Component {
     this.setState({ country: e.target.value });
   }
   onBioChange(e) {
-    console.log('bio changin', this.state)
+    console.log('bio changin', this.state);
     this.setState({ bio: e.target.value });
   }
   // onInstagramChange(e) {
@@ -86,7 +86,7 @@ class UserProfile extends React.Component {
   handleDeleteUser() {
     helpers.deleteUser().
     then((info) => {
-      console.log('info from server: ', info)
+      console.log('info from server: ', info);
     });
   }
   preventDefaultSubmit(e) {
@@ -102,20 +102,20 @@ class UserProfile extends React.Component {
         <div className="ui raised very padded text container segment">
           <div className="ui container">
             <img className="ui tiny circular image" src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
-              <button 
+              <button
                 className="ui icon floated"
-              > 
+              >
                 <i className="plus square icon"></i>Upload
               </button>
-              <UserProfileForm 
+              <UserProfileForm
                 username={this.state.username}
                 email={this.state.email}
                 city={this.state.city}
                 country={this.state.country}
                 bio={this.state.bio}
 
-                todo={''/*instagram={this.state.instagram}
-                isTraveling={this.state.isTraveling}*/}
+                // TODO instagram={this.state.instagram}
+                // TODO isTraveling={this.state.isTraveling}
 
                 onNameChange={this.onNameChange}
                 onEmailChange={this.onEmailChange}
@@ -123,8 +123,8 @@ class UserProfile extends React.Component {
                 onCountryChange={this.onCountryChange}
                 onBioChange={this.onBioChange}
 
-                todo2={''/*onInstagramChange={this.onInstagramChange}
-                onIsTravelingChange={this.onIsTravelingChange}*/}
+                // TODO onInstagramChange={this.onInstagramChange}
+                // TODO onIsTravelingChange={this.onIsTravelingChange}
 
                 onDeleteUser={this.handleDeleteUser}
                 onProfileSubmit={this.handleProfileSubmit}

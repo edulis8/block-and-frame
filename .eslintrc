@@ -16,6 +16,12 @@
     "react"
   ],
   "rules": {
+    "strict": "off",
+    "no-undef": "off",
+    "max-len": "off",
+    "func-names": "off",
+    "no-unused-expressions": "off",
+    "perfer-arrow-callback": "off",
     "react/prefer-stateless-function": "off",
     "no-console": "off",
     "react/prefer-es6-class": "off",
@@ -27,7 +33,6 @@
     "comma-dangle":"warn",
     "no-multiple-empty-lines":"warn",
     "quotes":"warn",
-    "max-len":"warn",
     "prefer-arrow-callback": "warn",
     "space-before-function-paren":"warn",
   },

@@ -1,10 +1,4 @@
-# Ignore built files
+# Ignore built files and server
 build/
 dist/
-server/
-
-# Ignore test files (scripted in ES5)
-test/
-
-# Ignore Back End for now
 server/
