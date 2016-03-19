@@ -36,6 +36,8 @@ class UserProfileForm extends Component {
            <div className="field">
             <label>Your country:</label>
               <input 
+                value={this.props.country}
+                onChange={this.props.onCountryChange}
                 placeholder= {this.props.country || 'Your country'}
               /> 
           </div>
@@ -51,13 +53,15 @@ class UserProfileForm extends Component {
            <div className="field">
             <label>Your Bio:</label>
               <textarea 
+                value={this.props.bio}
+                onChange={this.props.onBioChange}
                 placeholder= {this.props.bio || 'Say a few words about yourself, and your relationship to food and travel'}
               /> 
             
           </div>
           <div className="field">
           <label><i className="instagram icon"></i> Instagram:</label>
-            <input 
+            <input
               placeholder= {this.props.instagram || '@spread_out'}
             />
             

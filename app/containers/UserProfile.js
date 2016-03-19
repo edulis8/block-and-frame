@@ -4,6 +4,8 @@ import helpers from '../utils/helpers';
 import MenuBar from '../components/MenuBar';
 import UserProfileForm from '../components/UserProfileForm';
 
+// TODO: Some indication that saving profile has been successful.
+// TODO: Confirm profile deletion, msg about success, redirect user to home.
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -36,14 +38,16 @@ class UserProfile extends React.Component {
     helpers.getCurrentUserData()
     .then((user) => {
       console.log('USER in componentDidMount promise', user);
-      const email = user.data.email;
-      const username = user.data.username;
-      const bio = user.data.bio;
-      const city = user.data.city;
-      const country = user.data.country;
+      // This is the shortcut for the commented out stuff that follows. I hope it works:
+      this.setState(user.data);
+      // const email = user, .data.email;
+      // const username = user.data.username;
+      // const bio = user.data.bio;
+      // const city = user.data.city;
+      // const country = user.data.country;
       // ... etc
       // object literal property value shorthand es6 is awesome:
-      this.setState({ email, username, bio, city, country });
+      //this.setState({ email, username, bio, city, country });
     });
   }
   onNameChange(e) {
@@ -63,6 +67,7 @@ class UserProfile extends React.Component {
     this.setState({ country: e.target.value });
   }
   onBioChange(e) {
+    console.log('bio changin', this.state)
     this.setState({ bio: e.target.value });
   }
   // onInstagramChange(e) {
@@ -71,13 +76,18 @@ class UserProfile extends React.Component {
   // onIsTravelingChange(e) {
   //   this.setState({ isTraveling: e.target.value });
   // }
-  handleProfileSubmit(e) {
-    e.preventDefault();
-    helpers.updateUser();
+  handleProfileSubmit() {
+    helpers.updateUser(this.state)
+    .then((user) => {
+      // TODO: why doesn't this send back the updated user? Bookshelf question.
+      console.log('user after PUT', user);
+    });
   }
-  handleDeleteUser(e) {
-    e.preventDefault();
-    helpers.deleteUser();
+  handleDeleteUser() {
+    helpers.deleteUser().
+    then((info) => {
+      console.log('info from server: ', info)
+    });
   }
   preventDefaultSubmit(e) {
     e.preventDefault();
@@ -111,7 +121,7 @@ class UserProfile extends React.Component {
                 onEmailChange={this.onEmailChange}
                 onCityChange={this.onCityChange}
                 onCountryChange={this.onCountryChange}
-                onBioChange={this.oBioChange}
+                onBioChange={this.onBioChange}
 
                 todo2={''/*onInstagramChange={this.onInstagramChange}
                 onIsTravelingChange={this.onIsTravelingChange}*/}

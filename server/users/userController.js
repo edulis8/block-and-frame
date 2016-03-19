@@ -86,6 +86,7 @@ module.exports = {
       }
     })
     .then(function(user) {
+      console.log('USER AFTER SAVE', user)
       res.status(200).send(user);
     })
     .catch(function (err) {
