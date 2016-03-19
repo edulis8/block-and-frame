@@ -40,5 +40,6 @@ bower_components
 build
 dist/bundle.js
 
-.floo
-.flooignore
+# Config
+server/config/config.js
+config.js

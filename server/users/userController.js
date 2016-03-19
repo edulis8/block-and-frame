@@ -62,6 +62,7 @@ module.exports = {
           city: city,
           country: country,
         });
+        
         newUser.save()
         .then(function(newUser) {
           // TODO: omit password
@@ -82,10 +83,12 @@ module.exports = {
         res.status(404).send('User not found');
       }
       else {
+        console.log('User about to be edited', user)
         user.save(req.body);
       }
     })
     .then(function(user) {
+      // TODO: why is this undefined?
       console.log('USER AFTER SAVE', user)
       res.status(200).send(user);
     })

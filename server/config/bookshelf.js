@@ -1,4 +1,4 @@
-const Config = require('./config.js')
+const Config = require('./config.js');
 // initialize:
 const knex = require('knex')({
   client: 'pg',
