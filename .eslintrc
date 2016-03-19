@@ -23,5 +23,10 @@
     "semi":"warn",
     "arrow-body-style":"off",
     "no-trailing-spaces":"warn",
+    "spaced-comment":"warn",
+    "comma-dangle":"warn",
+    "no-multiple-empty-lines":"warn",
+    "quotes":"warn",
+    "max-len":"warn"
   },
 }
