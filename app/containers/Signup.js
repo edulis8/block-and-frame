@@ -34,6 +34,7 @@ class Signup extends Component {
 
     console.log('Submit user signup here: ', user);
 
+    // TODO: put HTTP reqs in helpers.js:
     axios.post('/api/users/', user)
     .then((res) => {
       console.log(res);
