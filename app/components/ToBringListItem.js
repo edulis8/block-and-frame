@@ -16,10 +16,13 @@ class ToBringItem extends Component {
   }
 
   render() {
+    const toBringItemClass = `to-bring-item-${this.props.index}`;
+    const toBringNotesClass = `to-bring-notes-${this.props.index}`;
     return (
       <div className="inline fields ui action input">
         <div className="four wide field">
           <input
+            className={toBringItemClass}
             value={this.props.item}
             onChange={this._onItemChange}
             placeholder="Contribution Item"
@@ -27,6 +30,7 @@ class ToBringItem extends Component {
         </div>
         <div className="twelve wide field">
           <input
+            className={toBringNotesClass}
             value={this.props.notes}
             onChange={this._onNotesChange}
             placeholder="Where and how do they find it?"
