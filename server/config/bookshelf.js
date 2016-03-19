@@ -1,12 +1,12 @@
+const Config = require('./config.js')
 // initialize:
 const knex = require('knex')({
   client: 'pg',
   connection: {
-    host: '127.0.0.1',
-    user: '',
-    password: '',
-    database: 'block-and-frame-test',
-    charset: 'utf8',
+    host: Config.host,
+    user: Config.user,
+    password: Config.pw,
+    database: Config.db,
   },
   // debug: true,
 });
