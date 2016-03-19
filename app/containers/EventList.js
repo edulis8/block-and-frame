@@ -28,6 +28,9 @@ class EventList extends React.Component {
   }
 
   render() {
+    if (this.state.data.length === 0) {
+      return null;
+    }
     const eventNodes = this.state.data.map((event) => {
       return (
         <Event
