@@ -8,8 +8,8 @@ module.exports = (passport) => {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
     secretOrKey: config.secret,
   };
-  passport.use(new JwtStrategy(options, (jwt_payload, done) => {
-    User.where({ id: jwt_payload.id })
+  passport.use(new JwtStrategy(options, (jwtPayload, done) => {
+    User.where({ id: jwtPayload.id })
       .fetch().then((user) => {
         if (user) {
           return done(null, user);

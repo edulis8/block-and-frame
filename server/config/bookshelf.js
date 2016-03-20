@@ -1,16 +1,15 @@
-const Config = require('./config.js');
-// initialize:
+const config = require('./config.js');
 const knex = require('knex')({
   client: 'pg',
   connection: {
-    host: Config.host,
-    user: Config.user,
-    password: Config.pw,
-    database: Config.db,
+    host: config.host,
+    user: config.user,
+    password: config.pw,
+    database: config.db,
+    charset: 'utf8',
   },
   // debug: true,
 });
-
 // As it creates a connection pool for the current database,
 // you should use the bookshelf instance returned throughout your library:
 const bookshelf = require('bookshelf')(knex);
