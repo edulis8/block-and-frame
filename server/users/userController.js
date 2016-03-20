@@ -1,26 +1,23 @@
-var _ = require('lodash');
-var User = require('./userModel');
-var Users = require('./userCollection');
+const User = require('./userModel');
 
-
-module.exports = { 
-  getAllUsers: function (req, res) {
+module.exports = {
+  getAllUsers(req, res) {
     User.fetchAll({
       // TODO: fix
       // using withRelated break column selection revealing password
-      // withRelated: ['events'],
-      columns: ['email', 'username', 'bio', 'city', 'country'],
+      withRelated: ['events'],
+      columns: ['id', 'email', 'password', 'username', 'bio', 'city', 'country'],
     })
-    .then(function (users) {
-      console.log(users.models[0].relations.events)
+    .then((users) => {
+      console.log(users.models[0].relations.events);
       res.status(200).send(users.models);
     })
-    .catch(function (err) {
+    .catch((err) => {
       console.error(err);
       res.sendStatus(500);
     });
   },
-  getUserbyId: function (req, res) {
+  getUserbyId(req, res) {
     // Forge: Simple helper function for retrieving all instances of the given model.
     User.where({ id: req.params.userId })
     .fetch({
@@ -29,88 +26,89 @@ module.exports = {
       // withRelated: ['events'],
       columns: ['email', 'username', 'bio', 'city', 'country'],
     })
-    .then(function (user) {
+    .then((user) => {
       if (!user) {
         res.status(404).send('User not found');
-      }
-      else {
+      } else {
         res.status(200).send(user);
       }
     })
-    .catch(function (err) {
+    .catch((err) => {
       res.status(500).send(err);
     });
   },
 
-  createUser: function (req, res) {
-    var username = req.body.username;
-    var password = req.body.password;
-    var email = req.body.email;
-    var bio = req.body.bio;
-    var city = req.body.city;
-    var country = req.body.country;
+  createUser(req, res) {
+    const username = req.body.username;
+    const password = req.body.password;
+    const email = req.body.email;
+    const bio = req.body.bio;
+    const city = req.body.city;
+    const country = req.body.country;
 
-    new User({ username: username })
+    if (!email || !password) {
+      res.json({ success: false, message: 'Please enter email and password.' });
+    }
+
+    new User({ username })
     .fetch()
-    .then(function(user) {
+    .then((user) => {
       if (!user) {
-        var newUser = new User({
-          username: username,
-          password: password,
-          email: email,
-          bio: bio,
-          city: city,
-          country: country,
+        const newUser = new User({
+          username,
+          password,
+          email,
+          bio,
+          city,
+          country,
         });
-        
+
         newUser.save()
-        .then(function(newUser) {
+        .then((createdUser) => {
           // TODO: omit password
-          res.status(201).send(newUser);
+          res.status(201).send(createdUser);
         })
-        .catch(function (err) {
+        .catch((err) => {
           res.status(500).send(err);
         });
-      } 
+      }
     });
   },
 
-  editUser: function (req, res) {
+  editUser(req, res) {
     User.where({ id: req.params.userId })
     .fetch()
-    .then(function (user) {
+    .then((user) => {
       if (!user) {
         res.status(404).send('User not found');
-      }
-      else {
-        console.log('User about to be edited', user)
+      } else {
+        console.log('User about to be edited', user);
         user.save(req.body);
       }
     })
-    .then(function(user) {
+    .then((user) => {
       // TODO: why is this undefined?
-      console.log('USER AFTER SAVE', user)
       res.status(200).send(user);
     })
-    .catch(function (err) {
+    .catch((err) => {
       res.status(500).send(err);
     });
   },
 
-  deleteUser: function (req, res) {
+  deleteUser(req, res) {
     User.where({ id: req.params.userId })
     .fetch()
-    .then(function (user) {
+    .then((user) => {
       if (!user) {
         res.status(404).send('User not found');
       } else {
         user.destroy()
-        .then(function () {
+        .then(() => {
           res.status(200).send('User deleted');
         });
       }
     })
-    .catch(function (err) {
+    .catch((err) => {
       res.status(500).send(err);
     });
   },

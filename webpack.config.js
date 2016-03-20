@@ -29,7 +29,7 @@ module.exports = {
       {
         test: /\.js?$/,
         loader: 'eslint-loader',
-        exlude: [PATHS.modules, PATHS.dist],
+        exclude: [PATHS.modules, PATHS.dist],
       },
     ],
   },

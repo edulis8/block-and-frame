@@ -1,12 +1,12 @@
-var express = require('express');
-var userController = require('./userController');
+const userController = require('./userController');
+const express = require('express');
 
+const router = express.Router();
 
-module.exports = function (router) {
-  // router === userRouter injected from middlware.js
-  router.get('/', userController.getAllUsers);
-  router.get('/:userId', userController.getUserbyId);
-  router.post('/', userController.createUser);
-  router.put('/:userId', userController.editUser);
-  router.delete('/:userId', userController.deleteUser);
-};
+router.get('/', userController.getAllUsers);
+router.get('/:userId', userController.getUserbyId);
+router.post('/', userController.createUser);
+router.put('/:userId', userController.editUser);
+router.delete('/:userId', userController.deleteUser);
+
+module.exports = router;

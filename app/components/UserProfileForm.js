@@ -55,7 +55,7 @@ class UserProfileForm extends Component {
               <textarea
                 value={this.props.bio}
                 onChange={this.props.onBioChange}
-                placeholder= {this.props.bio || 'Say a few words about yourself, and your relationship to food and travel'}
+                placeholder={this.props.bio || 'Say a few words about yourself, and your relationship to food and travel'}
               />
 
           </div>

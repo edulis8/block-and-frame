@@ -34,7 +34,6 @@ class UserProfile extends React.Component {
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
   }
   componentDidMount() {
-    // Mock token
     helpers.getCurrentUserData()
     .then((user) => {
       console.log('USER.data in componentDidMount promise', user.data);
@@ -45,8 +44,8 @@ class UserProfile extends React.Component {
       // const bio = user.data.bio;
       // const city = user.data.city;
       // const country = user.data.country;
-      // ... etc
-      // object literal property value shorthand es6 is awesome:
+      // //... etc
+      // // object literal property value shorthand es6 is awesome:
       // this.setState({ email, username, bio, city, country });
     });
   }
@@ -83,6 +82,7 @@ class UserProfile extends React.Component {
       console.log('user after PUT', user);
     });
   }
+
   handleDeleteUser() {
     helpers.deleteUser().
     then((info) => {
@@ -92,6 +92,7 @@ class UserProfile extends React.Component {
   preventDefaultSubmit(e) {
     e.preventDefault();
   }
+
   render() {
     return (
       <div className="ui container">

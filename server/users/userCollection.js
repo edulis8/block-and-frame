@@ -1,7 +1,7 @@
-var bookshelf = require('../config/bookshelf');
-var User = require('./userModel');
+const bookshelf = require('../config/bookshelf');
+const User = require('./userModel');
 
-var Users = new bookshelf.Collection();
+const Users = new bookshelf.Collection();
 
 Users.model = User;
 

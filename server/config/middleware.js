@@ -1,6 +1,10 @@
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
+const passport = require('passport');
+
+const routes = require('../routes.js');
+const authRoutes = require('../auth/authRoutes');
 
 const webpack = require('webpack');
 const webpackConfig = require('../../webpack.config.js');
@@ -14,9 +18,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
 const webpackHotMiddleware = require('webpack-hot-middleware')(compiler);
 
 module.exports = (app, express) => {
-  const userRouter = express.Router();
-  const eventRouter = express.Router();
-
   // Silence for testing
   if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('dev'));
@@ -25,20 +26,18 @@ module.exports = (app, express) => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
+  app.use(passport.initialize());
+  require('./passport')(passport);
+
   app.use(webpackDevMiddleware);
   app.use(webpackHotMiddleware);
 
   app.use('/dist', express.static(path.join(__dirname, '/../../dist')));
 
-  app.use('/api/users', userRouter); // use user router for all user requests
-  app.use('/api/events', eventRouter); // use user router for all user requests
+  app.use('/auth', authRoutes);
+  app.use('/api', passport.authenticate('jwt', { session: false }), routes);
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../dist/index.html'));
   });
-
-
-  // inject our routers into their respective route files
-  require('../users/userRoutes.js')(userRouter);
-  require('../events/eventRoutes.js')(eventRouter);
 };
