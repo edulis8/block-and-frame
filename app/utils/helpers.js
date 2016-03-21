@@ -34,8 +34,17 @@ const helpers = {
   },
   updateUser(stateAsUserUpdates) {
     const token = window.localStorage.getItem('token');
+    const userId = window.localStorage.getItem('id');
     console.log('updateUser called with:', stateAsUserUpdates);
-    return axios.put(`api/users/${token}`, stateAsUserUpdates);
+    return axios({
+      url: `api/users/${userId}`,
+      method: 'put',
+      data: stateAsUserUpdates,
+      headers: { Authorization: token },
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   },
   deleteUser() {
     const token = window.localStorage.getItem('token');
