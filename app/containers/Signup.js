@@ -38,6 +38,7 @@ class Signup extends Component {
       console.log('Sign up response: ', res);
       window.localStorage.setItem('token', res.data.token);
       window.localStorage.setItem('id', res.data.id);
+      sessionStorage.userEmail = res.data.email;
     })
     .catch((err) => {
       console.log(err);

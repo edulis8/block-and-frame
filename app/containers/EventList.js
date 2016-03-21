@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Event from './Event';
+import Event from '../components/EventList/Event';
 import MenuBar from '../components/MenuBar';
 
 class EventList extends React.Component {
@@ -9,6 +9,7 @@ class EventList extends React.Component {
 
     this.state = {
       data: [],
+      test: 'test',
     };
   }
 
