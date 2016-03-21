@@ -14,12 +14,12 @@ $('body').append($('<script src="../app/csstemp/main.css"></script>'));
 
 // import Site from './containers/Site';
 import App from './containers/App';
-import Event from './containers/Event';
 import EventList from './containers/EventList';
 import CreateEvent from './containers/CreateEventContainer';
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
 import UserProfile from './containers/UserProfile';
+import UniqueEvent from './containers/UniqueEvent';
 
 const routes = (
   <Router history={browserHistory}>
@@ -29,7 +29,7 @@ const routes = (
       <Route path="app" component={App} />
       <Route path="profile" component={UserProfile} />
       <Route path="events" component={EventList} />
-      <Route path="events/:eventID" component={Event} />
+      <Route path="/:eventID" component={UniqueEvent} />
       <Route path="eventcreate" component={CreateEvent} />
     </Route>
   </Router>
