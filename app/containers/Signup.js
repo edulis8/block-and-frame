@@ -32,19 +32,17 @@ class Signup extends Component {
       password: this.state.password,
     };
 
-    console.log('Submit user signup here: ', user);
-
     // TODO: put HTTP reqs in helpers.js:
     axios.post('/auth/signup', user)
     .then((res) => {
-      console.log(res);
-      const userId = res.data.id;
-
-      window.localStorage.setItem('id', userId);
+      console.log('Sign up response: ', res);
+      window.localStorage.setItem('token', res.data.token);
+      window.localStorage.setItem('id', res.data.id);
     })
-    .catch((res) => {
-      console.log(res);
+    .catch((err) => {
+      console.log(err);
     });
+
     this.setState({ email: '', password: '', showLink: true });
   }
 

@@ -38,8 +38,8 @@ class Signin extends Component {
       window.localStorage.setItem('token', res.data.token);
       window.localStorage.setItem('id', res.data.id);
     })
-    .catch((res) => {
-      console.log(res);
+    .catch((err) => {
+      console.log(err);
     });
 
     // clear forms

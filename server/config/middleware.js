@@ -29,7 +29,7 @@ module.exports = (app, express) => {
   app.use(passport.initialize());
   require('./passport')(passport);
   app.use('/auth', authRoutes);
-  app.use('/api', passport.authenticate('jwt', { session: false }), routes);
+  app.use('/api', /* passport.authenticate('jwt', { session: false }), */ routes);
 
   if (isDeveloping) {
     app.use(webpackDevMiddleware);
