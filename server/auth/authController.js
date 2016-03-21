@@ -26,33 +26,27 @@ module.exports = {
   },
 
   signup(req, res) {
-    const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
-    const bio = req.body.bio;
-    const city = req.body.city;
-    const country = req.body.country;
 
-    if (!email || !password) {
-      res.json({ success: false, message: 'Please enter email and password.' });
-    }
-
-    new User({ username })
+    new User({ email })
     .fetch()
     .then((user) => {
+      if (user) {
+        console.log('here');
+        res.status(500).send('Error. User already exists.');
+      }
       if (!user) {
         const newUser = new User({
-          username,
           password,
           email,
-          bio,
-          city,
-          country,
         });
         newUser.save()
         .then((createdUser) => {
-          // TODO: omit password
-          res.status(201).send(createdUser);
+          const token = jwt.sign(user, secret, {
+            expiresIn: 10080,
+          });
+          res.json({ success: true, token: `JWT ${token}`, id: createdUser.get('id') });
         })
         .catch((err) => {
           res.status(500).send(err);

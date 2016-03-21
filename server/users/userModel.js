@@ -1,5 +1,5 @@
 const bookshelf = require('../config/bookshelf');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 const Promise = require('bluebird');
 
 const User = bookshelf.Model.extend({
@@ -14,8 +14,11 @@ const User = bookshelf.Model.extend({
   },
   hashPassword(model) {
     return new Promise((resolve, reject) => {
-      bcrypt.hash(model.attributes.password, 10, (err, hash) => {
-        if (err) reject(err);
+      bcrypt.hash(model.get('password'), null, null, (err, hash) => {
+        if (err) {
+          console.log('Error here');
+          reject(err);
+        }
         model.set('password', hash);
         resolve(hash);
       });
