@@ -1,109 +1,108 @@
-var Event = require('./eventModel');
-var Events = require('./eventCollection');
+const Event = require('./eventModel');
 
-var eventController = {
-  getAllEvents: function (req, res) {
+const eventController = {
+  getAllEvents(req, res) {
     Event.fetchAll({
-      withRelated: [{'users': function(qb) {
+      withRelated: [{ users(qb) {
         // omit password
         qb.column('email', 'username', 'bio', 'city', 'country');
-      }}],
+      } }],
     })
-    .then(function (events) {
+    .then((events) => {
       // events have related users and can be found thru .relations
       // for example events.models[0].relations.users.models[0]
       // the user that created the event is indicated by "_pivot_is_creator": true
       res.status(200).send(events.models);
     })
-    .catch(function (err) {
+    .catch((err) => {
       console.error(err);
       res.sendStatus(500);
     });
   },
 
-  getEventbyId: function (req, res, next) {
+  getEventbyId(req, res) {
     Event.fetchAndPopulate({ id: req.userId || req.params.eventId })
-    .then(function (event) {
+    .then((event) => {
       if (!event) {
         res.status(404);
-      }
-      else {
+      } else {
         res.status(200).send(event);
       }
     })
-    .catch(function (err) {
+    .catch((err) => {
       res.status(500).send(err);
     });
   },
 
   // For now event info should be in the body and creator id should be in params
   // Creates event and puts creator's user.id and the event.id in events_users, sets is_creator to true for user.id who created the event
-  createEvent: function (req, res, next) {
+  createEvent(req, res, next) {
     new Event({
       name: req.body.name,
       location: req.body.location,
       coordinates: req.body.coordinates,
       description: req.body.description,
-      toBring: req.body.toBring,
+      toBring: { contributions: req.body.toBring },
     })
     .save()
-    .then(function (event) {
+    .then((event) => {
       // create event and associate in junction table
       event.users()
       .attach(req.params.userId)
-      .then(function (eventUser) {
+      .then((eventUser) => {
         // update the "pivot" (the junction table)
         return eventUser.updatePivot({
           is_creator: true,
         });
       })
-      .then(function (pivotStatus) {
-        if(pivotStatus.add) {
+      .then((pivotStatus) => {
+        if (pivotStatus.add) {
           req.userId = event.id;
           eventController.getEventbyId(req, res, next);
         } else {
           res.status(500).send(pivotStatus);
         }
       })
-      .catch(function (err) {
+      .catch((err) => {
         res.status(500).send(err);
       });
     })
-    .catch(function (err) {
+    .catch((err) => {
       res.status(500).send(err);
     });
   },
 
-  editEvent: function (req, res) {
+  // TODO updated according to front end
+  editEvent(req, res) {
     Event.fetchAndPopulate({ id: req.params.userId })
-    .then(function (event) {
+    .then((event) => {
       if (!event) {
         res.sendStatus(404);
       } else {
         event.save(req.body);
       }
     })
-    .then(function (event) {
+    .then((event) => {
       res.status(200).send(event);
     })
-    .catch(function (err) {
+    .catch((err) => {
       res.status(500).send(err);
     });
   },
 
-  deleteEvent: function (req, res) {
+  deleteEvent(req, res) {
     Event.fetchAndPopulate({ id: req.params.eventId })
-    .then(function (event) {
+    .then((event) => {
       if (!event) {
         res.sendStatus(404);
       } else {
         event.destroy()
-        .then(function (event) {
+        .then(() => {
           res.sendStatus(200);
         });
       }
     })
-    .catch(function (err) {
+    .catch((err) => {
       res.status(500).send(err);
     });
   },

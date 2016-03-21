@@ -9,6 +9,8 @@ describe('Create Event View: Create Event Spec', () => {
     this.component = TestUtils.renderIntoDocument(
       <CreateEventContainer />
     );
+
+    window.localStorage.setItem('id', 1);
   });
 
   beforeEach('reset state', function () {
@@ -70,5 +72,15 @@ describe('Create Event View: Create Event Spec', () => {
     const toBringNotes = TestUtils.findRenderedDOMComponentWithClass(this.component, 'to-bring-notes-0');
     TestUtils.Simulate.change(toBringNotes, { target: { value: '!' } });
     expect(this.component.state.toBring[0].notes).to.equal('!');
+  });
+
+  it('should update state when checkboxing to-bring entry', function () {
+    const toBringButton = TestUtils.findRenderedDOMComponentWithClass(this.component, 'to-bring-button');
+    TestUtils.Simulate.click(toBringButton);
+    const toBringCheckbox = TestUtils.findRenderedDOMComponentWithClass(this.component, 'to-bring-checkbox-0');
+    TestUtils.Simulate.change(toBringCheckbox, { target: { checked: true } });
+    expect(this.component.state.toBring[0].bringer).to.equal(1);
+    TestUtils.Simulate.change(toBringCheckbox, { target: { checked: false } });
+    expect(this.component.state.toBring[0].bringer).to.equal(null);
   });
 });

@@ -11,9 +11,10 @@ class CreateEventForm extends Component {
         >
 
           <div className="field">
-            <label>Give it a name:</label>
+            <label>Name:</label>
             <input
               className="name-input"
+              placeholder="Give it a name!"
               value={this.props.name}
               onChange={this.props.onNameChange}
             />
@@ -23,6 +24,7 @@ class CreateEventForm extends Component {
             <label>Location:</label>
             <input
               className="location-input"
+              placeholder="Where is it?"
               value={this.props.location}
               onChange={this.props.onLocationChange}
             />
@@ -32,6 +34,7 @@ class CreateEventForm extends Component {
             <label>Description:</label>
             <textarea
               className="description-input"
+              placeholder="Whats the spread about?"
               value={this.props.description}
               onChange={this.props.onDescriptionChange}
             >
@@ -39,13 +42,22 @@ class CreateEventForm extends Component {
           </div>
 
           <div className="inline fields">
-            <label>What Can People Contribute?:</label>
-            <button
-              className="to-bring-button ui icon button"
-              onClick={this.props.onToBringAdd}
-            >
-              <i className="plus square icon"></i>
-            </button>
+            <div className="fourteen wide field">
+              <button
+                className="to-bring-button ui icon button one wide"
+                onClick={this.props.onToBringAdd}
+              >
+                <i className="plus square icon"></i>
+              </button>
+              <label>
+                Contributions:
+              </label>
+            </div>
+            <div className="two wide field">
+              <label>
+                You'll bring:
+              </label>
+            </div>
           </div>
 
           <div>
@@ -53,6 +65,7 @@ class CreateEventForm extends Component {
               toBring={this.props.toBring}
               onItemChange={this.props.onItemChange}
               onNotesChange={this.props.onNotesChange}
+              onBringerChange={this.props.onBringerChange}
             />
           </div>
 

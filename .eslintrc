@@ -21,6 +21,8 @@
     "func-names": "off",
     "no-unused-expressions": "off",
     "perfer-arrow-callback": "off",
+    "no-param-reassign": "off",
+    "new-cap": "off",
     "react/prefer-stateless-function": "off",
     "no-console": "off",
     "react/prefer-es6-class": "off",

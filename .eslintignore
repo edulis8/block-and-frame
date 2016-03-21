@@ -1,4 +1,3 @@
 # Ignore built files and server
 build/
 dist/
-server/

@@ -12,10 +12,10 @@ const Event = bookshelf.Model.extend({
 Event.fetchAndPopulate = function (id) {
   return this.where(id)
   .fetch({
-    withRelated: [{ 'users': function (qb) {
+    withRelated: [{ users(qb) {
       // omit password
       qb.column('email', 'username', 'bio', 'city', 'country');
-    }}],
+    } }],
   });
 };
 

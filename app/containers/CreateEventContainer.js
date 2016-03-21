@@ -22,6 +22,7 @@ class CreateEvent extends Component {
     this.onToBringAdd = this.onToBringAdd.bind(this);
     this.onItemChange = this.onItemChange.bind(this);
     this.onNotesChange = this.onNotesChange.bind(this);
+    this.onBringerChange = this.onBringerChange.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
   }
 
@@ -39,7 +40,7 @@ class CreateEvent extends Component {
 
   onEventSubmit() {
     // handle POST request for creating event
-    helpers.createEvent(this.state, context);
+    helpers.createEvent(this.state, this);
 
     // reset forms
     this.setState({
@@ -57,6 +58,7 @@ class CreateEvent extends Component {
         index: this.state.toBring.length,
         item: '',
         notes: '',
+        bringer: null,
       }]),
     });
   }
@@ -72,6 +74,18 @@ class CreateEvent extends Component {
   onNotesChange(e, index) {
     const updated = this.state.toBring.slice();
     updated[index].notes = e.target.value;
+    this.setState({
+      toBring: updated,
+    });
+  }
+
+  onBringerChange(e, index) {
+    const updated = this.state.toBring.slice();
+    if (e.target.checked) {
+      updated[index].bringer = window.localStorage.getItem('id');
+    } else {
+      updated[index].bringer = null;
+    }
     this.setState({
       toBring: updated,
     });
@@ -101,6 +115,7 @@ class CreateEvent extends Component {
           onToBringAdd={this.onToBringAdd}
           onItemChange={this.onItemChange}
           onNotesChange={this.onNotesChange}
+          onBringerChange={this.onBringerChange}
           preventDefaultSubmit={this.preventDefaultSubmit}
         />
       </div>

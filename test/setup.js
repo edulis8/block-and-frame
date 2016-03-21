@@ -9,3 +9,15 @@ global.navigator = { userAgent: 'node.js' };
 
 // Switch from development to turn off hot reload
 process.env.NODE_ENV = 'test';
+
+// Simulate local storage for jsdom
+const storage = {};
+global.window.localStorage = {
+  setItem(item, value) {
+    storage[item] = value;
+  },
+
+  getItem(item) {
+    return storage[item];
+  },
+};
