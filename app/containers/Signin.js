@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import helpers from '../utils/helpers';
+import SigninForm from '../components/SigninForm';
 
 class Signin extends Component {
   constructor(props) {
@@ -10,13 +11,13 @@ class Signin extends Component {
       password: '',
     };
 
-    this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.onSigninSubmit = this.onSigninSubmit.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
   }
 
-  onUsernameChange(e) {
+  onEmailChange(e) {
     this.setState({ email: e.target.value });
   }
 
@@ -25,22 +26,14 @@ class Signin extends Component {
   }
 
   onSigninSubmit() {
+    // create user
     const user = {
       email: this.state.email,
       password: this.state.password,
     };
 
-    console.log('Submit user login here: ', user);
-
-    axios.post('/auth/signin', user)
-    .then((res) => {
-      console.log('Signin in response: ', res);
-      window.localStorage.setItem('token', res.data.token);
-      window.localStorage.setItem('id', res.data.id);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    // sign in with user
+    helpers.signin(user);
 
     // clear forms
     this.setState({ email: '', password: '' });
@@ -52,40 +45,14 @@ class Signin extends Component {
 
   render() {
     return (
-
-      <div className="ui centered padded container raised segment">
-        <h1 classNmae="ui header">Sign In</h1>
-        <form
-          className="ui form signin"
-          onSubmit={this.preventDefaultSubmit}
-        >
-          <div className="field">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={this.state.email}
-              onChange={this.onUsernameChange}
-            />
-          </div>
-          <div className="field">
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.onPasswordChange}
-            />
-          </div>
-          <button
-            className="ui button"
-            type="submit"
-            onClick={this.onSigninSubmit}
-          >Sign In</button>
-        </form>
-      </div>
+      <SigninForm
+        email={this.state.email}
+        password={this.state.password}
+        onEmailChange={this.onEmailChange}
+        onPasswordChange={this.onPasswordChange}
+        onSigninSubmit={this.onSigninSubmit}
+        preventDefaultSubmit={this.preventDefaultSubmit}
+      />
     );
   }
 }

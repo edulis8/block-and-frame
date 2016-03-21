@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router';
+import helpers from '../utils/helpers';
+import SignupForm from '../components/SignupForm';
+
 
 class Signup extends Component {
   constructor(props) {
@@ -12,13 +13,13 @@ class Signup extends Component {
       showLink: false,
     };
 
-    this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.onSignupSubmit = this.onSignupSubmit.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
   }
 
-  onUsernameChange(e) {
+  onEmailChange(e) {
     this.setState({ email: e.target.value });
   }
 
@@ -32,17 +33,7 @@ class Signup extends Component {
       password: this.state.password,
     };
 
-    // TODO: put HTTP reqs in helpers.js:
-    axios.post('/auth/signup', user)
-    .then((res) => {
-      console.log('Sign up response: ', res);
-      window.localStorage.setItem('token', res.data.token);
-      window.localStorage.setItem('id', res.data.id);
-      sessionStorage.userEmail = res.data.email;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    helpers.signup(user);
 
     this.setState({ email: '', password: '', showLink: true });
   }
@@ -53,48 +44,15 @@ class Signup extends Component {
 
   render() {
     return (
-      <div className="ui centered padded container raised segment">
-      <h1 className="ui header center aligned">Spread Out</h1>
-      <h2 className="ui header">Sign Up</h2>
-        <form
-          className="ui form signup"
-          onSubmit={this.preventDefaultSubmit}
-        >
-          <div className="field">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={this.state.email}
-              onChange={this.onUsernameChange}
-            />
-          </div>
-          <div className="field">
-            <label>Pasword</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.onPasswordChange}
-            />
-          </div>
-          <button
-            className="ui button"
-            type="submit"
-            onClick={this.onSignupSubmit}
-          >Sign Up</button>
-        </form>
-        { this.state.showLink ?
-          <div className="ui centered padded segment">
-            <Link to={'/profile'}>
-                <h4>
-                  You have successfully signed up! Go to your new user profile.
-                </h4>
-            </Link>
-          </div> : null }
-      </div>
+      <SignupForm
+        email={this.state.email}
+        password={this.state.password}
+        showLink={this.state.showLink}
+        onEmailChange={this.onEmailChange}
+        onPasswordChange={this.onPasswordChange}
+        onSignupSubmit={this.onSignupSubmit}
+        preventDefaultSubmit={this.preventDefaultSubmit}
+      />
     );
   }
 }
