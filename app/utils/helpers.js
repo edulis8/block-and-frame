@@ -55,7 +55,7 @@ const helpers = {
     const token = window.localStorage.getItem('token');
     console.log('getEventbyId called');
     return axios({
-      url: '/api/events/' + id,
+      url: `/api/events/${id}`,
       method: 'get',
       headers: { Authorization: token },
     });
@@ -65,16 +65,14 @@ const helpers = {
     console.log('data sent', stateAsUserUpdates);
     console.log('editEvent called');
     return axios({
-      url: 'api/events/' + id,
+      url: `api/events/${id}`,
       method: 'put',
       data: stateAsUserUpdates,
       headers: { Authorization: token },
     });
-    // return axios({
-    //   url: '/api/events/' + id,
-    //   token: 'put',
-    //   headers: { Authorization: token },
-    // });
+  },
+  logout() {
+    window.localStorage.clear();
   },
 };
 
