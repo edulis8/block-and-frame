@@ -39,13 +39,12 @@ var eventController = {
   // For now event info should be in the body and creator id should be in params
   // Creates event and puts creator's user.id and the event.id in events_users, sets is_creator to true for user.id who created the event
   createEvent: function (req, res, next) {
-    var eventPointer;
-    console.log('EVENT REQ BODY', req.body);
     new Event({
       name: req.body.name,
       location: req.body.location,
       coordinates: req.body.coordinates,
       description: req.body.description,
+      toBring: req.body.toBring,
     })
     .save()
     .then(function (event) {
@@ -68,7 +67,7 @@ var eventController = {
       })
       .catch(function (err) {
         res.status(500).send(err);
-      }); 
+      });
     })
     .catch(function (err) {
       res.status(500).send(err);

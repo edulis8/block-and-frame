@@ -38,17 +38,8 @@ class CreateEvent extends Component {
   }
 
   onEventSubmit() {
-    const event = {
-      name: this.state.name,
-      location: this.state.location,
-      description: this.state.description,
-    };
-
-    console.log('event in create event container', event);
-
-    const context = this;
     // handle POST request for creating event
-    helpers.createEvent(event, context);
+    helpers.createEvent(this.state, context);
 
     // reset forms
     this.setState({

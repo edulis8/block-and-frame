@@ -10,16 +10,16 @@ const knex = require('knex')({
   },
   // debug: true,
 });
+const bookshelf = require('bookshelf')(knex);
+// const jsonColumns = require('bookshelf-json-columns');
+// bookshelf.plugin(jsonColumns);
 // As it creates a connection pool for the current database,
 // you should use the bookshelf instance returned throughout your library:
-const bookshelf = require('bookshelf')(knex);
-const jsonColumns = require('bookshelf-json-columns');
 
-bookshelf.plugin(jsonColumns);
 // User schema
-bookshelf.knex.schema.hasTable('users').then(exists => {
+bookshelf.knex.schema.hasTable('users').then((exists) => {
   if (!exists) {
-    bookshelf.knex.schema.createTable('users', user => {
+    bookshelf.knex.schema.createTable('users', (user) => {
       user.increments('id').primary();
       user.string('email', 100).unique();
       user.string('username', 100).unique();
@@ -35,14 +35,15 @@ bookshelf.knex.schema.hasTable('users').then(exists => {
 });
 
 // Event schema
-bookshelf.knex.schema.hasTable('events').then(exists => {
+bookshelf.knex.schema.hasTable('events').then((exists) => {
   if (!exists) {
-    bookshelf.knex.schema.createTable('events', event => {
+    bookshelf.knex.schema.createTable('events', (event) => {
       event.increments('id').primary();
       event.string('name', 100);
       event.string('location', 100);
       event.string('coordinates', 100);
       event.string('description', 1000);
+      event.json('toBring').nullable();
       event.timestamps();
     }).then(() => {
       console.log('Created events table');
@@ -51,9 +52,9 @@ bookshelf.knex.schema.hasTable('events').then(exists => {
 });
 
 // Event and Users join table
-bookshelf.knex.schema.hasTable('events_users').then(exists => {
+bookshelf.knex.schema.hasTable('events_users').then((exists) => {
   if (!exists) {
-    bookshelf.knex.schema.createTable('events_users', eventUser => {
+    bookshelf.knex.schema.createTable('events_users', (eventUser) => {
       eventUser.increments('id').primary();
       // onDelete('CASCADE') deletes foreign keys of deleted models
       eventUser.integer('event_id').references('events.id').onDelete('CASCADE');
@@ -66,16 +67,17 @@ bookshelf.knex.schema.hasTable('events_users').then(exists => {
   }
 });
 
-// //Contribution
-// bookshelf.knex.schema.hasTable('contributions').then(function (exists) {
+// Contribution
+// bookshelf.knex.schema.hasTable('contributions').then((exists) => {
 //   if (!exists) {
-//     bookshelf.knex.schema.createTable('contributions', function (contrib) {
-//       contrib.increments('id').primary();
-//       contrib.string('name', 100);
-//       contrib.integer('event_id').references('events.id');
-//       contrib.integer('user_id').references('users.id');
-//       contrib.timestamps();
-//     }).then(function (table) {
+//     bookshelf.knex.schema.createTable('contributions', (contribution) => {
+//       contribution.increments('id').primary();
+//       contribution.string('item', 100);
+//       contribution.string('description', 500);
+//       contribution.integer('event_id').references('events.id');
+//       contribution.integer('contributor_id').references('users.id');
+//       contribution.timestamps();
+//     }).then(() => {
 //       console.log('Created contributions table');
 //     });
 //   }
