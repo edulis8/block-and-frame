@@ -80,6 +80,7 @@ const helpers = {
   signin(user) {
     axios.post('/auth/signin', user)
     .then((res) => {
+      console.log('res in helpers', res);
       window.localStorage.setItem('token', res.data.token);
       window.localStorage.setItem('id', res.data.id);
     })
