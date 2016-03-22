@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Dropzone from 'react-dropzone';
 
-class Uploader extends Component {
+class Uploader extends React.Component {
   onDrop(files) {
     const req = request.post('/upload');
     files.forEach((file) => {
