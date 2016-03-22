@@ -72,10 +72,10 @@ const eventController = {
     });
   },
 
-  editEvent: function (req, res) {
+  editEvent(req, res) {
     console.log('REQ.PARAMS ', req.params);
     Event.fetchAndPopulate({ id: req.params.eventId })
-    .then(function (event) {
+    .then((event) => {
       if (!event) {
         res.sendStatus(404);
       } else {
