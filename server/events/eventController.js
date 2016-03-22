@@ -5,7 +5,7 @@ const eventController = {
     Event.fetchAll({
       withRelated: [{ users(qb) {
         // NOTE Omiting password
-        qb.column('id', 'email', 'username', 'bio', 'location', 'is_traveling');
+        qb.column('email', 'username', 'bio', 'is_traveling', 'location');
       } }],
     })
     .then((events) => {
@@ -79,6 +79,8 @@ const eventController = {
       if (!event) {
         res.sendStatus(404);
       } else {
+        // TODO this probably wont updated event properly
+        // Look at userController
         event.save(req.body);
       }
     })

@@ -14,7 +14,7 @@ Event.fetchAndPopulate = function (id) {
   .fetch({
     withRelated: [{ users(qb) {
       // NOTE Omiting password
-      qb.column('id', 'email', 'username', 'bio', 'location', 'is_traveling');
+      qb.column('email', 'username', 'bio', 'is_traveling', 'location');
     } }],
   });
 };
