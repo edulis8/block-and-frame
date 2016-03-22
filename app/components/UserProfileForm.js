@@ -7,17 +7,12 @@ class UserProfileForm extends Component {
         types: ['(cities)'],
       };
 
-      const countryOptions = {
-        types: ['(regions)'],
-      };
-
       const citiesInput = document.getElementById('cities-input');
-      const countriesInput = document.getElementById('countries-input');
       new google.maps.places.Autocomplete(citiesInput, cityOptions);
-      new google.maps.places.Autocomplete(countriesInput, countryOptions);
     };
     google.maps.event.addDomListener(window, 'load', initialize);
   }
+
   render() {
     return (
     <div>
@@ -53,24 +48,14 @@ class UserProfileForm extends Component {
               />
 
           </div>
-           <div className="field">
-            <label>Your country:</label>
-              <input
-                id="countries-input"
-                autoComplete="on"
-                value={this.props.country}
-                onChange={this.props.onCountryChange}
-                placeholder= {this.props.country || 'Your country'}
-              />
-          </div>
-          <div className="field">
-            <div className="ui checkbox">
-            <label>I am currently traveling</label>
-              <input type="checkbox" tabIndex="0" className="hidden" />
-              {/* jQuery must be used or checkbox doesn't work */}
-              <script>$('.ui.checkbox').checkbox();</script>
-            </div>
 
+          <div className="field">
+            <label>I am currently traveling</label>
+              <input
+                type="checkbox"
+                checked={this.props.isTraveling}
+                onChange={this.props.onTravelingChange}
+              />
           </div>
            <div className="field">
             <label>Your Bio:</label>

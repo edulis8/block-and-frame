@@ -25,8 +25,8 @@ bookshelf.knex.schema.hasTable('users').then((exists) => {
       user.string('username', 100).unique();
       user.string('password', 100);
       user.string('bio', 1000);
-      user.string('city', 20);
-      user.string('country', 20);
+      user.string('location', 50);
+      user.boolean('is_traveling');
       user.timestamps();
     }).then(() => {
       console.log('Created users table');

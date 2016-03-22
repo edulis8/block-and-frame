@@ -4,8 +4,8 @@ const eventController = {
   getAllEvents(req, res) {
     Event.fetchAll({
       withRelated: [{ users(qb) {
-        // omit password
-        qb.column('email', 'username', 'bio', 'city', 'country');
+        // NOTE Omiting password
+        qb.column('id', 'email', 'username', 'bio', 'location', 'is_traveling');
       } }],
     })
     .then((events) => {
@@ -24,7 +24,7 @@ const eventController = {
     Event.fetchAndPopulate({ id: req.userId || req.params.eventId })
     .then((event) => {
       if (!event) {
-        res.status(404);
+        res.sendStatus(404);
       } else {
         res.status(200).send(event);
       }
