@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
-//import keys from '../utils/config';
-
-// conrl = `https://maps.googleapis.com/maps/api/js?${keys.one}&libraries=places`;
-// <script src={url}></script>
-import autoCompleteInit from '../utils/googleapi';
-
-autoCompleteInit();
 
 class UserProfileForm extends Component {
+  componentDidMount() {
+    const initialize = () => {
+      const cityOptions = {
+        types: ['(cities)'],
+      };
+
+      const countryOptions = {
+        types: ['(regions)'],
+      };
+
+      const citiesInput = document.getElementById('cities-input');
+      const countriesInput = document.getElementById('countries-input');
+      new google.maps.places.Autocomplete(citiesInput, cityOptions);
+      new google.maps.places.Autocomplete(countriesInput, countryOptions);
+    };
+  google.maps.event.addDomListener(window, 'load', initialize);
+  }
   render() {
     return (
     <div>
