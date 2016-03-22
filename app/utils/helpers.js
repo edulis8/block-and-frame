@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const helpers = {
   createEvent(event, component) {
-    const userId = window.localStorage.getItem('id');
     const token = window.localStorage.getItem('token');
+    const userId = window.localStorage.getItem('id');
     console.log('event in helper', event);
     axios({
       url: `/api/events/${userId}`,
@@ -24,8 +24,8 @@ const helpers = {
     });
   },
   getCurrentUserData() {
-    const userID = window.localStorage.getItem('id');
     const token = window.localStorage.getItem('token');
+    const userID = window.localStorage.getItem('id');
     return axios({
       url: `/api/users/${userID}`,
       token: 'get',
@@ -50,6 +50,31 @@ const helpers = {
     const token = window.localStorage.getItem('token');
     console.log('deleteUser called,');
     return axios.delete(`api/users/${token}`);
+  },
+  getEventbyId(id) {
+    const token = window.localStorage.getItem('token');
+    console.log('getEventbyId called');
+    return axios({
+      url: '/api/events/' + id,
+      method: 'get',
+      headers: { Authorization: token },
+    });
+  },
+  editEvent(id, stateAsUserUpdates) {
+    const token = window.localStorage.getItem('token');
+    console.log('data sent', stateAsUserUpdates);
+    console.log('editEvent called');
+    return axios({
+      url: 'api/events/' + id,
+      method: 'put',
+      data: stateAsUserUpdates,
+      headers: { Authorization: token },
+    });
+    // return axios({
+    //   url: '/api/events/' + id,
+    //   token: 'put',
+    //   headers: { Authorization: token },
+    // });
   },
 };
 
