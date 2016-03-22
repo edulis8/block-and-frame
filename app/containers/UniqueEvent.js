@@ -72,12 +72,7 @@ class UniqueEvent extends React.Component {
     return this.state.creator_name;
   }
 
-    // event.string('name', 100);
-    // event.string('location', 100);
-    // event.string('coordinates', 100);
-    // event.string('description', 1000);
-    // event.json('toBring').nullable();
-
+  // TODO: add toBring and coordinates here as well
   saveEventChanges() {
     console.log('saveEventChanges');
     const edits = ({
@@ -85,7 +80,7 @@ class UniqueEvent extends React.Component {
       location: this.state.location,
       description: this.state.description,
     });
-    
+
     helpers.editEvent(this.state.url, edits)
       .then((response) => {
         console.log('inside eventedit');
