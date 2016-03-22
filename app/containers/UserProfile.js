@@ -3,6 +3,7 @@ import helpers from '../utils/helpers';
 // import { Link } from 'react-router';
 import MenuBar from '../components/MenuBar';
 import UserProfileForm from '../components/UserProfileForm';
+import ImageUploadButton from '../components/ImageUploadButton';
 
 // TODO: Some indication that saving profile has been successful.
 // TODO: Confirm profile deletion, msg about success, redirect user to home.
@@ -102,12 +103,7 @@ class UserProfile extends React.Component {
           </h1>
         <div className="ui raised very padded text container segment">
           <div className="ui container">
-            <img className="ui tiny circular image" src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
-              <button
-                className="ui icon floated"
-              >
-                <i className="plus square icon"></i>Upload
-              </button>
+              <ImageUploadButton />
               <UserProfileForm
                 username={this.state.username}
                 email={this.state.email}
