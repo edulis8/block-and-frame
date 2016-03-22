@@ -37,11 +37,14 @@ const eventController = {
   // For now event info should be in the body and creator id should be in params
   // Creates event and puts creator's user.id and the event.id in events_users, sets is_creator to true for user.id who created the event
   createEvent(req, res, next) {
+    console.log('XX create event request body', req.body)
     new Event({
       name: req.body.name,
       location: req.body.location,
       coordinates: req.body.coordinates,
       description: req.body.description,
+      time: req.body.time,
+      date: req.body.date,
       toBring: { contributions: req.body.toBring },
     })
     .save()
