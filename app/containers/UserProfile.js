@@ -16,26 +16,32 @@ class UserProfile extends React.Component {
       email: '',
       username: '',
       bio: '',
-      city: '',
+      location: '',
       isTraveling: null,
       // instagram
     };
 
     this.onNameChange = this.onNameChange.bind(this);
     this.onEmailChange = this.onEmailChange.bind(this);
-    this.onCityChange = this.onCityChange.bind(this);
+    this.onLocationChange = this.onLocationChange.bind(this);
     this.onBioChange = this.onBioChange.bind(this);
-    // this.onInstagramChange = this.onBioChange.bind(this);
     this.onTravelingChange = this.onTravelingChange.bind(this);
     this.handleProfileSubmit = this.handleProfileSubmit.bind(this);
     this.handleDeleteUser = this.handleDeleteUser.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
+    // this.onInstagramChange = this.onBioChange.bind(this);
   }
 
   componentDidMount() {
     userHelpers.getCurrentUserData()
     .then((user) => {
-      console.log(user);
+      this.setState({
+        email: user.data.email,
+        username: user.data.username,
+        bio: user.data.bio,
+        location: user.data.location,
+        isTraveling: user.data.isTraveling,
+      });
     });
   }
 
@@ -47,20 +53,21 @@ class UserProfile extends React.Component {
     this.setState({ email: e.target.value });
   }
 
-  onCityChange(e) {
-    this.setState({ city: e.target.value });
+  onLocationChange(e) {
+    this.setState({ location: e.target.value });
   }
 
   onBioChange(e) {
     this.setState({ bio: e.target.value });
   }
-  // onInstagramChange(e) {
-  //   this.setState({ instagram: e.target.value });
-  // }
 
   onTravelingChange(e) {
     this.setState({ isTraveling: e.target.checked });
   }
+
+  // onInstagramChange(e) {
+  //   this.setState({ instagram: e.target.value });
+  // }
 
   handleProfileSubmit() {
     userHelpers.updateUser(this.state)
@@ -100,7 +107,7 @@ class UserProfile extends React.Component {
               isTraveling={this.state.isTraveling}
               onNameChange={this.onNameChange}
               onEmailChange={this.onEmailChange}
-              onCityChange={this.onCityChange}
+              onLocationChange={this.onLocationChange}
               onBioChange={this.onBioChange}
               onTravelingChange={this.onTravelingChange}
               onDeleteUser={this.handleDeleteUser}
@@ -115,6 +122,5 @@ class UserProfile extends React.Component {
     );
   }
 }
-
 
 export default UserProfile;

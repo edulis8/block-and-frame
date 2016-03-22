@@ -37,14 +37,14 @@ class UserProfileForm extends Component {
               />
           </div>
           <div className="field">
-            <label>Your city:</label>
+            <label>Your location:</label>
 
               <input
                 id="cities-input"
                 autoComplete="on"
-                value={this.props.city}
-                onChange={this.props.onCityChange}
-                placeholder= {this.props.city || 'Your city'}
+                value={this.props.location}
+                onChange={this.props.onLocationChange}
+                placeholder= {this.props.location || 'Your location'}
               />
 
           </div>
