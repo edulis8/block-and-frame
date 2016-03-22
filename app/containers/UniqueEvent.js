@@ -72,9 +72,21 @@ class UniqueEvent extends React.Component {
     return this.state.creator_name;
   }
 
+    // event.string('name', 100);
+    // event.string('location', 100);
+    // event.string('coordinates', 100);
+    // event.string('description', 1000);
+    // event.json('toBring').nullable();
+
   saveEventChanges() {
     console.log('saveEventChanges');
-    helpers.editEvent(this.state.url, this.state)
+    const edits = ({
+      name: this.state.eventName,
+      location: this.state.location,
+      description: this.state.description,
+    });
+    
+    helpers.editEvent(this.state.url, edits)
       .then((response) => {
         console.log('inside eventedit');
         console.log(response);
