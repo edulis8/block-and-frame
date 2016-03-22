@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 //import keys from '../utils/config';
 
-// const url = `https://maps.googleapis.com/maps/api/js?${keys.one}&libraries=places`;
+// conrl = `https://maps.googleapis.com/maps/api/js?${keys.one}&libraries=places`;
 // <script src={url}></script>
+import autoCompleteInit from '../utils/googleapi';
 
+autoCompleteInit();
 
 class UserProfileForm extends Component {
   render() {

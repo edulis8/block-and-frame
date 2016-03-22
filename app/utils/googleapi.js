@@ -1,4 +1,4 @@
-initialize => {
+function initialize () {
   const cityOptions = {
     types: ['(cities)'],
   };
@@ -11,7 +11,8 @@ initialize => {
   const countriesInput = document.getElementById('countries-input');
   new google.maps.places.Autocomplete(citiesInput, cityOptions);
   new google.maps.places.Autocomplete(countriesInput, countryOptions);
-};
+}
 
-google.maps.event.addDomListener(window, 'load', initialize);
-
+// If this was in another file you'd call it like:
+// google.maps.event.addDomListener(window, 'load', initialize);
+export default google.maps.event.addDomListener.bind(this, window, 'load', initialize);
