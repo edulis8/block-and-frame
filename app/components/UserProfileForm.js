@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+//import keys from '../utils/config';
+
+// const url = `https://maps.googleapis.com/maps/api/js?${keys.one}&libraries=places`;
+// <script src={url}></script>
+
 
 class UserProfileForm extends Component {
   render() {
     return (
+    <div>
      <form className="ui form"
        onSubmit={this.props.preventDefaultSubmit}
      >
@@ -27,6 +33,8 @@ class UserProfileForm extends Component {
             <label>Your city:</label>
 
               <input
+                id="cities-input"
+                autoComplete="on"
                 value={this.props.city}
                 onChange={this.props.onCityChange}
                 placeholder= {this.props.city || 'Your city'}
@@ -36,6 +44,8 @@ class UserProfileForm extends Component {
            <div className="field">
             <label>Your country:</label>
               <input
+                id="countries-input"
+                autoComplete="on"
                 value={this.props.country}
                 onChange={this.props.onCountryChange}
                 placeholder= {this.props.country || 'Your country'}
@@ -46,7 +56,7 @@ class UserProfileForm extends Component {
             <label>I am currently traveling</label>
               <input type="checkbox" tabIndex="0" className="hidden" />
               {/* jQuery must be used or checkbox doesn't work */}
-              <script>$('.ui.checkbox').checkbox()</script>
+              <script>$('.ui.checkbox').checkbox();</script>
             </div>
 
           </div>
@@ -77,6 +87,7 @@ class UserProfileForm extends Component {
           >Delete Account
           </button>
         </form>
+      </div>
     );
   }
 }
