@@ -56,14 +56,20 @@ const helpers = {
     console.log('getEventbyId called');
     return axios({
       url: '/api/events/' + id,
-      token: 'get',
+      method: 'get',
       headers: { Authorization: token },
     });
   },
-  editEvent(stateAsUserUpdates) {
+  editEvent(id, stateAsUserUpdates) {
     const token = window.localStorage.getItem('token');
+    console.log('data sent', stateAsUserUpdates);
     console.log('editEvent called');
-    return axios.put(`api/events/${token}`, stateAsUserUpdates);
+    return axios({
+      url: 'api/events/' + id,
+      method: 'put',
+      data: stateAsUserUpdates,
+      headers: { Authorization: token },
+    });
     // return axios({
     //   url: '/api/events/' + id,
     //   token: 'put',

@@ -23,13 +23,6 @@ class UniqueEventEdit extends React.Component {
             />
 
             <input
-              className={this.props.hostKey()}
-              value={this.props.hostName}
-              placeholder={this.props.hostName}
-              onChange={this.props.editState}
-            />
-
-            <input
               className="description"
               value={this.props.description}
               placeholder={this.props.description}
