@@ -3,7 +3,8 @@ import { browserHistory } from 'react-router';
 
 class Site extends React.Component {
   componentDidMount() {
-    if (!window.localStorage.token) {
+    const path = location.href.split('/').pop();
+    if (path !== 'signup' && !window.localStorage.token) {
       browserHistory.push('/signin');
     }
   }
