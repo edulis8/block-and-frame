@@ -1,8 +1,12 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 class Site extends React.Component {
   componentDidMount() {
-    console.log('Sites children', this.props);
+    const path = location.href.split('/').pop();
+    if (path !== 'signup' && !window.localStorage.token) {
+      browserHistory.push('/signin');
+    }
   }
 
   render() {

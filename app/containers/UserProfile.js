@@ -1,5 +1,5 @@
 import React from 'react';
-import helpers from '../utils/helpers';
+import userHelpers from '../utils/userHelpers';
 // import { Link } from 'react-router';
 import MenuBar from '../components/MenuBar';
 import UserProfileForm from '../components/UserProfileForm';
@@ -35,7 +35,7 @@ class UserProfile extends React.Component {
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
   }
   componentDidMount() {
-    helpers.getCurrentUserData()
+    userHelpers.getCurrentUserData()
     .then((user) => {
       console.log('USER.data in componentDidMount promise', user.data);
       // This is the shortcut for the commented out stuff that follows. I hope it works:
@@ -72,7 +72,7 @@ class UserProfile extends React.Component {
   //   this.setState({ isTraveling: e.target.value });
   // }
   handleProfileSubmit() {
-    helpers.updateUser(this.state)
+    userHelpers.updateUser(this.state)
     .then((user) => {
       // TODO: why doesn't this send back the updated user? Bookshelf question.
       console.log('user after PUT', user);
@@ -80,7 +80,7 @@ class UserProfile extends React.Component {
   }
 
   handleDeleteUser() {
-    helpers.deleteUser().
+    userHelpers.deleteUser().
     then((info) => {
       console.log('info from server: ', info);
     });

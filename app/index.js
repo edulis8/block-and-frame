@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 // jQuery and CDN for Semantic-UI
 import $ from 'jquery';
@@ -12,8 +12,9 @@ $('body').append($('<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic
 $('body').append($('<script src="../app/csstemp/main.css"></script>'));
 
 
-// import Site from './containers/Site';
-import App from './containers/App';
+// TODO: do we even need App?
+// import App from './containers/App';
+import Site from './containers/Site';
 import EventList from './containers/EventList';
 import CreateEvent from './containers/CreateEventContainer';
 import Signin from './containers/Signin';
@@ -21,12 +22,14 @@ import Signup from './containers/Signup';
 import UserProfile from './containers/UserProfile';
 import UniqueEvent from './containers/UniqueEvent';
 
+// TODO: Index Route may change - whatever we want to render
+// on visiting the site home path '/'
 const routes = (
   <Router history={browserHistory}>
-    <Route path="/" >
+    <Route path="/" component={Site} >
+      <IndexRoute component={EventList} />
       <Route path="signin" component={Signin} />
       <Route path="signup" component={Signup} />
-      <Route path="app" component={App} />
       <Route path="profile" component={UserProfile} />
       <Route path="events" component={EventList} />
       <Route path="eventcreate" component={CreateEvent} />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import helpers from '../utils/helpers';
+import authHelpers from '../utils/authHelpers';
 import SignupForm from '../components/SignupForm';
 
 
@@ -33,7 +33,7 @@ class Signup extends Component {
       password: this.state.password,
     };
 
-    helpers.signup(user);
+    authHelpers.signup(user);
 
     this.setState({ email: '', password: '', showLink: true });
   }

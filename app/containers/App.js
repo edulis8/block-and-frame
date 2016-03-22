@@ -4,7 +4,6 @@ import EventList from './EventList';
 
 class App extends React.Component {
   componentDidMount() {
-    console.log('Apps children', this.props);
   }
 
   render() {

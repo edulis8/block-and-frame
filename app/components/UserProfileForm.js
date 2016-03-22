@@ -16,7 +16,7 @@ class UserProfileForm extends Component {
       new google.maps.places.Autocomplete(citiesInput, cityOptions);
       new google.maps.places.Autocomplete(countriesInput, countryOptions);
     };
-  google.maps.event.addDomListener(window, 'load', initialize);
+    google.maps.event.addDomListener(window, 'load', initialize);
   }
   render() {
     return (

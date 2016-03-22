@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import helpers from '../utils/helpers';
-
+import authHelpers from '../utils/authHelpers';
 
 const MenuBar = () => {
   return (
@@ -47,7 +46,7 @@ const MenuBar = () => {
         <Link
           className="item"
           to={'/signin'}
-          onClick={helpers.logout}
+          onClick={authHelpers.logout}
         >
           <i className="sign out icon"></i>
            Log Out

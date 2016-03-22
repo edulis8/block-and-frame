@@ -1,0 +1,58 @@
+import axios from 'axios';
+
+const eventHelpers = {
+  createEvent(event, component) {
+    const token = window.localStorage.getItem('token');
+    const userId = window.localStorage.getItem('id');
+    console.log('event in helper', event);
+    axios({
+      url: `/api/events/${userId}`,
+      method: 'post',
+      data: event,
+      headers: { Authorization: token },
+    })
+    .then((res) => {
+      console.log('res from creating', res);
+      component.context.router.push({
+        pathname: '/events',
+        // TODO: change path to /event once available
+        // state: res.data,
+      });
+    })
+    .catch((res) => {
+      console.log(res);
+    });
+  },
+
+  getEventbyId(id) {
+    console.log('Iniside event helpers id: ', id);
+    const token = window.localStorage.getItem('token');
+    return axios({
+      url: `/api/events/${id}`,
+      method: 'get',
+      headers: { Authorization: token },
+    });
+  },
+
+  editEvent(id, stateAsUserUpdates) {
+    const token = window.localStorage.getItem('token');
+    console.log('data sent', stateAsUserUpdates);
+    console.log('editEvent called');
+    return axios({
+      url: `api/events/${id}`,
+      method: 'put',
+      data: stateAsUserUpdates,
+      headers: { Authorization: token },
+    })
+    .then((response) => {
+      console.log('inside eventedit');
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log('ERROR');
+      console.log(error);
+    });
+  },
+};
+
+export default eventHelpers;
