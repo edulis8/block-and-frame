@@ -9,10 +9,10 @@ class EventList extends React.Component {
 
     this.state = {
       data: [],
-      test: 'test',
     };
   }
 
+  // TODO: factor out request into eventHelpers
   componentDidMount() {
     axios({
       url: '/api/events/',

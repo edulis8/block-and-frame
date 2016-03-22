@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import helpers from '../utils/helpers';
+import authHelpers from '../utils/authHelpers';
 import SigninForm from '../components/SigninForm';
 
 class Signin extends Component {
@@ -33,7 +33,7 @@ class Signin extends Component {
     };
 
     // sign in with user
-    helpers.signin(user);
+    authHelpers.signin(user);
 
     // clear forms
     this.setState({ email: '', password: '' });

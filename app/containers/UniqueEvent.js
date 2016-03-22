@@ -1,5 +1,5 @@
 import React from 'react';
-import helpers from '../utils/helpers';
+import eventHelpers from '../utils/eventHelpers';
 import UniqueEventEdit from '../components/UniqueEventEdit';
 import UniqueEventView from '../components/UniqueEventView';
 import MenuBar from '../components/MenuBar';
@@ -21,14 +21,14 @@ class UniqueEvent extends React.Component {
     };
 
     this.setEdit = this.setEdit.bind(this);
-    this.initalizePage = this.initalizePage.bind(this);
+    this.initializePage = this.initializePage.bind(this);
     this.editState = this.editState.bind(this);
     this.determineName = this.determineName.bind(this);
     this.saveEventChanges = this.saveEventChanges.bind(this);
   }
 
   componentDidMount() {
-    this.initalizePage();
+    this.initializePage();
   }
 
   setEdit() {
@@ -39,10 +39,10 @@ class UniqueEvent extends React.Component {
     this.setState({ showEdit: !this.state.showEdit });
   }
 
-  initalizePage() {
-    helpers.getEventbyId(this.state.url)
+  initializePage() {
+    eventHelpers.getEventbyId(this.state.url)
       .then((response) => {
-        console.log(response.data);
+        console.log('response from init page', response.data);
         this.setState({ eventName: response.data.name,
           description: response.data.description,
           location: response.data.location,
@@ -75,21 +75,14 @@ class UniqueEvent extends React.Component {
   // TODO: add toBring and coordinates here as well
   saveEventChanges() {
     console.log('saveEventChanges');
+
     const edits = ({
       name: this.state.eventName,
       location: this.state.location,
       description: this.state.description,
     });
 
-    helpers.editEvent(this.state.url, edits)
-      .then((response) => {
-        console.log('inside eventedit');
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log('ERROR');
-        console.log(error);
-      });
+    eventHelpers.editEvent(this.state.url, edits);
   }
 
   render() {

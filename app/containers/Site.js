@@ -1,8 +1,11 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 class Site extends React.Component {
   componentDidMount() {
-    console.log('Sites children', this.props);
+    if (!window.localStorage.token) {
+      browserHistory.push('/signin');
+    }
   }
 
   render() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import helpers from '../utils/helpers';
+import eventHelpers from '../utils/eventHelpers';
 import MenuBar from '../components/MenuBar';
 import CreateEventForm from '../components/CreateEventForm';
 
@@ -40,7 +40,7 @@ class CreateEvent extends Component {
 
   onEventSubmit() {
     // handle POST request for creating event
-    helpers.createEvent(this.state, this);
+    eventHelpers.createEvent(this.state, this);
 
     // reset forms
     this.setState({
