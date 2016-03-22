@@ -13,10 +13,15 @@ class CreateEvent extends Component {
       location: '',
       description: '',
       toBring: [],
+      date: new Date(),
+      time: '',
     };
 
     this.onNameChange = this.onNameChange.bind(this);
     this.onLocationChange = this.onLocationChange.bind(this);
+    this.onDateChange = this.onDateChange.bind(this);
+    this.onTimeChange = this.onTimeChange.bind(this);
+
     this.onDescriptionChange = this.onDescriptionChange.bind(this);
     this.onEventSubmit = this.onEventSubmit.bind(this);
     this.onToBringAdd = this.onToBringAdd.bind(this);
@@ -38,6 +43,14 @@ class CreateEvent extends Component {
     this.setState({ description: e.target.value });
   }
 
+  onDateChange(e) {
+    this.setState({ date: e.target.value });
+    console.log('Date', this.state.date);
+  }
+  onTimeChange(e) {
+    this.setState({ time: e.target.value });
+    console.log('time', this.state.time);
+  }
   onEventSubmit() {
     // handle POST request for creating event
     eventHelpers.createEvent(this.state, this);
@@ -48,6 +61,8 @@ class CreateEvent extends Component {
       location: '',
       description: '',
       toBring: [],
+      date: '',
+      time: '',
     });
   }
 
@@ -106,6 +121,8 @@ class CreateEvent extends Component {
         <CreateEventForm
           name={this.state.name}
           location={this.state.location}
+          date={this.state.date}
+          time={this.state.time}
           description={this.state.description}
           toBring={this.state.toBring}
           onNameChange={this.onNameChange}
@@ -117,6 +134,8 @@ class CreateEvent extends Component {
           onNotesChange={this.onNotesChange}
           onBringerChange={this.onBringerChange}
           preventDefaultSubmit={this.preventDefaultSubmit}
+          onDateChange={this.onDateChange}
+          onTimeChange={this.onTimeChange}
         />
       </div>
     );
