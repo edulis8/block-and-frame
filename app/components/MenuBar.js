@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import helpers from '../utils/helpers';
 
 
 const MenuBar = () => {
@@ -43,8 +44,14 @@ const MenuBar = () => {
         <a className="item"><i className="food icon"></i> My Spreads</a>
         <a className="item"><i className="mail icon"></i> Messages</a>
         <a className="item"><i className="settings icon"></i> Account Settings</a>
-        <a className="item"><i className="sign out icon"></i> Log Out</a>
-
+        <Link
+          className="item"
+          to={'/signin'}
+          onClick={helpers.logout}
+        >
+          <i className="sign out icon"></i>
+           Log Out
+        </Link>
       </div>
   </div>
 </div>

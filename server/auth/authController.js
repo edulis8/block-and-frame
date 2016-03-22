@@ -4,25 +4,28 @@ const secret = require('../config/config').secret;
 
 module.exports = {
   signin(req, res) {
-    User.where({ email: req.body.email })
-      .fetch().then((user) => {
-        if (!user) {
-          res.send({ success: false, message: 'Authentication failed. User not found.' });
-        } else {
-          // Check if password matches
-          const isMatch = user.comparePassword(req.body.password, user.get('password'));
-          if (isMatch) {
-            // Create token if the password matched and no error was thrown
-            const token = jwt.sign(user, secret, {
-              expiresIn: 10080,
-            });
-            console.log('user', user);
-            res.json({ success: true, token: `JWT ${token}`, id: user.get('id') });
-          } else {
-            res.send({ success: false, message: 'Error. Invalid password.' });
-          }
+    const password = req.body.password;
+    const email = req.body.email;
+
+    User.where({ email })
+    .fetch()
+    .then((user) => {
+      if (!user) {
+        return res.status(500).end('Incorrect username or password.');
+      }
+
+      return user.comparePassword(password, user.get('password'))
+      .then((isMatch) => {
+        if (!isMatch) {
+          return res.status(500).end('Incorrect username or password.');
         }
+        const token = jwt.sign(user, secret, { expiresIn: 10080 });
+        return res.json({ success: true, token: `JWT ${token}`, id: user.get('id') });
+      })
+      .catch((err) => {
+        return res.status(500).end(err);
       });
+    });
   },
 
   signup(req, res) {

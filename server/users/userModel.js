@@ -26,9 +26,9 @@ const User = bookshelf.Model.extend({
   },
   comparePassword(password, hash) {
     return new Promise((resolve, reject) => {
-      bcrypt.compare(password, hash, (err, res) => {
+      bcrypt.compare(password, hash, (err, isMatch) => {
         if (err) reject(err);
-        resolve(res);
+        resolve(isMatch);
       });
     });
   },
