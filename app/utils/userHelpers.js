@@ -14,15 +14,17 @@ const userHelpers = {
   updateUser(stateAsUserUpdates) {
     const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('id');
+
+    // Format for database
+    stateAsUserUpdates.is_traveling = stateAsUserUpdates.isTraveling;
+    delete stateAsUserUpdates.isTraveling;
+
     console.log('updateUser called with:', stateAsUserUpdates);
     return axios({
       url: `api/users/${userId}`,
       method: 'put',
       data: stateAsUserUpdates,
       headers: { Authorization: token },
-    })
-    .catch((err) => {
-      console.log(err);
     });
   },
 
@@ -32,9 +34,6 @@ const userHelpers = {
       url: `api/users/${token}`,
       method: 'delete',
       headers: { Authorization: token },
-    })
-    .catch((err) => {
-      console.log(err);
     });
   },
 };

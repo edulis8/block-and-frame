@@ -18,6 +18,7 @@ class UserProfile extends React.Component {
       bio: '',
       location: '',
       isTraveling: null,
+      google: '',
       // instagram
     };
 
@@ -40,7 +41,7 @@ class UserProfile extends React.Component {
         username: user.data.username,
         bio: user.data.bio,
         location: user.data.location,
-        isTraveling: user.data.isTraveling,
+        isTraveling: user.data.is_traveling,
       });
     });
   }
@@ -72,15 +73,22 @@ class UserProfile extends React.Component {
   handleProfileSubmit() {
     userHelpers.updateUser(this.state)
     .then((user) => {
-      // TODO: why doesn't this send back the updated user? Bookshelf question.
       console.log('user after PUT', user);
+    })
+    .catch((err) => {
+      console.log(err);
     });
+    console.log(document.getElementById('cities-input').value);
+    console.log(this.state);
   }
 
   handleDeleteUser() {
     userHelpers.deleteUser().
     then((info) => {
       console.log('info from server: ', info);
+    })
+    .catch((err) => {
+      console.log(err);
     });
   }
 
@@ -113,6 +121,7 @@ class UserProfile extends React.Component {
               onDeleteUser={this.handleDeleteUser}
               onProfileSubmit={this.handleProfileSubmit}
               preventDefaultSubmit={this.preventDefaultSubmit}
+              google={this.state.google}
               // TODO instagram={this.state.instagram}
               // TODO onInstagramChange={this.onInstagramChange}
             />

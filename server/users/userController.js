@@ -79,8 +79,13 @@ module.exports = {
       if (!user) {
         res.status(404).send('User not found');
       } else {
-        console.log('User about to be edited', user);
-        user.save(req.body);
+        user.save({
+          email: req.body.email,
+          username: req.body.username,
+          bio: req.body.bio,
+          location: req.body.location,
+          is_traveling: req.body.is_traveling,
+        });
       }
     })
     .then((user) => {
