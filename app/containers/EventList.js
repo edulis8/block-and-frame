@@ -30,7 +30,14 @@ class EventList extends React.Component {
 
   render() {
     if (this.state.data.length === 0) {
-      return null;
+      return (
+        <div>
+          <MenuBar />
+          <div>
+            No events found.
+          </div>
+        </div>
+      );
     }
     const eventNodes = this.state.data.map((event) => {
       return (

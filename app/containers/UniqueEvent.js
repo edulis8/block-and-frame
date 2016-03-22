@@ -76,7 +76,7 @@ class UniqueEvent extends React.Component {
     console.log('saveEventChanges');
     helpers.editEvent(this.state.url, this.state)
       .then((response) => {
-        console.log('inside editevent');
+        console.log('inside eventedit');
         console.log(response);
       })
       .catch((error) => {
@@ -109,7 +109,8 @@ class UniqueEvent extends React.Component {
                   hostName={this.determineName}
                   setEdit={this.setEdit}
                   sameEmail={this.state.editable}
-                />}
+                />
+              }
 
             </div>
           </div>

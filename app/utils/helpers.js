@@ -67,8 +67,7 @@ const helpers = {
 
   editEvent(id, stateAsUserUpdates) {
     const token = window.localStorage.getItem('token');
-    console.log('data sent', stateAsUserUpdates);
-    console.log('editEvent called');
+    console.log('editEvent called', stateAsUserUpdates);
     return axios({
       url: `api/events/${id}`,
       method: 'put',

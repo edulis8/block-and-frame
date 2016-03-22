@@ -72,10 +72,10 @@ const eventController = {
     });
   },
 
-  // TODO updated according to front end
-  editEvent(req, res) {
-    Event.fetchAndPopulate({ id: req.params.userId })
-    .then((event) => {
+  editEvent: function (req, res) {
+    console.log('REQ.PARAMS ', req.params);
+    Event.fetchAndPopulate({ id: req.params.eventId })
+    .then(function (event) {
       if (!event) {
         res.sendStatus(404);
       } else {
