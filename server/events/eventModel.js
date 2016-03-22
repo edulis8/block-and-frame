@@ -13,8 +13,8 @@ Event.fetchAndPopulate = function (id) {
   return this.where(id)
   .fetch({
     withRelated: [{ users(qb) {
-      // omit password
-      qb.column('email', 'username', 'bio', 'city', 'country');
+      // NOTE Omiting password
+      qb.column('id', 'email', 'username', 'bio', 'location', 'is_traveling');
     } }],
   });
 };

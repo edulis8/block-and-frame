@@ -3,10 +3,9 @@ const User = require('./userModel');
 module.exports = {
   getAllUsers(req, res) {
     User.fetchAll({
-      // TODO: fix
-      // using withRelated break column selection revealing password
+      // NOTE password is being sent to front-end
       withRelated: ['events'],
-      columns: ['id', 'email', 'password', 'username', 'bio', 'city', 'country'],
+      columns: ['id', 'email', 'username', 'password', 'bio', 'location', 'is_traveling'],
     })
     .then((users) => {
       console.log(users.models[0].relations.events);
@@ -21,10 +20,8 @@ module.exports = {
     // Forge: Simple helper function for retrieving all instances of the given model.
     User.where({ id: req.params.userId })
     .fetch({
-      // TODO: fix
-      // using withRelated break column selection revealing password
-      // withRelated: ['events'],
-      columns: ['email', 'username', 'bio', 'city', 'country'],
+      withRelated: ['events'],
+      columns: ['id', 'email', 'username', 'bio', 'location', 'is_traveling'],
     })
     .then((user) => {
       if (!user) {
