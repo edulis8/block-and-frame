@@ -51,23 +51,18 @@ class UserProfile extends React.Component {
     });
   }
   onNameChange(e) {
-    console.log('namechange, STATE', this.state);
     this.setState({ username: e.target.value });
   }
   onEmailChange(e) {
-    console.log('emailchange, STATE', this.state);
     this.setState({ email: e.target.value });
   }
   onCityChange(e) {
-    console.log('CITYchange, STATE', this.state);
-
     this.setState({ city: e.target.value });
   }
   onCountryChange(e) {
     this.setState({ country: e.target.value });
   }
   onBioChange(e) {
-    console.log('bio changin', this.state);
     this.setState({ bio: e.target.value });
   }
   // onInstagramChange(e) {
