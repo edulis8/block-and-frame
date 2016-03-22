@@ -14,6 +14,7 @@ class ToBringList extends Component {
               notes={toBring.notes}
               onItemChange={this.props.onItemChange}
               onNotesChange={this.props.onNotesChange}
+              onBringerChange={this.props.onBringerChange}
             />
           );
         })}
