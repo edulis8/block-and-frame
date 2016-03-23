@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
+// Moved to index.html
 // jQuery and CDN for Semantic-UI
 // import $ from 'jquery';
 // import jQuery from 'jquery';
