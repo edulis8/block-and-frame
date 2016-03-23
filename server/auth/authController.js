@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 // This is a work-around for Travis CI
 var secret; // let doesnt work
 try {
-  secret = require('./config.js').secret;
+  secret = require('../config/config.js').secret;
 } catch (err) {
   console.log('authController.js:', err.message);
   secret = 'localtestingsecret!';
