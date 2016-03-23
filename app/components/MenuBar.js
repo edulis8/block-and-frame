@@ -29,13 +29,15 @@ const MenuBar = () => {
       <i className="spoon icon"></i>
       Host A Spread
     </Link>
-    <div className="ui simple dropdown item right item">
-      My Account
+    <div className="ui simple dropdown right vertical item">
+      <Link to={'/profile'}>
+        My Account
+      </Link>
       <i className="dropdown icon"></i>
       <div className="menu">
         <Link
           className="item"
-          to={'/profile'}
+          to={'/editprofile'}
         >
             <i className="edit icon"></i>
             Edit Profile
