@@ -20,7 +20,8 @@ import EventList from './containers/EventList';
 import CreateEvent from './containers/CreateEventContainer';
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
-import UserProfile from './containers/UserProfile';
+import Profile from './containers/UserProfile';
+import EditUserProfile from './containers/EditUserProfile';
 import UniqueEvent from './containers/UniqueEvent';
 
 // TODO: Index Route may change - whatever we want to render
@@ -31,7 +32,8 @@ const routes = (
       <IndexRoute component={EventList} />
       <Route path="signin" component={Signin} />
       <Route path="signup" component={Signup} />
-      <Route path="profile" component={UserProfile} />
+      <Route path="editProfile" component={EditUserProfile} />
+      <Route path="profile" component={Profile} />
       <Route path="events" component={EventList} />
       <Route path="eventcreate" component={CreateEvent} />
       <Route path="/:eventID" component={UniqueEvent} />
