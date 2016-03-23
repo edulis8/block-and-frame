@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
+import Geosuggest from 'react-geosuggest';
 
 class UserProfileForm extends Component {
-  // componentDidMount() {
-  //   const initialize = () => {
-  //     const cityOptions = {
-  //       types: ['(cities)'],
-  //     };
-  //     const citiesInput = document.getElementById('cities-input');
-  //     new google.maps.places.Autocomplete(citiesInput, cityOptions);
-  //   };
-  //   google.maps.event.addDomListener(window, 'load', initialize);
-  // }
+  constructor(props) {
+    super(props);
+
+    this._onBlur = this._onBlur.bind(this);
+    this._onLocationSelect = this._onLocationSelect.bind(this);
+  }
+
+  _onBlur() {
+    this.refs.geosuggest.setState({
+      suggests: [],
+    });
+  }
+
+  _onLocationSelect(location) {
+    this._onBlur();
+    this.props.onLocationSelect(location);
+  }
 
   render() {
     return (
@@ -24,7 +32,6 @@ class UserProfileForm extends Component {
             <input type="email"
               value={this.props.email}
               onChange={this.props.onEmailChange}
-              placeholder={this.props.email}
             />
           </div>
 
@@ -33,18 +40,17 @@ class UserProfileForm extends Component {
             <input
               value={this.props.username}
               onChange={this.props.onNameChange}
-              placeholder= {this.props.username || 'Your name'}
             />
           </div>
 
           <div className="field">
             <label>Your location:</label>
-            <input
-              id="cities-input"
-              autoComplete="on"
-              value={this.props.location}
+            <Geosuggest
+              ref="geosuggest"
+              initialValue={this.props.location}
+              onBlur={this._onBlur}
               onChange={this.props.onLocationChange}
-              placeholder= {this.props.location || 'Your location'}
+              onSuggestSelect={this._onLocationSelect}
             />
           </div>
 
@@ -62,13 +68,13 @@ class UserProfileForm extends Component {
             <textarea
               value={this.props.bio}
               onChange={this.props.onBioChange}
-              placeholder={this.props.bio || 'Say a few words about yourself, and your relationship to food and travel'}
+              placeholder="Say a few words about yourself, and your relationship to food and travel"
             />
           </div>
 
           <div className="field">
             <label><i className="instagram icon"></i> Instagram:</label>
-            <input placeholder= {this.props.instagram || '@spread_out'} />
+            <input placeholder= "@spread_out" />
           </div>
 
           <button
