@@ -29,17 +29,38 @@ class CreateEventForm extends Component {
               onChange={this.props.onLocationChange}
             />
           </div>
-
-          <div className="field">
-            <label>Description:</label>
-            <textarea
-              className="description-input"
-              placeholder="Whats the spread about?"
-              value={this.props.description}
-              onChange={this.props.onDescriptionChange}
-            >
-            </textarea>
-          </div>
+          <div className="fields">
+            <div>
+              <label>Date:</label>
+              <input
+                required
+                type="date"
+                className="date-input"
+                value={this.props.date}
+                onChange={this.props.onDateChange}
+              />
+            </div>
+              <div>
+                <label>Time:</label>
+                <input
+                  required
+                  type="time"
+                  className="time-input"
+                  value={this.props.time}
+                  onChange={this.props.onTimeChange}
+                />
+              </div>
+            </div>
+            <div className="field">
+              <label>Description:</label>
+              <textarea
+                className="description-input"
+                placeholder="Whats the spread about?"
+                value={this.props.description}
+                onChange={this.props.onDescriptionChange}
+              >
+              </textarea>
+            </div>
 
           <div className="inline fields">
             <div className="fourteen wide field">

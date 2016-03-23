@@ -42,6 +42,8 @@ const eventController = {
       location: req.body.location,
       coordinates: req.body.coordinates,
       description: req.body.description,
+      time: req.body.time,
+      date: req.body.date,
       toBring: { contributions: req.body.toBring },
     })
     .save()

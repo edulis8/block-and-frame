@@ -29,9 +29,10 @@ const userHelpers = {
   },
 
   deleteUser() {
+    const userId = window.localStorage.getItem('id');
     const token = window.localStorage.getItem('token');
     return axios({
-      url: `api/users/${token}`,
+      url: `api/users/${userId}`,
       method: 'delete',
       headers: { Authorization: token },
     });
