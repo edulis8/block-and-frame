@@ -12,12 +12,15 @@ class UniqueEvent extends React.Component {
       eventName: '',
       description: '',
       location: '',
+      time: '',
+      date: '',
       eventId: '',
       creator_name: '',
       creator_email: '',
       showEdit: false,
       editable: false,
       url: location.href.split('/').pop(),
+      creatorId: '',
     };
 
     this.setEdit = this.setEdit.bind(this);
@@ -43,24 +46,30 @@ class UniqueEvent extends React.Component {
     eventHelpers.getEventbyId(this.state.url)
       .then((response) => {
         console.log('response from init page', response.data);
-        this.setState({
+        response.data.users.forEach((user) => {
+          if (user._pivot_user_id === parseInt(window.localStorage.id, 10)) {
+            this.setState({ creatorId: user._pivot_user_id });
+          }
+        });
+
+        this.setState({ 
           eventName: response.data.name,
           description: response.data.description,
           location: response.data.location,
+          date: response.data.date,
+          time: response.data.time,
           eventId: response.data.id,
           creator_email: response.data.users[0].email,
           creator_name: response.data.users[0].name,
-        });
+        }); 
+          
+        if (this.state.creatorId === parseInt(window.localStorage.id, 10)) {
+          this.setState({ editable: true });
+        }       
       })
       .catch((error) => {
         console.log(error);
       });
-
-    if (this.state.creator_email === window.sessionStorage.userEmail) {
-      this.setState({ editable: true });
-    }
-    console.log('creator email ', this.state.creator_email);
-    console.log('session email ', window.sessionStorage.userEmail);
   }
 
   editState(e) {
