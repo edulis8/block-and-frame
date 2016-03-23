@@ -29,10 +29,11 @@ const UniqueEventEdit = (props) => {
           /><br />
 
           <button
-            className="save-changes ui icon button"
+            className="save-changes ui tiny button"
             onClick={props.setEdit}
           >
-            Save changes!
+            <i className="icon save"></i>
+            Save changes
           </button>
 
         </form>

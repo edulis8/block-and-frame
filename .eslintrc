@@ -30,7 +30,7 @@
     "react/prop-types":"off",
     "semi":"warn",
     "arrow-body-style":"off",
-    "no-trailing-spaces":"warn",
+    "no-trailing-spaces":"off",
     "spaced-comment":"warn",
     "comma-dangle":"warn",
     "no-multiple-empty-lines":"warn",

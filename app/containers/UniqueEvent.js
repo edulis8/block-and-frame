@@ -4,6 +4,42 @@ import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
 
+
+const Contribution = ({ bringer, item, notes, index, onCheckBoxClick }) => (
+  <li>Contribution {index}
+    <ul>
+      <li>{item}</li>
+      <li>{notes}</li>
+      <li>{bringer || 
+        <p>Bring it-->  
+          <input 
+            type="checkbox"
+            onChange={onCheckBoxClick}
+          />
+        </p> }
+      </li>
+    </ul>
+  </li>
+);
+
+const ContributionList = ({ contributions, onCheckBoxClick }) => (
+  <ul>
+    {contributions.map((contrib, index) =>
+      <Contribution
+        key={index}
+        {...contrib}
+        onCheckBoxClick = {onCheckBoxClick}
+      />
+    )}
+  </ul>
+);
+// Above, the ...spread operater is used instead of:
+// bringer={contrib.bringer}
+// item={contrib.item}
+// notes={contrib.notes}
+// index={contrib.index}
+
+
 class UniqueEvent extends React.Component {
   constructor(props) {
     super(props);
@@ -12,12 +48,15 @@ class UniqueEvent extends React.Component {
       eventName: '',
       description: '',
       location: '',
+      time: '',
+      date: '',
       eventId: '',
       creator_name: '',
       creator_email: '',
       showEdit: false,
       editable: false,
       url: location.href.split('/').pop(),
+      creatorId: '',
     };
 
     this.setEdit = this.setEdit.bind(this);
@@ -30,7 +69,6 @@ class UniqueEvent extends React.Component {
   componentDidMount() {
     this.initializePage();
   }
-
   setEdit() {
     if (this.state.showEdit) {
       this.saveEventChanges();
@@ -39,28 +77,40 @@ class UniqueEvent extends React.Component {
     this.setState({ showEdit: !this.state.showEdit });
   }
 
+  handleCheckBoxClick(e) {
+    console.log('hi')
+    console.log(e.target.value);
+  }
+
   initializePage() {
     eventHelpers.getEventbyId(this.state.url)
       .then((response) => {
         console.log('response from init page', response.data);
+        console.log('contributions', response.data.toBring.contributions);
+
+        response.data.users.forEach((user) => {
+          if (user._pivot_user_id === parseInt(window.localStorage.id, 10)) {
+            this.setState({ creatorId: user._pivot_user_id });
+          }
+        });
         this.setState({
           eventName: response.data.name,
           description: response.data.description,
           location: response.data.location,
+          date: response.data.date,
+          time: response.data.time,
           eventId: response.data.id,
           creator_email: response.data.users[0].email,
           creator_name: response.data.users[0].name,
+          contributions: response.data.toBring.contributions,
         });
+        if (this.state.creatorId === parseInt(window.localStorage.id, 10)) {
+          this.setState({ editable: true });
+        }
       })
       .catch((error) => {
         console.log(error);
       });
-
-    if (this.state.creator_email === window.sessionStorage.userEmail) {
-      this.setState({ editable: true });
-    }
-    console.log('creator email ', this.state.creator_email);
-    console.log('session email ', window.sessionStorage.userEmail);
   }
 
   editState(e) {
@@ -88,6 +138,7 @@ class UniqueEvent extends React.Component {
   }
 
   render() {
+    this.state.contributions = this.state.contributions || [];
     return (
       <div>
         <MenuBar />
@@ -109,12 +160,20 @@ class UniqueEvent extends React.Component {
                   eventName={this.state.eventName}
                   description={this.state.description}
                   location={this.state.location}
+                  date={this.state.date}
+                  time={this.state.time}
                   hostName={this.determineName}
                   setEdit={this.setEdit}
                   sameEmail={this.state.editable}
                 />
               }
-
+              <h3 className="ui header">
+                Please bring for this spread:
+              </h3>
+              <ContributionList 
+                contributions = {this.state.contributions}
+                onCheckBoxClick = {this.handleCheckBoxClick}
+              />
             </div>
           </div>
         </div>
