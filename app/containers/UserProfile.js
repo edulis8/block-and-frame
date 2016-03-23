@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import UserInfo from '../components/UserInfo';
 import userHelpers from '../utils/userHelpers';
 import MenuBar from '../components/MenuBar';
-import UserEventList from '../components/UserEventList';
+import UserInfo from '../components/users/UserInfo';
+import UserEventList from '../components/users/UserEventList';
 
 
 class UserProfile extends Component {
