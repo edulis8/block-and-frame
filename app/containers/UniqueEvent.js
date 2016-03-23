@@ -5,15 +5,16 @@ import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
 
 
-const Contribution = ({ bringer, item, notes, index }) => (
+const Contribution = ({ bringer, item, notes, index, onCheckBoxClick }) => (
   <li>Contribution {index}
     <ul>
       <li>{item}</li>
       <li>{notes}</li>
       <li>{bringer || 
-        <p>Bring it 
+        <p>Bring it-->  
           <input 
-            type="checkbox" 
+            type="checkbox"
+            onChange={onCheckBoxClick}
           />
         </p> }
       </li>
@@ -21,12 +22,13 @@ const Contribution = ({ bringer, item, notes, index }) => (
   </li>
 );
 
-const ContributionList = ({ contributions }) => (
+const ContributionList = ({ contributions, onCheckBoxClick }) => (
   <ul>
     {contributions.map((contrib, index) =>
       <Contribution
         key={index}
         {...contrib}
+        onCheckBoxClick = {onCheckBoxClick}
       />
     )}
   </ul>
@@ -67,13 +69,17 @@ class UniqueEvent extends React.Component {
   componentDidMount() {
     this.initializePage();
   }
-
   setEdit() {
     if (this.state.showEdit) {
       this.saveEventChanges();
     }
 
     this.setState({ showEdit: !this.state.showEdit });
+  }
+
+  handleCheckBoxClick(e) {
+    console.log('hi')
+    console.log(e.target.value);
   }
 
   initializePage() {
@@ -166,6 +172,7 @@ class UniqueEvent extends React.Component {
               </h3>
               <ContributionList 
                 contributions = {this.state.contributions}
+                onCheckBoxClick = {this.handleCheckBoxClick}
               />
             </div>
           </div>

@@ -1,9 +1,6 @@
 import React from 'react';
 import JoinEventButton from './JoinEventButton';
-
 // import moment from 'moment'; results in moment not being defined
-
-
 
 const UniqueEventView = (props) => {
   return (
