@@ -4,6 +4,40 @@ import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
 
+
+const Contribution = ({ bringer, item, notes, index }) => (
+  <li>Contribution {index}
+    <ul>
+      <li>{item}</li>
+      <li>{notes}</li>
+      <li>{bringer || 
+        <p>Bring it 
+          <input 
+            type="checkbox" 
+          />
+        </p> }
+      </li>
+    </ul>
+  </li>
+);
+
+const ContributionList = ({ contributions }) => (
+  <ul>
+    {contributions.map((contrib, index) =>
+      <Contribution
+        key={index}
+        {...contrib}
+      />
+    )}
+  </ul>
+);
+// Above, the ...spread operater is used instead of:
+// bringer={contrib.bringer}
+// item={contrib.item}
+// notes={contrib.notes}
+// index={contrib.index}
+
+
 class UniqueEvent extends React.Component {
   constructor(props) {
     super(props);
@@ -47,6 +81,7 @@ class UniqueEvent extends React.Component {
       .then((response) => {
         console.log('response from init page', response.data);
         console.log('contributions', response.data.toBring.contributions);
+
         response.data.users.forEach((user) => {
           if (user._pivot_user_id === parseInt(window.localStorage.id, 10)) {
             this.setState({ creatorId: user._pivot_user_id });
@@ -97,6 +132,7 @@ class UniqueEvent extends React.Component {
   }
 
   render() {
+    this.state.contributions = this.state.contributions || [];
     return (
       <div>
         <MenuBar />
@@ -125,9 +161,13 @@ class UniqueEvent extends React.Component {
                   sameEmail={this.state.editable}
                 />
               }
-
+              <h3 className="ui header">
+                Please bring for this spread:
+              </h3>
+              <ContributionList 
+                contributions = {this.state.contributions}
+              />
             </div>
-            {JSON.stringify(this.state.contributions)}
           </div>
         </div>
       </div>

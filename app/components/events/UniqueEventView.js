@@ -4,6 +4,7 @@ import JoinEventButton from './JoinEventButton';
 // import moment from 'moment'; results in moment not being defined
 
 
+
 const UniqueEventView = (props) => {
   return (
     <div className="ui massive relaxed list">
@@ -35,10 +36,10 @@ const UniqueEventView = (props) => {
 
           {props.sameEmail ?
             <button
-              className="editButton"
+              className="editButton tiny ui button"
               onClick={props.setEdit}
             >
-              Edit your spread!
+              Quick edit
             </button>
           :
             <JoinEventButton eventId={props.eventId} />
