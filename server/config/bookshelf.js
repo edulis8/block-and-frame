@@ -71,10 +71,9 @@ bookshelf.knex.schema.hasTable('events').then((exists) => {
 bookshelf.knex.schema.hasTable('events_users').then((exists) => {
   if (!exists) {
     bookshelf.knex.schema.createTable('events_users', (eventUser) => {
-      eventUser.increments('id').primary();
-      // onDelete('CASCADE') deletes foreign keys of deleted models
-      eventUser.integer('event_id').references('events.id').onDelete('CASCADE');
-      eventUser.integer('user_id').references('users.id').onDelete('CASCADE');
+      eventUser.unique(['event_id', 'user_id']);
+      eventUser.integer('event_id').references('events.id');
+      eventUser.integer('user_id').references('users.id');
       eventUser.boolean('is_creator');
       eventUser.timestamps();
     }).then(() => {

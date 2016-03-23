@@ -110,6 +110,35 @@ const eventController = {
       res.status(500).send(err);
     });
   },
+
+  joinEvent(req, res) {
+    Event.fetchAndPopulate({ id: req.params.eventId })
+    .then((event) => {
+      event
+      .users()
+      .attach(req.body.userId)
+      .then((eventUser) => {
+        return eventUser.updatePivot({
+          is_creator: false,
+        });
+      })
+      .then((pivotStatus) => {
+        res.status(200).send(pivotStatus);
+      })
+      .catch((err) => {
+        // 23503 === user or event doesn exist
+        // 23505 === user already attending or hosting event
+        if (err.code === '23503' || err.code === '23505') {
+          res.status(400).send(err);
+        } else {
+          res.status(500).send(err);
+        }
+      });
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+  },
 };
 
 module.exports = eventController;

@@ -7,6 +7,7 @@ router.get('/', eventController.getAllEvents);
 router.get('/:eventId', eventController.getEventbyId);
 router.post('/:userId', eventController.createEvent);
 router.put('/:eventId', eventController.editEvent);
+router.put('/join/:eventId', eventController.joinEvent);
 router.delete('/:eventId', eventController.deleteEvent);
 
 module.exports = router;
