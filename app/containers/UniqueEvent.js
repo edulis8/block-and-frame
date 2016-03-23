@@ -46,13 +46,13 @@ class UniqueEvent extends React.Component {
     eventHelpers.getEventbyId(this.state.url)
       .then((response) => {
         console.log('response from init page', response.data);
+        console.log('contributions', response.data.toBring.contributions);
         response.data.users.forEach((user) => {
           if (user._pivot_user_id === parseInt(window.localStorage.id, 10)) {
             this.setState({ creatorId: user._pivot_user_id });
           }
         });
-
-        this.setState({ 
+        this.setState({
           eventName: response.data.name,
           description: response.data.description,
           location: response.data.location,
@@ -61,11 +61,11 @@ class UniqueEvent extends React.Component {
           eventId: response.data.id,
           creator_email: response.data.users[0].email,
           creator_name: response.data.users[0].name,
-        }); 
-          
+          contributions: response.data.toBring.contributions,
+        });
         if (this.state.creatorId === parseInt(window.localStorage.id, 10)) {
           this.setState({ editable: true });
-        }       
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -118,6 +118,8 @@ class UniqueEvent extends React.Component {
                   eventName={this.state.eventName}
                   description={this.state.description}
                   location={this.state.location}
+                  date={this.state.date}
+                  time={this.state.time}
                   hostName={this.determineName}
                   setEdit={this.setEdit}
                   sameEmail={this.state.editable}
@@ -125,6 +127,7 @@ class UniqueEvent extends React.Component {
               }
 
             </div>
+            {JSON.stringify(this.state.contributions)}
           </div>
         </div>
       </div>
