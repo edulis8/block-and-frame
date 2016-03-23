@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserInfo from '../components/UserInfo';
 import userHelpers from '../utils/userHelpers';
 import MenuBar from '../components/MenuBar';
+import UserEventList from '../components/UserEventList';
 
 
 class UserProfile extends Component {
@@ -14,6 +15,7 @@ class UserProfile extends Component {
       bio: '',
       location: '',
       isTraveling: null,
+      events: [],
     };
   }
 
@@ -26,6 +28,7 @@ class UserProfile extends Component {
         bio: user.data.bio,
         location: user.data.location,
         isTraveling: user.data.is_traveling,
+        events: user.data.events,
       });
     });
   }
@@ -35,6 +38,7 @@ class UserProfile extends Component {
       <div>
         <MenuBar />
         <UserInfo user={this.state} />
+        <UserEventList events={this.state.events} />
       </div>
     );
   }

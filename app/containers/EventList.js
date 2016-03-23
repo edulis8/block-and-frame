@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Event from '../containers/Event';
+import Event from '../components/EventListItem';
 import MenuBar from '../components/MenuBar';
 
 class EventList extends React.Component {
