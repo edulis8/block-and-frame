@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import browserHistory from 'react-router';
+import axios from 'axios';
 import authHelpers from '../utils/authHelpers';
 import SignupForm from '../components/SignupForm';
-
 
 class Signup extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class Signup extends Component {
     this.state = {
       email: '',
       password: '',
-      showLink: false,
+      error: null,
     };
 
     this.onEmailChange = this.onEmailChange.bind(this);
@@ -33,7 +34,15 @@ class Signup extends Component {
       password: this.state.password,
     };
 
-    authHelpers.signup(user);
+    axios.post('/auth/signup', user)
+    .then((res) => {
+      this.setState({ error: null });
+      authHelpers.storeToken(res.data.token, res.data.id);
+      browserHistory.push('/profile');
+    })
+    .catch((err) => {
+      this.setState({ error: err.data });
+    });
 
     this.setState({ email: '', password: '', showLink: true });
   }
@@ -45,6 +54,7 @@ class Signup extends Component {
   render() {
     return (
       <SignupForm
+        errorMessage={this.state.error}
         email={this.state.email}
         password={this.state.password}
         showLink={this.state.showLink}

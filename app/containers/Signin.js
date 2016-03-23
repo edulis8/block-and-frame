@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import browserHistory from 'react-router';
+import axios from 'axios';
 import authHelpers from '../utils/authHelpers';
 import SigninForm from '../components/SigninForm';
 
@@ -9,6 +11,7 @@ class Signin extends Component {
     this.state = {
       email: '',
       password: '',
+      error: null,
     };
 
     this.onEmailChange = this.onEmailChange.bind(this);
@@ -32,10 +35,17 @@ class Signin extends Component {
       password: this.state.password,
     };
 
-    // sign in with user
-    authHelpers.signin(user);
+    axios.post('/auth/signin', user)
+    .then((res) => {
+      this.setState({ error: null });
+      authHelpers.storeToken(res.data.token, res.data.id);
+      browserHistory.push('/');
+    })
+    .catch((err) => {
+      this.setState({ error: err.data });
+    });
 
-    // clear forms
+    // clear form
     this.setState({ email: '', password: '' });
   }
 
@@ -46,6 +56,7 @@ class Signin extends Component {
   render() {
     return (
       <SigninForm
+        errorMessage={this.state.error}
         email={this.state.email}
         password={this.state.password}
         onEmailChange={this.onEmailChange}
