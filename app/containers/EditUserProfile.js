@@ -1,9 +1,9 @@
 import React from 'react';
 import userHelpers from '../utils/userHelpers';
-// import { Link } from 'react-router';
 import MenuBar from '../components/MenuBar';
-import UserProfileForm from '../components/UserProfileForm';
-import ImageUploadButton from '../components/ImageUploadButton';
+import UserProfileForm from '../components/users/UserProfileForm';
+import ImageUploadButton from '../components/users/ImageUploadButton';
+import EditSuccess from '../components/users/EditSuccess';
 
 // TODO: Confirm profile deletion, msg about success, redirect user to home.
 
@@ -17,6 +17,7 @@ class UserProfile extends React.Component {
       bio: '',
       location: '',
       isTraveling: null,
+      sucess: false,
       // instagram
     };
 
@@ -77,6 +78,7 @@ class UserProfile extends React.Component {
     userHelpers.updateUser(this.state)
     .then((user) => {
       console.log('user after PUT', user);
+      this.setState({ success: true });
     })
     .catch((err) => {
       console.log(err);
@@ -102,7 +104,7 @@ class UserProfile extends React.Component {
       <div className="ui container">
         <MenuBar />
         <h1 className="ui dividing header">
-          Your Profile:
+          Edit Profile:
         </h1>
         <div className="ui raised very padded text container segment">
           <div className="ui container">
@@ -126,6 +128,7 @@ class UserProfile extends React.Component {
               // TODO instagram={this.state.instagram}
               // TODO onInstagramChange={this.onInstagramChange}
             />
+            <EditSuccess success={this.state.success} />
           </div>
         </div>
       </div>
