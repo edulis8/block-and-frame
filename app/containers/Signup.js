@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import browserHistory from 'react-router';
+import { browserHistory } from 'react-router';
 import axios from 'axios';
 import authHelpers from '../utils/authHelpers';
 import SignupForm from '../components/SignupForm';
@@ -29,22 +29,38 @@ class Signup extends Component {
   }
 
   onSignupSubmit() {
-    const user = {
-      email: this.state.email,
-      password: this.state.password,
-    };
+    this.checkInput();
+  }
 
-    axios.post('/auth/signup', user)
+  checkInput() {
+    const email = this.state.email;
+    const password = this.state.password;
+    const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    let error = '';
+
+    if (!emailRegex.test(email)) {
+      error += 'Please enter a valid email address.\n ';
+    }
+    if (!password.length) {
+      error += 'Please enter a password.\n ';
+    }
+    if (password.length < 6) {
+      error += 'Password must be at least 6 characters.\n ';
+    }
+
+    error ? this.setState({ error }) : this.handleSubmit(email, password);
+  }
+
+  handleSubmit(email, password) {
+    axios.post('/auth/signup', { email, password })
     .then((res) => {
-      this.setState({ error: null });
+      this.setState({ error: null, email: '', password: '' });
       authHelpers.storeToken(res.data.token, res.data.id);
       browserHistory.push('/profile');
     })
     .catch((err) => {
-      this.setState({ error: err.data });
+      this.setState({ error: err.data, email: '', password: '' });
     });
-
-    this.setState({ email: '', password: '', showLink: true });
   }
 
   preventDefaultSubmit(e) {

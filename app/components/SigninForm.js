@@ -7,6 +7,12 @@ const SigninForm = (props) => {
     <div>
       <div className="ui centered padded container raised segment">
         <h1 className="ui header center aligned">Spread Out</h1>
+        <div className="ui attached message">
+          <div className="header">
+            Welcome back!
+          </div>
+          <p>Sign in to Spread Out.</p>
+        </div>
         <form
           className="ui form attached fluid segment signin"
           onSubmit={props.preventDefaultSubmit}
