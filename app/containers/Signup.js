@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import authHelpers from '../utils/authHelpers';
-import SignupForm from '../components/SignupForm';
+import SignupForm from '../components/auth/SignupForm';
 
 class Signup extends Component {
   constructor(props) {

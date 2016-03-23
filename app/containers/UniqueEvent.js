@@ -1,7 +1,7 @@
 import React from 'react';
 import eventHelpers from '../utils/eventHelpers';
-import UniqueEventEdit from '../components/UniqueEventEdit';
-import UniqueEventView from '../components/UniqueEventView';
+import UniqueEventEdit from '../components/events/UniqueEventEdit';
+import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
 
 class UniqueEvent extends React.Component {

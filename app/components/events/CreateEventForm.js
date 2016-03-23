@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ToBringList from '../components/ToBringList';
+import ToBringList from './ToBringList';
 
 class CreateEventForm extends Component {
   render() {

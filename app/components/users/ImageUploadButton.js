@@ -1,5 +1,5 @@
 import React from 'react';
-import Uploader from '../components/Uploader';
+import Uploader from './Uploader';
 
 class ImageUploadButton extends React.Component {
   constructor(props) {

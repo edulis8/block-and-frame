@@ -10,7 +10,7 @@ const MenuBar = () => {
       className="item"
       to={'/events'}
     >
-      <i className="big world icon"></i>
+      <i className="big world icon" />
       <b>
         Spread Out
       </b>
@@ -19,38 +19,42 @@ const MenuBar = () => {
       className="item"
       to={'/events'}
     >
-        <i className="users icon"></i>
+        <i className="users icon" />
         View Spreads
     </Link>
     <Link
       className="item"
       to={'/eventcreate'}
     >
-      <i className="spoon icon"></i>
+      <i className="spoon icon" />
       Host A Spread
     </Link>
     <div className="ui simple dropdown right vertical item">
-      <Link to={'/profile'}>
         My Account
-      </Link>
-      <i className="dropdown icon"></i>
+      <i className="dropdown icon" />
       <div className="menu">
+        <Link
+          className="item"
+          to={'/profile'}
+        >
+          <i className="food icon" />
+          Dashboard
+        </Link>
         <Link
           className="item"
           to={'/editprofile'}
         >
-            <i className="edit icon"></i>
-            Edit Profile
+          <i className="edit icon" />
+          Edit Profile
         </Link>
-        <a className="item"><i className="food icon"></i> My Spreads</a>
-        <a className="item"><i className="mail icon"></i> Messages</a>
-        <a className="item"><i className="settings icon"></i> Account Settings</a>
+        <a className="item"><i className="mail icon" /> Messages</a>
+        <a className="item"><i className="settings icon" /> Account Settings</a>
         <Link
           className="item"
           to={'/signin'}
           onClick={authHelpers.logout}
         >
-          <i className="sign out icon"></i>
+          <i className="sign out icon" />
            Log Out
         </Link>
       </div>

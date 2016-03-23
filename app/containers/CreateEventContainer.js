@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import eventHelpers from '../utils/eventHelpers';
 import MenuBar from '../components/MenuBar';
-import CreateEventForm from '../components/CreateEventForm';
+import CreateEventForm from '../components/events/CreateEventForm';
 
 class CreateEvent extends Component {
   constructor(props) {
