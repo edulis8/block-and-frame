@@ -33,6 +33,7 @@ class CreateEventForm extends Component {
             <div>
               <label>Date:</label>
               <input
+                required
                 type="date"
                 className="date-input"
                 value={this.props.date}
@@ -42,6 +43,7 @@ class CreateEventForm extends Component {
               <div>
                 <label>Time:</label>
                 <input
+                  required
                   type="time"
                   className="time-input"
                   value={this.props.time}
