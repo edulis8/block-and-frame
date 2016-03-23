@@ -53,6 +53,26 @@ const eventHelpers = {
       console.log(error);
     });
   },
+
+  joinEvent(eventId) {
+    const token = window.localStorage.getItem('token');
+    const userId = window.localStorage.getItem('id');
+    return axios({
+      url: `api/events/join/${eventId}`,
+      method: 'put',
+      data: {
+        userId,
+        // TODO include contributions ?
+      },
+      headers: { Authorization: token },
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  },
 };
 
 export default eventHelpers;

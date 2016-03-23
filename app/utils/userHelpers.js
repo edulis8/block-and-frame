@@ -3,9 +3,9 @@ import axios from 'axios';
 const userHelpers = {
   getCurrentUserData() {
     const token = window.localStorage.getItem('token');
-    const userID = window.localStorage.getItem('id');
+    const userId = window.localStorage.getItem('id');
     return axios({
-      url: `/api/users/${userID}`,
+      url: `/api/users/${userId}`,
       method: 'get',
       headers: { Authorization: token },
     });

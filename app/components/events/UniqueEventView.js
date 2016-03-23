@@ -1,4 +1,5 @@
 import React from 'react';
+import JoinEventButton from './JoinEventButton';
 
 const UniqueEventView = (props) => {
   return (
@@ -29,7 +30,7 @@ const UniqueEventView = (props) => {
               Edit your spread!
             </button>
           :
-            null
+            <JoinEventButton eventId={props.eventId} />
           }
 
         </div>

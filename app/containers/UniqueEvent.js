@@ -43,12 +43,14 @@ class UniqueEvent extends React.Component {
     eventHelpers.getEventbyId(this.state.url)
       .then((response) => {
         console.log('response from init page', response.data);
-        this.setState({ eventName: response.data.name,
+        this.setState({
+          eventName: response.data.name,
           description: response.data.description,
           location: response.data.location,
           eventId: response.data.id,
           creator_email: response.data.users[0].email,
-          creator_name: response.data.users[0].name });
+          creator_name: response.data.users[0].name,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -103,6 +105,7 @@ class UniqueEvent extends React.Component {
                 />
                  :
                 <UniqueEventView
+                  eventId={this.state.url}
                   eventName={this.state.eventName}
                   description={this.state.description}
                   location={this.state.location}
