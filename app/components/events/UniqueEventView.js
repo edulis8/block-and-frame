@@ -1,7 +1,7 @@
 import React from 'react';
 import JoinEventButton from './JoinEventButton';
 import moment from 'moment';
-import MapView from '../events/GoogleMap';
+import MapView from '../events/MapView';
 
 
 const UniqueEventView = (props) => {
@@ -40,12 +40,6 @@ const UniqueEventView = (props) => {
               contributions={props.contributions}
             />
           }
-          
-          <MapView 
-            markers={props.markers}
-            handleMapClick={props.handleMapClick}
-            handleMarkerRightClick={props.handleMarkerRightClick}
-          />
           
     </div>
   );
