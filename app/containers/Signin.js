@@ -41,7 +41,7 @@ class Signin extends Component {
     .then((res) => {
       this.setState({ error: null });
       authHelpers.storeToken(res.data.token, res.data.id);
-      browserHistory.push('/');
+      browserHistory.push('/events');
     })
     .catch((err) => {
       this.setState({ error: err.data });

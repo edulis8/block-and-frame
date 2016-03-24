@@ -2,7 +2,6 @@ import React from 'react';
 import JoinEventButton from './JoinEventButton';
 import moment from 'moment';
 
-
 const UniqueEventView = (props) => {
   return (
     <div className="ui items">

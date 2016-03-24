@@ -3,7 +3,7 @@ import React from 'react';
 const UniqueEventEdit = (props) => {
   return (
     <div className="container">
-      <div className="ui small form">
+      <form className="ui small form" id="eventEdit">
         <div className="two fields">   
         
           <div className="field">
@@ -11,6 +11,7 @@ const UniqueEventEdit = (props) => {
             <div className="ui left input">
               <input
                 type="text"
+                className="eventName"
                 value={props.eventName}
                 placeholder={props.eventName}
                 onChange={props.editState}
@@ -23,6 +24,7 @@ const UniqueEventEdit = (props) => {
             <div className="ui left input">
               <input
                 type="text"
+                className="location"
                 value={props.location}
                 placeholder={props.location}
                 onChange={props.editState}
@@ -36,6 +38,7 @@ const UniqueEventEdit = (props) => {
           <div className="ui left input">
             <textarea
               rows="3"
+              className="description"
               value={props.description}
               placeholder={props.description}
               onChange={props.editState}
@@ -46,10 +49,12 @@ const UniqueEventEdit = (props) => {
         <div
           className="ui tiny submit button"
           onClick={props.setEdit}
-        >Save Changes
+        >
+          <i className="icon save"></i>
+          Save Changes
         </div>
       
-      </div>  
+      </form>  
     </div>
   );
 };
