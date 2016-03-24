@@ -54,6 +54,8 @@ const eventHelpers = {
     });
   },
 
+  // wrap blobSender and joinEvent in third function
+
   joinEvent(eventId) {
     const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('id');

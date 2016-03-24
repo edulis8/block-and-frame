@@ -5,23 +5,33 @@ import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
 
-
-const Contribution = ({ bringer, item, notes, index, onCheckBoxClick }) => (
-  <li>Contribution {index}
-    <ul>
-      <li>{item}</li>
-      <li>{notes}</li>
-      <li>{bringer || 
-        <p>Bring it-->  
-          <input 
-            type="checkbox"
-            onChange={onCheckBoxClick}
-          />
-        </p> }
+class Contribution extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onCheckBoxClick = this._onCheckBoxClick.bind(this);
+  }
+  _onCheckBoxClick(e) {
+    this.props.onCheckBoxClick(e, this.props.index);
+  }
+  render() {
+    return (
+      <li>Contribution {this.props.index}
+        <ul>
+          <li>{this.props.item}</li>
+          <li>{this.props.notes}</li>
+          <li>{this.props.bringer || 
+            <p>Bring it-->  
+              <input 
+                type="checkbox"
+                onChange={this._onCheckBoxClick}
+              />
+            </p> }
+          </li>
+        </ul>
       </li>
-    </ul>
-  </li>
-);
+    );
+  }
+} 
 
 const ContributionList = ({ contributions, onCheckBoxClick }) => (
   <ul>
@@ -29,7 +39,7 @@ const ContributionList = ({ contributions, onCheckBoxClick }) => (
       <Contribution
         key={index}
         {...contrib}
-        onCheckBoxClick = {onCheckBoxClick}
+        onCheckBoxClick={onCheckBoxClick}
       />
     )}
   </ul>
@@ -68,6 +78,8 @@ class UniqueEvent extends React.Component {
     this.saveEventChanges = this.saveEventChanges.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
+    this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
+
   }
 
   componentDidMount() {
@@ -81,9 +93,13 @@ class UniqueEvent extends React.Component {
     this.setState({ showEdit: !this.state.showEdit });
   }
 
-  handleCheckBoxClick(e) {
-    console.log('hi')
+  handleCheckBoxClick(e, index) {
+    console.log('index', index)
     console.log(e.target.value);
+    //console.log(this.state.contributions)
+    
+    console.log(this.state.contributions[index])
+
   }
 
   initializePage() {
