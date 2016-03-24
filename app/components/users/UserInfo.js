@@ -15,6 +15,17 @@ const UserInfo = ({ user }) => {
             <i className="marker icon" />
             {user.location}
           </div>
+          <div className="meta">
+            <i className="road icon" />
+            {
+              user.isTraveling ? 'Currently Traveling' : 'Not Traveling'
+            }
+          </div>
+        </div>
+      </div>
+      <div className="ui card">
+        <div className="content">
+        {user.bio || `${(user.username || user.email)} hasnt filled out thier bio`}
         </div>
       </div>
     </div>
