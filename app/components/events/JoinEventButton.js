@@ -5,14 +5,13 @@ import eventHelpers from '../../utils/eventHelpers';
 class JoinEventButton extends Component {
   constructor(props) {
     super(props);
-
-    this.onJoinEvent = this.onJoinEvent.bind(this);
+    this.onJoinEventWithContributions = this.onJoinEventWithContributions.bind(this);
   }
 
-  onJoinEvent(e) {
+  onJoinEventWithContributions(e) {
     e.preventDefault();
     console.log('Here');
-    eventHelpers.joinEvent(this.props.eventId);
+    eventHelpers.joinEventWithContributions(this.props.eventId, this.props.contributions);
   }
 
   render() {
@@ -20,7 +19,7 @@ class JoinEventButton extends Component {
       <div className="ui container">
         <button
           className="ui button"
-          onClick={this.onJoinEvent}
+          onClick={this.onJoinEventWithContributions}
         >
           Join Spread!
         </button>

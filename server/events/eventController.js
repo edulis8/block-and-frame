@@ -79,7 +79,6 @@ const eventController = {
   },
 
   editEvent(req, res) {
-    console.log('REQ.PARAMS ', req.params);
     Event.fetchAndPopulate({ id: req.params.eventId })
     .then((event) => {
       if (!event) {
