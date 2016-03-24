@@ -114,6 +114,13 @@ module.exports = {
       res.status(500).send(err);
     });
   },
+
+  saveAvatar(req, res) {
+    const id = req.body.id;
+    const avatarUrl = req.body.url;
+    console.log('id: ', id, 'url: ', avatarUrl);
+    // save avatarUrl to the user
+  },
 };
 // to test edit
 // curl -H "Content-Type: application/json" -X PUT -d '{"password":"abddf"}' http://localhost:8080/api/users/2
