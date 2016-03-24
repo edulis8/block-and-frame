@@ -40,6 +40,7 @@ class UniqueEvent extends React.Component {
   componentDidMount() {
     this.initializePage();
   }
+
   setEdit() {
     if (this.state.showEdit) {
       this.saveEventChanges();

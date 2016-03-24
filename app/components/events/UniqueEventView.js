@@ -1,7 +1,8 @@
 import React from 'react';
 import JoinEventButton from './JoinEventButton';
-// *TODO: use props.markers[0].position.lat and props.markers[0].position.lng as defaultCenter
 import moment from 'moment';
+import MapView from '../events/MapView';
+
 
 const UniqueEventView = (props) => {
   return (
@@ -39,6 +40,7 @@ const UniqueEventView = (props) => {
               contributions={props.contributions}
             />
           }
+          
     </div>
   );
 };
