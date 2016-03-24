@@ -134,7 +134,6 @@ class CreateEvent extends Component {
     console.log('here in rightclick');
     console.log(event);
     let { markers } = this.state;
-    console.log('here');
     markers = update(markers, {
       $splice: [
         [index, 1],

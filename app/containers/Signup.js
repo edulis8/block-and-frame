@@ -56,7 +56,8 @@ class Signup extends Component {
     .then((res) => {
       this.setState({ error: null, email: '', password: '' });
       authHelpers.storeToken(res.data.token, res.data.id);
-      browserHistory.push('/profile');
+      // after signup user should be able to fill out more info first
+      browserHistory.push('/editprofile');
     })
     .catch((err) => {
       this.setState({ error: err.data, email: '', password: '' });

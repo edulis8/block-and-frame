@@ -153,7 +153,7 @@ class UniqueEvent extends React.Component {
       <br />
       <div className="ui two column stackable grid container">
         <div className="sixteen wide column"><br /></div>
-          <div className="six wide column">
+          <div className="five wide column">
             {/* TODO: reuse UserInfo component here */}
             <div className="ui card">
               <div className="image">
