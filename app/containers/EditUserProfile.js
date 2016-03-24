@@ -133,7 +133,6 @@ class UserProfile extends React.Component {
               onDeleteUser={this.handleDeleteUser}
               onProfileSubmit={this.handleProfileSubmit}
               preventDefaultSubmit={this.preventDefaultSubmit}
-              google={this.state.google}
               // TODO instagram={this.state.instagram}
               // TODO onInstagramChange={this.onInstagramChange}
             />

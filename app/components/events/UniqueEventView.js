@@ -3,6 +3,7 @@ import JoinEventButton from './JoinEventButton';
 import moment from 'moment';
 import MapView from '../events/GoogleMap';
 
+
 const UniqueEventView = (props) => {
   return (
     <div className="ui items">
