@@ -10,10 +10,12 @@ class Contribution extends Component {
   }
   render() {
     /* have access to this.props.index to get more info */
-    const message = this.props.bringer ? 'You\'re bringing this!' : null;
+    const message = this.props.bringer ? 'someones got this!' : null;
     return (
       <div className="card">
         <div className="content">
+          {
+            !this.props.bringer ? 
               <div className="right floated ui fitted checkbox">
                 <input 
                   type="checkbox"
@@ -21,6 +23,9 @@ class Contribution extends Component {
                 />
                 <label></label>
               </div>
+            :
+              null
+            }
           <h4 className="left floated ui sub header">{this.props.item}</h4>
           { /* If there is a note, provide a note section */
             this.props.notes && <div>

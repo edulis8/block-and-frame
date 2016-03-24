@@ -108,6 +108,7 @@ class CreateEvent extends Component {
     this.setState({
       toBring: updated,
     });
+    console.log(this.state);
   }
 
   // adds markers to map when map is left clicked
@@ -131,6 +132,7 @@ class CreateEvent extends Component {
   // removes marker from map when marker is right clicked
   handleMarkerRightClick(index, event) {
     console.log('here in rightclick');
+    console.log(event);
     let { markers } = this.state;
     console.log('here');
     markers = update(markers, {

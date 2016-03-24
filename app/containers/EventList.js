@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Event from '../components/events/EventListItem';
 import MenuBar from '../components/MenuBar';
+import SearchBar from '../components/SearchBar';
 
 class EventList extends React.Component {
   constructor(props) {
@@ -9,7 +10,10 @@ class EventList extends React.Component {
 
     this.state = {
       data: [],
+      filtered: [],
     };
+
+    this.updateFiltered = this.updateFiltered.bind(this);
   }
 
   // TODO: factor out request into eventHelpers
@@ -20,26 +24,24 @@ class EventList extends React.Component {
       headers: { Authorization: localStorage.getItem('token') },
     })
     .then((response) => {
-      console.log('EVENLISTDATA', response.data);
-      this.setState({ data: response.data });
+      this.setState({
+        data: response.data,
+        filtered: response.data,
+      });
     })
     .catch((error) => {
       console.log(error);
     });
   }
 
+  updateFiltered(filtered) {
+    this.setState({
+      filtered,
+    });
+  }
+
   render() {
-    if (this.state.data.length === 0) {
-      return (
-        <div>
-          <MenuBar />
-          <div>
-            No events found.
-          </div>
-        </div>
-      );
-    }
-    const eventNodes = this.state.data.map((event) => {
+    const eventNodes = this.state.filtered.map((event) => {
       return (
         <Event
           key={event.id}
@@ -49,9 +51,7 @@ class EventList extends React.Component {
           id={event.id}
           creator_name={event.users[0] ? event.users[0].username : 'Anonymous' }
           creator_email={event.users[0] ? event.users[0].email : ''}
-        >
-        .
-        </Event>
+        />
       );
     });
     return (
@@ -60,9 +60,13 @@ class EventList extends React.Component {
         <br />
         <div className="ui container">
           <h1 className="ui dividing header">Local Spreads</h1>
+          <SearchBar
+            items={this.state.data}
+            updateFiltered={this.updateFiltered}
+          />
         </div>
         <div className="ui segment">
-          {eventNodes}
+          {eventNodes.length === 0 ? 'No events found :(' : eventNodes}
         </div>
       </div>
     );

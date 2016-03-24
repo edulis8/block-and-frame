@@ -16,14 +16,12 @@ class JoinEventButton extends Component {
 
   render() {
     return (
-      <div className="ui container">
-        <button
-          className="ui button"
-          onClick={this.onJoinEventWithContributions}
-        >
-          Join Spread!
-        </button>
-      </div>
+      <button
+        className="ui button"
+        onClick={this.onJoinEventWithContributions}
+      >
+        Join Spread!
+      </button>
     );
   }
 }
