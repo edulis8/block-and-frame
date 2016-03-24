@@ -21,7 +21,8 @@ const eventController = {
   },
 
   getEventbyId(req, res) {
-    Event.fetchAndPopulate({ id: req.userId || req.params.eventId })
+    // main use is req.params.evenId
+    Event.fetchAndPopulate({ id: req.eventId || req.params.eventId })
     .then((event) => {
       if (!event) {
         res.sendStatus(404);
@@ -59,7 +60,10 @@ const eventController = {
       })
       .then((pivotStatus) => {
         if (pivotStatus.add) {
-          req.userId = event.id;
+          // assign 
+          req.eventId = event.id;
+          // reuse same function to get same event again
+          // to an event with the user relations populated
           eventController.getEventbyId(req, res, next);
         } else {
           res.status(500).send(pivotStatus);
@@ -75,7 +79,6 @@ const eventController = {
   },
 
   editEvent(req, res) {
-    console.log('REQ.PARAMS ', req.params);
     Event.fetchAndPopulate({ id: req.params.eventId })
     .then((event) => {
       if (!event) {

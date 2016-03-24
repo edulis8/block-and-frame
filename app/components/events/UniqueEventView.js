@@ -1,8 +1,8 @@
 import React from 'react';
 import JoinEventButton from './JoinEventButton';
-// import moment from 'moment'; results in moment not being defined
 import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
-//*TODO: use props.markers[0].position.lat and props.markers[0].position.lng as defaultCenter
+// *TODO: use props.markers[0].position.lat and props.markers[0].position.lng as defaultCenter
+import moment from 'moment';
 
 const UniqueEventView = (props) => {
   return (
@@ -14,11 +14,11 @@ const UniqueEventView = (props) => {
           </div>
 
           <div className="date">
-            Date: {props.date}
+            Date: {moment(props.date).format('MMM Do YYYY')}
           </div>
-
+ 
           <div className="time">
-            Time: {props.time}
+            Time: {moment(props.time, ['H:mm']).format('hh:mm A')}
           </div>
 
           <div className="location">
@@ -41,7 +41,10 @@ const UniqueEventView = (props) => {
               Quick edit
             </button>
           :
-            <JoinEventButton eventId={props.eventId} />
+            <JoinEventButton
+              eventId={props.eventId} 
+              contributions={props.contributions}
+            />
           }
 
           <GoogleMapLoader

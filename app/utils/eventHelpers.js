@@ -53,7 +53,26 @@ const eventHelpers = {
       console.log(error);
     });
   },
-
+  // wrap blobSender and joinEvent in third function
+  joinEventWithContributions(eventId, contributions) {
+    eventHelpers.joinEvent(eventId);
+    eventHelpers.contributionsSave(contributions, eventId);
+  },
+  contributionsSave(contributionsArray, eventId) {
+    const token = window.localStorage.getItem('token');
+    return axios({
+      url: `api/events/${eventId}`,
+      method: 'put',
+      data: { toBring: { contributions: contributionsArray } },
+      headers: { Authorization: token },
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  },
   joinEvent(eventId) {
     const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('id');

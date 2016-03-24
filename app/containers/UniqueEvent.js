@@ -4,24 +4,7 @@ import eventHelpers from '../utils/eventHelpers';
 import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
-
-
-const Contribution = ({ bringer, item, notes, index, onCheckBoxClick }) => (
-  <li>Contribution {index}
-    <ul>
-      <li>{item}</li>
-      <li>{notes}</li>
-      <li>{bringer || 
-        <p>Bring it-->  
-          <input 
-            type="checkbox"
-            onChange={onCheckBoxClick}
-          />
-        </p> }
-      </li>
-    </ul>
-  </li>
-);
+import Contribution from '../components/events/ContributionListItem';
 
 const ContributionList = ({ contributions, onCheckBoxClick }) => (
   <ul>
@@ -29,7 +12,7 @@ const ContributionList = ({ contributions, onCheckBoxClick }) => (
       <Contribution
         key={index}
         {...contrib}
-        onCheckBoxClick = {onCheckBoxClick}
+        onCheckBoxClick={onCheckBoxClick}
       />
     )}
   </ul>
@@ -68,6 +51,7 @@ class UniqueEvent extends React.Component {
     this.saveEventChanges = this.saveEventChanges.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
+    this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
   }
 
   componentDidMount() {
@@ -81,19 +65,20 @@ class UniqueEvent extends React.Component {
     this.setState({ showEdit: !this.state.showEdit });
   }
 
-  handleCheckBoxClick(e) {
-    console.log('hi')
-    console.log(e.target.value);
+  handleCheckBoxClick(e, index) {
+    // toggle 'bringer' to be user id or null 
+    if (this.state.contributions[index].bringer === null) {
+      this.state.contributions[index].bringer = window.localStorage.id;
+    } else {
+      this.state.contributions[index].bringer = null;
+    }
   }
-
   initializePage() {
     eventHelpers.getEventbyId(this.state.url)
       .then((response) => {
         console.log('response from init page', response.data);
-        console.log('contributions', response.data.toBring.contributions);
-
         response.data.users.forEach((user) => {
-          if (user._pivot_user_id === parseInt(window.localStorage.id, 10)) {
+          if (user._pivot_user_id === Number(window.localStorage.id)) {
             this.setState({ creatorId: user._pivot_user_id });
           }
         });
@@ -108,9 +93,10 @@ class UniqueEvent extends React.Component {
           creator_name: response.data.users[0].name,
           contributions: response.data.toBring.contributions,
         });
-        if (this.state.creatorId === parseInt(window.localStorage.id, 10)) {
+        if (this.state.creatorId === Number(window.localStorage.id)) {
           this.setState({ editable: true });
         }
+        console.log('outer', this.state.contributions)
       })
       .catch((error) => {
         console.log(error);
@@ -198,6 +184,7 @@ class UniqueEvent extends React.Component {
                   location={this.state.location}
                   date={this.state.date}
                   time={this.state.time}
+                  contributions={this.state.contributions}
                   hostName={this.determineName}
                   setEdit={this.setEdit}
                   sameEmail={this.state.editable}
