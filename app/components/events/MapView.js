@@ -10,7 +10,7 @@ const MapView = (props) => {
             {...props}
             style={{
               height: '250px',
-              width: '250px',
+              width: '100%',
             }}
           />
         }
