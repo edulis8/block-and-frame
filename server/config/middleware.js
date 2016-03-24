@@ -23,6 +23,9 @@ module.exports = (app, express) => {
     app.use(morgan('dev'));
   }
 
+  // testing S3
+  require('./s3');
+
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 

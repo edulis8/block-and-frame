@@ -7,6 +7,7 @@ class ImageUploadButton extends React.Component {
     this.state = {
       showUploader: false,
     };
+
     this.handleClick = this.handleClick.bind(this);
   }
 

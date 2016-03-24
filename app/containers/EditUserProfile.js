@@ -28,6 +28,7 @@ class UserProfile extends React.Component {
     this.onBioChange = this.onBioChange.bind(this);
     this.onTravelingChange = this.onTravelingChange.bind(this);
     this.handleProfileSubmit = this.handleProfileSubmit.bind(this);
+    this.handleImageSubmit = this.handleImageSubmit.bind(this);
     this.handleDeleteUser = this.handleDeleteUser.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
     // this.onInstagramChange = this.onBioChange.bind(this);
@@ -85,6 +86,10 @@ class UserProfile extends React.Component {
     });
   }
 
+  handleImageSubmit() {
+
+  }
+
   handleDeleteUser() {
     userHelpers.deleteUser().
     then((info) => {
@@ -108,7 +113,9 @@ class UserProfile extends React.Component {
         </h1>
         <div className="ui raised very padded text container segment">
           <div className="ui container">
-            <ImageUploadButton />
+            <ImageUploadButton
+              onImageSubmit={this.handleImageSubmit}
+            />
             <UserProfileForm
               username={this.state.username}
               email={this.state.email}

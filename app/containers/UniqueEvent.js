@@ -4,25 +4,8 @@ import eventHelpers from '../utils/eventHelpers';
 import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
-import Contribution from '../components/events/ContributionListItem';
-
-const ContributionList = ({ contributions, onCheckBoxClick }) => (
-  <ul>
-    {contributions.map((contrib, index) =>
-      <Contribution
-        key={index}
-        {...contrib}
-        onCheckBoxClick={onCheckBoxClick}
-      />
-    )}
-  </ul>
-);
-// Above, the ...spread operater is used instead of:
-// bringer={contrib.bringer}
-// item={contrib.item}
-// notes={contrib.notes}
-// index={contrib.index}
-
+import MapView from '../components/events/MapView';
+import ContributionList from '../components/events/ContributionList';
 
 class UniqueEvent extends React.Component {
   constructor(props) {
@@ -90,13 +73,13 @@ class UniqueEvent extends React.Component {
           time: response.data.time,
           eventId: response.data.id,
           creator_email: response.data.users[0].email,
-          creator_name: response.data.users[0].name,
+          creator_name: response.data.users[0].username,
           contributions: response.data.toBring.contributions,
         });
         if (this.state.creatorId === Number(window.localStorage.id)) {
           this.setState({ editable: true });
         }
-        console.log('outer', this.state.contributions)
+        console.log('outer', this.state.contributions);
       })
       .catch((error) => {
         console.log(error);
@@ -147,7 +130,7 @@ class UniqueEvent extends React.Component {
 
   // removes marker from map when marker is right clicked
   handleMarkerRightClick(index, event) {
-    console.log('here in rightclick');
+    console.log('here in rightclick', event);
     let { markers } = this.state;
     console.log('here');
     markers = update(markers, {
@@ -162,12 +145,29 @@ class UniqueEvent extends React.Component {
   render() {
     this.state.contributions = this.state.contributions || [];
     return (
-      <div>
-        <MenuBar />
-        <div className="ui massive relaxed list">
-          <div className="item">
-            <div className="ui very padded text container segment">
-
+    <div>
+      <MenuBar />
+      <div className="ui two column stackable grid container">
+        <div className="sixteen wide column"><br /></div>
+          <div className="six wide column">
+            {/* TODO: reuse UserInfo component here */}
+            <div className="ui card">
+              <div className="image">
+                <img className="ui tiny circular right floated image" src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
+              </div>
+              <div className="ui header">
+                Hosted by {this.determineName()}
+              </div>
+              <p>Host profile info here</p>
+            </div>
+            <MapView 
+              markers={this.state.markers}
+              handleMapClick={this.handleMapClick}
+              handleMarkerRightClick={this.handleMarkerRightClick}
+            />
+          </div>
+          <div className="ten wide column">
+            <div className="ui segment">
               {this.state.showEdit ?
                 <UniqueEventEdit
                   eventName={this.state.eventName}
@@ -185,22 +185,16 @@ class UniqueEvent extends React.Component {
                   date={this.state.date}
                   time={this.state.time}
                   contributions={this.state.contributions}
-                  hostName={this.determineName}
                   setEdit={this.setEdit}
                   sameEmail={this.state.editable}
-                  markers={this.state.markers}
-                  handleMapClick={this.handleMapClick}
-                  handleMarkerRightClick={this.handleMarkerRightClick}
                 />
               }
-              <h3 className="ui header">
-                Please bring for this spread:
-              </h3>
-              <ContributionList 
-                contributions = {this.state.contributions}
-                onCheckBoxClick = {this.handleCheckBoxClick}
-              />
             </div>
+
+            <ContributionList
+              contributions = {this.state.contributions}
+              onCheckBoxClick = {this.handleCheckBoxClick}
+            />
           </div>
         </div>
       </div>
