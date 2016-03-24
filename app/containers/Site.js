@@ -11,7 +11,7 @@ class Site extends React.Component {
 
   render() {
     return (
-      <div className="ui container">
+      <div>
         {this.props.children}
       </div>
     );

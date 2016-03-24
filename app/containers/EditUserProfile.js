@@ -106,11 +106,13 @@ class UserProfile extends React.Component {
 
   render() {
     return (
-      <div className="ui container">
+      <div>
         <MenuBar />
-        <h1 className="ui dividing header">
-          Edit Profile:
-        </h1>
+        <div className="ui container">
+          <h1 className="ui dividing header">
+            Edit Profile:
+          </h1>
+        </div>
         <div className="ui raised very padded text container segment">
           <div className="ui container">
             <ImageUploadButton

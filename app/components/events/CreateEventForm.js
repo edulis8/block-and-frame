@@ -63,21 +63,15 @@ class CreateEventForm extends Component {
             </div>
 
           <div className="inline fields">
-            <div className="fourteen wide field">
-              <button
-                className="to-bring-button ui icon button one wide"
-                onClick={this.props.onToBringAdd}
-              >
-                <i className="plus square icon"></i>
-              </button>
-              <label>
-                Contributions:
-              </label>
-            </div>
-            <div className="two wide field">
-              <label>
-                You'll bring:
-              </label>
+            <div >
+              <div className="ui container">
+                <button
+                  className="to-bring-button ui icon button one wide"
+                  onClick={this.props.onToBringAdd}
+                >
+                  <i className="plus square icon"></i>What should people bring?
+                </button>
+              </div>
             </div>
           </div>
 
@@ -89,11 +83,11 @@ class CreateEventForm extends Component {
               onBringerChange={this.props.onBringerChange}
             />
           </div>
-
+         
           <button
             className="ui button"
             onClick={this.props.onEventSubmit}
-          >Create!
+          >Create the Spread!
           </button>
         </form>
       </div>
