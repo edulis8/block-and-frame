@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import update from 'react-addons-update';
 import eventHelpers from '../utils/eventHelpers';
 import MenuBar from '../components/MenuBar';
 import CreateEventForm from '../components/events/CreateEventForm';
@@ -15,6 +16,7 @@ class CreateEvent extends Component {
       toBring: [],
       date: new Date(),
       time: '',
+      markers: [],
     };
 
     this.onNameChange = this.onNameChange.bind(this);
@@ -29,6 +31,8 @@ class CreateEvent extends Component {
     this.onNotesChange = this.onNotesChange.bind(this);
     this.onBringerChange = this.onBringerChange.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
+    this.handleMapClick = this.handleMapClick.bind(this);
+    this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
   }
 
   onNameChange(e) {
@@ -106,6 +110,37 @@ class CreateEvent extends Component {
     });
   }
 
+  // adds markers to map when map is left clicked
+  handleMapClick(event) {
+    if (this.state.markers.length === 1) {
+      return;
+    }
+    let { markers } = this.state;
+    markers = update(markers, {
+      $push: [
+        {
+          position: event.latLng,
+          defaultAnimation: 2,
+          key: Date.now(),
+        },
+      ],
+    });
+    this.setState({ markers });
+  }
+
+  // removes marker from map when marker is right clicked
+  handleMarkerRightClick(index, event) {
+    console.log('here in rightclick');
+    let { markers } = this.state;
+    console.log('here');
+    markers = update(markers, {
+      $splice: [
+        [index, 1],
+      ],
+    });
+    this.setState({ markers });
+  }
+
   preventDefaultSubmit(e) {
     e.preventDefault();
   }
@@ -125,6 +160,7 @@ class CreateEvent extends Component {
           time={this.state.time}
           description={this.state.description}
           toBring={this.state.toBring}
+          markers={this.state.markers}
           onNameChange={this.onNameChange}
           onLocationChange={this.onLocationChange}
           onDescriptionChange={this.onDescriptionChange}
@@ -136,6 +172,8 @@ class CreateEvent extends Component {
           preventDefaultSubmit={this.preventDefaultSubmit}
           onDateChange={this.onDateChange}
           onTimeChange={this.onTimeChange}
+          handleMapClick={this.handleMapClick}
+          handleMarkerRightClick={this.handleMarkerRightClick}
         />
       </div>
     );

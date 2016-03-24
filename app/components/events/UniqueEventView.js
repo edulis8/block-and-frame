@@ -1,7 +1,7 @@
 import React from 'react';
 import JoinEventButton from './JoinEventButton';
-// *TODO: use props.markers[0].position.lat and props.markers[0].position.lng as defaultCenter
 import moment from 'moment';
+import MapView from '../events/GoogleMap';
 
 const UniqueEventView = (props) => {
   return (
@@ -39,6 +39,13 @@ const UniqueEventView = (props) => {
               contributions={props.contributions}
             />
           }
+          
+          <MapView 
+            markers={props.markers}
+            handleMapClick={props.handleMapClick}
+            handleMarkerRightClick={props.handleMarkerRightClick}
+          />
+          
     </div>
   );
 };
