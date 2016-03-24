@@ -11,6 +11,15 @@ const userHelpers = {
     });
   },
 
+  getAnyUserById(userId) {
+    const token = window.localStorage.getItem('token');
+    return axios({
+      url: `/api/users/${userId}`,
+      method: 'get',
+      headers: { Authorization: token },
+    });
+  },
+
   updateUser(stateAsUserUpdates) {
     const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('id');
