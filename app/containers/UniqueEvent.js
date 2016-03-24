@@ -163,12 +163,29 @@ class UniqueEvent extends React.Component {
   render() {
     this.state.contributions = this.state.contributions || [];
     return (
-      <div>
-        <MenuBar />
-        <div className="ui massive relaxed list">
-          <div className="item">
-            <div className="ui very padded text container segment">
-
+    <div>
+      <MenuBar />
+      <div className="ui two column stackable grid container">
+        <div className="sixteen wide column"><br /></div>
+          <div className="six wide column">
+            {/* TODO: reuse UserInfo component here */}
+            <div className="ui card">
+              <div className="image">
+                <img className="ui tiny circular right floated image" src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
+              </div>
+              <div className="ui header">
+                Hosted by {this.determineName}
+              </div>
+              <p>Host profile info here</p>
+            </div>
+            <MapView 
+              markers={this.state.markers}
+              handleMapClick={this.handleMapClick}
+              handleMarkerRightClick={this.handleMarkerRightClick}
+            />
+          </div>
+          <div className="ten wide column">
+            <div className="ui container">
               {this.state.showEdit ?
                 <UniqueEventEdit
                   eventName={this.state.eventName}
@@ -186,26 +203,19 @@ class UniqueEvent extends React.Component {
                   date={this.state.date}
                   time={this.state.time}
                   contributions={this.state.contributions}
-                  hostName={this.determineName}
                   setEdit={this.setEdit}
                   sameEmail={this.state.editable}
                 />
               }
-
-              <MapView 
-                markers={this.state.markers}
-                handleMapClick={this.handleMapClick}
-                handleMarkerRightClick={this.handleMarkerRightClick}
-              />
-
-              <h3 className="ui header">
-                Please bring for this spread:
-              </h3>
-              <ContributionList 
-                contributions = {this.state.contributions}
-                onCheckBoxClick = {this.handleCheckBoxClick}
-              />
             </div>
+
+            <h3 className="ui header">
+              Please bring for this spread:
+            </h3>
+            <ContributionList 
+              contributions = {this.state.contributions}
+              onCheckBoxClick = {this.handleCheckBoxClick}
+            />
           </div>
         </div>
       </div>

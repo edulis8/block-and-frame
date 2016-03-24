@@ -5,31 +5,25 @@ import moment from 'moment';
 
 const UniqueEventView = (props) => {
   return (
-    <div className="ui massive relaxed list">
-      <img className="ui tiny circular right floated image" src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
-      <div className="item">
-          <div className="eventName">
-            The Spread's Name: {props.eventName}
+    <div className="ui items">
+          <div className="eventName item">
+            <div className="ui large header">
+              {props.eventName}
+            </div>
           </div>
 
-          <div className="date">
-            Date: {moment(props.date).format('MMM Do YYYY')}
+          <div className="date item">
+            <div className="ui small header">
+              <p>{moment(props.date).format('MMM Do YYYY')} at {moment(props.time, ['H:mm']).format('hh:mm A')}</p>
+            </div>
           </div>
  
-          <div className="time">
-            Time: {moment(props.time, ['H:mm']).format('hh:mm A')}
-          </div>
+          <div className="location item"><i>
+            {props.location}
+          </i></div>
 
-          <div className="location">
-            Where to meet: {props.location}
-          </div>
-
-          <div className="host">
-            Hosted by {props.hostName()}
-          </div>
-
-          <div className="description">
-            Description: {props.description}
+          <div className="description item">
+            {props.description}
           </div>
 
           {props.sameEmail ?
@@ -45,8 +39,6 @@ const UniqueEventView = (props) => {
               contributions={props.contributions}
             />
           }
-          
-      </div>
     </div>
   );
 };
