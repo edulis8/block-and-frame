@@ -23,13 +23,15 @@ import Signup from './containers/Signup';
 import Profile from './containers/UserProfile';
 import EditUserProfile from './containers/EditUserProfile';
 import UniqueEvent from './containers/UniqueEvent';
+import LandingPage from './containers/LandingPage';
+
 
 // TODO: Index Route may change - whatever we want to render
 // on visiting the site home path '/'
 const routes = (
   <Router history={browserHistory}>
     <Route path="/" component={Site} >
-      <IndexRoute component={EventList} />
+      <IndexRoute component={LandingPage} />
       <Route path="signin" component={Signin} />
       <Route path="signup" component={Signup} />
       <Route path="editProfile" component={EditUserProfile} />
