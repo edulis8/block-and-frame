@@ -5,11 +5,15 @@ import Event from './UserEventListItem';
 // The user events can be found response.data.events from GET response object
 class UserEventList extends Component {
   render() {
-    console.log(this.props.events);
     return (
       <div className="ui relaxed divided list">
         {
-          this.props.events.map((event) => {
+          this.props.events.sort((eventA, eventB) => {
+            if (new Date(eventA.date) > new Date(eventB.date)) {
+              return -1;
+            }
+            return 1;
+          }).map((event) => {
             return (
               <Event
                 key={event.id}
