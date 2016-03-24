@@ -73,7 +73,7 @@ class UniqueEvent extends React.Component {
           time: response.data.time,
           eventId: response.data.id,
           creator_email: response.data.users[0].email,
-          creator_name: response.data.users[0].name,
+          creator_name: response.data.users[0].username,
           contributions: response.data.toBring.contributions,
         });
         if (this.state.creatorId === Number(window.localStorage.id)) {
@@ -156,7 +156,7 @@ class UniqueEvent extends React.Component {
                 <img className="ui tiny circular right floated image" src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
               </div>
               <div className="ui header">
-                Hosted by {this.determineName}
+                Hosted by {this.determineName()}
               </div>
               <p>Host profile info here</p>
             </div>
@@ -191,9 +191,6 @@ class UniqueEvent extends React.Component {
               }
             </div>
 
-            <h3 className="ui header">
-              Please bring for this spread:
-            </h3>
             <ContributionList
               contributions = {this.state.contributions}
               onCheckBoxClick = {this.handleCheckBoxClick}

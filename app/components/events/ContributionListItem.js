@@ -10,20 +10,16 @@ class Contribution extends Component {
   }
   render() {
     return (
-      <li>Contribution {this.props.index}
-        <ul>
-          <li>{this.props.item}</li>
-          <li>{this.props.notes}</li>
-          <li>{this.props.bringer || 
-            <p>Bring it-->  
-              <input 
-                type="checkbox"
-                onChange={this._onCheckBoxClick}
-              />
-            </p> }
-          </li>
-        </ul>
-      </li>
+      <div className="item">
+          Contribution {this.props.index}
+          {this.props.item}
+          {this.props.notes}
+          {this.props.bringer || <p>Bring it-->
+            <input 
+              type="checkbox"
+              onChange={this._onCheckBoxClick}
+            /></p>}
+      </div>
     );
   }
 }
