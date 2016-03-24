@@ -6,19 +6,35 @@ class Contribution extends Component {
     this._onCheckBoxClick = this._onCheckBoxClick.bind(this);
   }
   _onCheckBoxClick(e) {
-    this.props.onCheckBoxClick(e, this.props.index);
+    this.props._onCheckBoxClick(e, this.props.index);
   }
   render() {
+    /* have access to this.props.index to get more info */
+    const message = this.props.bringer ? 'You\'re bringing this!' : null;
     return (
-      <div className="item">
-          Contribution {this.props.index}
-          {this.props.item}
-          {this.props.notes}
-          {this.props.bringer || <p>Bring it-->
-            <input 
-              type="checkbox"
-              onChange={this._onCheckBoxClick}
-            /></p>}
+      <div className="card">
+        <div className="content">
+              <div className="right floated ui fitted checkbox">
+                <input 
+                  type="checkbox"
+                  onChange={this._onCheckBoxClick}
+                />
+                <label></label>
+              </div>
+          <h4 className="left floated ui sub header">{this.props.item}</h4>
+          { /* If there is a note, provide a note section */
+            this.props.notes && <div>
+            <div className="ui clearing section divider"></div>
+              <div className="meta">
+                {this.props.notes}
+              </div>
+            </div>
+          }
+        </div>
+        { /* If user is bringing item, display message */
+        this.props.bringer && 
+        <div className="extra content">{message}</div>
+        }
       </div>
     );
   }

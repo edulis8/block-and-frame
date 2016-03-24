@@ -49,6 +49,7 @@ class UniqueEvent extends React.Component {
   }
 
   handleCheckBoxClick(e, index) {
+    console.log('CHECK');
     // toggle 'bringer' to be user id or null 
     if (this.state.contributions[index].bringer === null) {
       this.state.contributions[index].bringer = window.localStorage.id;
@@ -192,8 +193,8 @@ class UniqueEvent extends React.Component {
             </div>
 
             <ContributionList
-              contributions = {this.state.contributions}
-              onCheckBoxClick = {this.handleCheckBoxClick}
+              contributions={this.state.contributions}
+              onCheckBoxClick={this.handleCheckBoxClick}
             />
           </div>
         </div>
