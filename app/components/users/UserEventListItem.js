@@ -5,7 +5,6 @@ class UserEventListItem extends Component {
   render() {
     let status = this.props.isHost ? 'host' : 'attend';
     status = new Date > new Date(this.props.date) ? `${status}ed` : `will ${status}`;
-    console.log(this.props.date);
     return (
       <div className="item">
         <div className="content">

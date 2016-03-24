@@ -37,6 +37,7 @@ class UserProfile extends Component {
     return (
       <div>
         <MenuBar />
+        <br />
         <div className="ui two column stackable grid container">
           <div className="sixteen wide column"><br /></div>
           <UserInfo user={this.state} />

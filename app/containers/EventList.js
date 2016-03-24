@@ -41,13 +41,20 @@ class EventList extends React.Component {
   }
 
   render() {
-    const eventNodes = this.state.filtered.map((event) => {
+    const eventNodes = this.state.filtered.sort((eventA, eventB) => {
+      if (new Date(eventA.date) > new Date(eventB.date)) {
+        return -1;
+      }
+      return 1;
+    }).map((event) => {
       return (
         <Event
           key={event.id}
           name={event.name}
           location={event.location}
           description={event.description}
+          date={event.date}
+          time={event.time}
           id={event.id}
           creator_name={event.users[0] ? event.users[0].username : 'Anonymous' }
           creator_email={event.users[0] ? event.users[0].email : ''}

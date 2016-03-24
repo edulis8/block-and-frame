@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import moment from 'moment';
 
 class Event extends React.Component {
   render() {
@@ -11,9 +12,12 @@ class Event extends React.Component {
             <Link to={`/${this.props.id}`} className="header">{this.props.name}</Link>
             <div className="location">{this.props.location}</div>
             <div className="host">
-              Hosted by {this.props.creator_name || this.props.creator_email}
+              <div>Hosted by {this.props.creator_name || this.props.creator_email}</div>
+              <div>{moment(this.props.date).format('MMM Do YYYY')} at {moment(this.props.time, ['H:mm']).format('hh:mm A')}</div>
             </div>
-            <div className="description">{this.props.description}</div>
+            <div className="description">
+              {this.props.description}
+            </div>
           </div>
         </div>
       </div>
