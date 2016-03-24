@@ -2,18 +2,27 @@ import React from 'react';
 import Contribution from './ContributionListItem';
 
 const ContributionList = ({ contributions, onCheckBoxClick }) => (
-  <div className="ui segment">
-    <h3 className="ui header">
-      Please bring for this spread:
-    </h3>
-    <div className="ui items">
-      {contributions.map((contrib, index) =>
-        <Contribution
-          key={index}
-          {...contrib}
-          onCheckBoxClick={onCheckBoxClick}
-        />
-      )}
+  <div>
+    <div className="ui attached info message">
+      {/* TODO: add close message behavior */}
+      <i className="close icon"></i>
+      <div className="header small">
+        Let everyone know what you're bringing!
+      </div>
+      <p>Just check the box under a contribution.</p>
+    </div>
+    <div className="ui segment">
+      <div className="ui header medium">Bring Something</div>
+      <div className="ui divider"></div>
+      <div className="ui cards">
+        {contributions.map((contrib, index) =>
+          <Contribution
+            key={index}
+            {...contrib}
+            _onCheckBoxClick={onCheckBoxClick}
+          />
+        )}
+      </div>
     </div>
   </div>
 );
