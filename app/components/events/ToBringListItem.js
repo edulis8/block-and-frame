@@ -8,9 +8,9 @@ class ToBringItem extends Component {
     this._onBringerChange = this._onBringerChange.bind(this);
   }
 
-  componentDidMount() {
-    $('.ui.checkbox').checkbox();
-  }
+  // componentDidMount() {
+  //   $('.ui.checkbox').checkbox();
+  // }
 
   _onItemChange(e) {
     this.props.onItemChange(e, this.props.index);
@@ -44,19 +44,17 @@ class ToBringItem extends Component {
           />
         </div>
         <div className="two wide field center">
-          <div className="ui checkbox">
-            <label htmlFor="to-bring">
-              You'll bring:
-            </label>
-            <input
-              id="host-bring"
-              className={`to-bring-checkbox-${this.props.index}`}
-              type="checkbox"
-              onChange={this._onBringerChange}
-              tabIndex="0" 
-              className="hidden"
-            />
-          </div>
+          <label htmlFor="to-bring">
+            You'll bring:
+          </label>
+          <input
+            id="host-bring"
+            className={`to-bring-checkbox-${this.props.index}`}
+            type="checkbox"
+            onChange={this._onBringerChange}
+            tabIndex="0" 
+            className="hidden"
+          />
         </div>
       </div>
     );
