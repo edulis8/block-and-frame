@@ -1,6 +1,8 @@
 import React from 'react';
 import JoinEventButton from './JoinEventButton';
 // import moment from 'moment'; results in moment not being defined
+import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
+//*TODO: use props.markers[0].position.lat and props.markers[0].position.lng as defaultCenter
 
 const UniqueEventView = (props) => {
   return (
@@ -42,8 +44,35 @@ const UniqueEventView = (props) => {
             <JoinEventButton eventId={props.eventId} />
           }
 
-        </div>
+          <GoogleMapLoader
+            containerElement={
+              <div
+                {...props}
+                style={{
+                  height: '500px',
+                }}
+              />
+            }
+            googleMapElement={
+              <GoogleMap
+                ref={function (map) { console.log('map', map)}}
+                defaultZoom={4}
+                defaultCenter={{ lat: 39.3456034, lng: -101.265312 }}
+                onClick={props.handleMapClick.bind(this)}
+              >
+                {props.markers.map((marker, index) => {
+                  return (
+                    <Marker
+                      {...marker}
+                      onRightClick={props.handleMarkerRightClick.bind(this, index)}
+                    />
+                  );
+                })}
+              </GoogleMap>
+            }
+          />
       </div>
+    </div>
   );
 };
 

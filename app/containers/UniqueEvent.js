@@ -1,4 +1,5 @@
 import React from 'react';
+import update from 'react-addons-update';
 import eventHelpers from '../utils/eventHelpers';
 import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
@@ -55,6 +56,7 @@ class UniqueEvent extends React.Component {
       creator_email: '',
       showEdit: false,
       editable: false,
+      markers: [],
       url: location.href.split('/').pop(),
       creatorId: '',
     };
@@ -64,6 +66,8 @@ class UniqueEvent extends React.Component {
     this.editState = this.editState.bind(this);
     this.determineName = this.determineName.bind(this);
     this.saveEventChanges = this.saveEventChanges.bind(this);
+    this.handleMapClick = this.handleMapClick.bind(this);
+    this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
   }
 
   componentDidMount() {
@@ -137,6 +141,38 @@ class UniqueEvent extends React.Component {
     eventHelpers.editEvent(this.state.url, edits);
   }
 
+  // adds markers to map when map is left clicked
+  handleMapClick(event) {
+    if (this.state.markers.length === 1) {
+      return;
+    }
+    let { markers } = this.state;
+    markers = update(markers, {
+      $push: [
+        {
+          position: event.latLng,
+          defaultAnimation: 2,
+          key: Date.now(),
+        },
+      ],
+    });
+    this.setState({ markers });
+  }
+
+  // removes marker from map when marker is right clicked
+  handleMarkerRightClick(index, event) {
+    console.log('here in rightclick');
+    let { markers } = this.state;
+    console.log('here');
+    markers = update(markers, {
+      $splice: [
+        [index, 1],
+      ],
+    });
+    this.setState({ markers });
+  }
+
+
   render() {
     this.state.contributions = this.state.contributions || [];
     return (
@@ -165,6 +201,9 @@ class UniqueEvent extends React.Component {
                   hostName={this.determineName}
                   setEdit={this.setEdit}
                   sameEmail={this.state.editable}
+                  markers={this.state.markers}
+                  handleMapClick={this.handleMapClick}
+                  handleMarkerRightClick={this.handleMarkerRightClick}
                 />
               }
               <h3 className="ui header">
