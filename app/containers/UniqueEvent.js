@@ -5,6 +5,7 @@ import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
 import Contribution from '../components/events/ContributionListItem';
+import MapView from '../components/events/MapView';
 
 const ContributionList = ({ contributions, onCheckBoxClick }) => (
   <ul>
@@ -96,7 +97,7 @@ class UniqueEvent extends React.Component {
         if (this.state.creatorId === Number(window.localStorage.id)) {
           this.setState({ editable: true });
         }
-        console.log('outer', this.state.contributions)
+        console.log('outer', this.state.contributions);
       })
       .catch((error) => {
         console.log(error);
@@ -188,11 +189,15 @@ class UniqueEvent extends React.Component {
                   hostName={this.determineName}
                   setEdit={this.setEdit}
                   sameEmail={this.state.editable}
-                  markers={this.state.markers}
-                  handleMapClick={this.handleMapClick}
-                  handleMarkerRightClick={this.handleMarkerRightClick}
                 />
               }
+
+              <MapView 
+                markers={this.state.markers}
+                handleMapClick={this.handleMapClick}
+                handleMarkerRightClick={this.handleMarkerRightClick}
+              />
+
               <h3 className="ui header">
                 Please bring for this spread:
               </h3>
