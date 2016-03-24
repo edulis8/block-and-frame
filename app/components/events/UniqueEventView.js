@@ -11,6 +11,7 @@ const UniqueEventView = (props) => {
             <div className="ui large header">
               {props.eventName}
             </div>
+
           </div>
 
           <div className="date item">
@@ -28,19 +29,20 @@ const UniqueEventView = (props) => {
           </div>
 
           {props.sameEmail ?
-            <button
-              className="editButton tiny ui button"
-              onClick={props.setEdit}
-            >
-              Quick edit
-            </button>
+            <div className="inline fields">
+              <button
+                className="editButton ui button"
+                onClick={props.setEdit}
+              >
+                Quick edit
+              </button>
+              <JoinEventButton
+                eventId={props.eventId} 
+                contributions={props.contributions}
+              />
+            </div>
           :
-            <JoinEventButton
-              eventId={props.eventId} 
-              contributions={props.contributions}
-            />
-          }
-          
+          null }
     </div>
   );
 };
