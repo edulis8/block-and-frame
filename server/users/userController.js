@@ -17,7 +17,6 @@ module.exports = {
     });
   },
   getUserbyId(req, res) {
-    // Forge: Simple helper function for retrieving all instances of the given model.
     User.where({ id: req.params.userId })
     .fetch({
       withRelated: ['events'],

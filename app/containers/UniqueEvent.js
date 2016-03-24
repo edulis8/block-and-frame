@@ -50,13 +50,13 @@ class UniqueEvent extends React.Component {
   }
 
   handleCheckBoxClick(e, index) {
-    console.log('CHECK', index);
     // toggle 'bringer' to be user id or null 
     if (this.state.contributions[index].bringer === null) {
       this.state.contributions[index].bringer = window.localStorage.id;
     } else {
       this.state.contributions[index].bringer = null;
     }
+    console.log(this.state.contributions[index]); 
   }
 
   initializePage() {
