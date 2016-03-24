@@ -50,7 +50,7 @@ class UniqueEvent extends React.Component {
   }
 
   handleCheckBoxClick(e, index) {
-    console.log('CHECK');
+    console.log('CHECK', index);
     // toggle 'bringer' to be user id or null 
     if (this.state.contributions[index].bringer === null) {
       this.state.contributions[index].bringer = window.localStorage.id;
@@ -58,6 +58,7 @@ class UniqueEvent extends React.Component {
       this.state.contributions[index].bringer = null;
     }
   }
+
   initializePage() {
     eventHelpers.getEventbyId(this.state.url)
       .then((response) => {
@@ -149,6 +150,7 @@ class UniqueEvent extends React.Component {
     return (
     <div>
       <MenuBar />
+      <br />
       <div className="ui two column stackable grid container">
         <div className="sixteen wide column"><br /></div>
           <div className="six wide column">

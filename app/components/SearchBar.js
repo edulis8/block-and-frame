@@ -23,7 +23,6 @@ class SearchBar extends Component {
       }
       return bool;
     });
-    console.log(filtered);
     this.props.updateFiltered(filtered);
   }
 

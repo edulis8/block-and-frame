@@ -12,7 +12,7 @@ class UserEventListItem extends Component {
           <Link className="header" to={`/${this.props.id}`}>
             {status} {this.props.name}
           </Link>
-          <div>{this.props.date.split('T')[0]}</div>
+          <div>{this.props.date ? this.props.date.split('T')[0] : null}</div>
           <div>{this.props.location}</div>
         </div>
       </div>
