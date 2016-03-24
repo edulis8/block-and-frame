@@ -79,7 +79,10 @@ class UniqueEvent extends React.Component {
           creator_name: response.data.users[0].username,
           contributions: response.data.toBring.contributions,
         });
-        if (this.state.creatorId === Number(window.localStorage.id)) {
+        // if (this.state.creatorId === Number(window.localStorage.id)) {
+        //   this.setState({ editable: true });
+        // here
+        if (this.state.creator_email === sessionStorage.email) {
           this.setState({ editable: true });
         }
         console.log('outer', this.state.contributions);
@@ -146,6 +149,7 @@ class UniqueEvent extends React.Component {
 
 
   render() {
+    console.log('creatorId!!', this.state.creatorId)
     this.state.contributions = this.state.contributions || [];
     return (
     <div>

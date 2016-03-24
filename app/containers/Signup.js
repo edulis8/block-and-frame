@@ -52,6 +52,9 @@ class Signup extends Component {
   }
 
   handleSubmit(email, password) {
+    // hack 
+    sessionStorage.email = email;
+    //
     axios.post('/auth/signup', { email, password })
     .then((res) => {
       this.setState({ error: null, email: '', password: '' });
