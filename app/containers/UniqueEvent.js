@@ -4,26 +4,8 @@ import eventHelpers from '../utils/eventHelpers';
 import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
-import Contribution from '../components/events/ContributionListItem';
 import MapView from '../components/events/MapView';
-
-const ContributionList = ({ contributions, onCheckBoxClick }) => (
-  <ul>
-    {contributions.map((contrib, index) =>
-      <Contribution
-        key={index}
-        {...contrib}
-        onCheckBoxClick={onCheckBoxClick}
-      />
-    )}
-  </ul>
-);
-// Above, the ...spread operater is used instead of:
-// bringer={contrib.bringer}
-// item={contrib.item}
-// notes={contrib.notes}
-// index={contrib.index}
-
+import ContributionList from '../components/events/ContributionList';
 
 class UniqueEvent extends React.Component {
   constructor(props) {
@@ -148,7 +130,7 @@ class UniqueEvent extends React.Component {
 
   // removes marker from map when marker is right clicked
   handleMarkerRightClick(index, event) {
-    console.log('here in rightclick');
+    console.log('here in rightclick', event);
     let { markers } = this.state;
     console.log('here');
     markers = update(markers, {
@@ -185,7 +167,7 @@ class UniqueEvent extends React.Component {
             />
           </div>
           <div className="ten wide column">
-            <div className="ui container">
+            <div className="ui segment">
               {this.state.showEdit ?
                 <UniqueEventEdit
                   eventName={this.state.eventName}
@@ -212,7 +194,7 @@ class UniqueEvent extends React.Component {
             <h3 className="ui header">
               Please bring for this spread:
             </h3>
-            <ContributionList 
+            <ContributionList
               contributions = {this.state.contributions}
               onCheckBoxClick = {this.handleCheckBoxClick}
             />
