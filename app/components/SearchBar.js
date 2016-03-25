@@ -17,7 +17,7 @@ class SearchBar extends Component {
     const filtered = this.props.items.filter((item) => {
       let bool = false;
       for (const key in item) {
-        if (new RegExp(e.target.value).test(String(item[key]))) {
+        if (new RegExp(e.target.value.toLowerCase()).test(String(item[key]).toLowerCase())) {
           bool = true;
         }
       }
