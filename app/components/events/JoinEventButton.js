@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import eventHelpers from '../../utils/eventHelpers';
+// import eventHelpers from '../../utils/eventHelpers';
 
 // This component needs id of event as a prop
 class JoinEventButton extends Component {

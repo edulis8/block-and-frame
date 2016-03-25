@@ -55,7 +55,6 @@ const eventHelpers = {
   },
   // wrap blobSender and joinEvent in third function
   joinEventWithContributions(eventId, contributions) {
-    console.log('helpers', eventId, contributions)
     eventHelpers.joinEvent(eventId);
     eventHelpers.contributionsSave(contributions, eventId);
   },
