@@ -44,3 +44,4 @@ config.js
 
 .floo
 .flooignore
+.env

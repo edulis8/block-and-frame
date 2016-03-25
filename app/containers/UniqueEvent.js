@@ -38,6 +38,7 @@ class UniqueEvent extends React.Component {
     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
     this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
     this.handleJoinEventWithContributions = this.handleJoinEventWithContributions.bind(this);
+    this.loadMarker = this.loadMarker.bind(this)
   }
 
   componentDidMount() {
@@ -99,6 +100,7 @@ class UniqueEvent extends React.Component {
       .catch((error) => {
         console.log(error);
       });
+    setTimeout(this.loadMarker, 2000);
     console.log('STATE', this.state);
   }
 
@@ -127,21 +129,32 @@ class UniqueEvent extends React.Component {
   }
 
   // adds markers to map when map is left clicked
-  handleMapClick(event) {
+  loadMarker() {
+    const location = {};
+    const coordinates = this.state.coordinates;
+    let { markers } = this.state;
     if (this.state.markers.length === 1) {
       return;
     }
-    let { markers } = this.state;
+    const latitude = coordinates.split(',').shift();
+    const longitude = coordinates.split(',').pop();
+    location.lat = Number(latitude);
+    location.lng = Number(longitude);
+    console.log('LOCATION', location);
     markers = update(markers, {
       $push: [
         {
-          position: event.latLng,
+          position: location,
           defaultAnimation: 2,
           key: Date.now(),
         },
       ],
     });
     this.setState({ markers });
+  }
+
+  handleMapClick(event) {
+    return;
   }
 
   // removes marker from map when marker is right clicked
