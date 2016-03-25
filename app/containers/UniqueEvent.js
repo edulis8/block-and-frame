@@ -38,7 +38,7 @@ class UniqueEvent extends React.Component {
     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
     this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
     this.handleJoinEventWithContributions = this.handleJoinEventWithContributions.bind(this);
-    this.loadMarker = this.loadMarker.bind(this)
+    this.loadMarker = this.loadMarker.bind(this);
   }
 
   componentDidMount() {
