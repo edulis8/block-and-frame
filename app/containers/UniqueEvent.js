@@ -149,7 +149,7 @@ class UniqueEvent extends React.Component {
 
 
   render() {
-    console.log('creatorId!!', this.state.creatorId)
+    console.log('creatorId!!', this.state.creatorId);
     this.state.contributions = this.state.contributions || [];
     return (
     <div>

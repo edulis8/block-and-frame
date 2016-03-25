@@ -51,10 +51,12 @@ class CreateEvent extends Component {
     this.setState({ date: e.target.value });
     console.log('Date', this.state.date);
   }
+
   onTimeChange(e) {
     this.setState({ time: e.target.value });
     console.log('time', this.state.time);
   }
+  
   onEventSubmit() {
     // handle POST request for creating event
     eventHelpers.createEvent(this.state, this);

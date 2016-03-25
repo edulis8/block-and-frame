@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ToBringList from './ToBringList';
-import MapView from './Mapview';
+import MapView from './MapView';
 
 class CreateEventForm extends Component {
   render() {

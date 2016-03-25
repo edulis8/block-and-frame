@@ -1,25 +1,10 @@
-// TODO use enviroment variables
-// This is a work-around for Travis CI
-var config; // let doesnt work
-try {
-  config = require('./config.js');
-} catch (err) {
-  console.log('bookshelf.js:', err.message);
-  config = {
-    host: '127.0.0.1',
-    user: '',
-    pw: '',
-    db: 'block_and_frame_test',
-  };
-}
-
 const knex = require('knex')({
   client: 'pg',
   connection: {
-    host: config.host,
-    user: config.user,
-    password: config.pw,
-    database: config.db,
+    host: process.env.DB_URL,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     charset: 'utf8',
   },
   // debug: true,
