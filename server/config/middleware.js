@@ -29,6 +29,7 @@ module.exports = (app, express) => {
 
   app.use(passport.initialize());
   require('./passport')(passport);
+
   app.use('/auth', authRoutes);
   app.use('/api', /* passport.authenticate('jwt', { session: false }), */ routes);
 
@@ -39,6 +40,7 @@ module.exports = (app, express) => {
     app.use('/dist', express.static(publicPath));
   }
   app.get('*', (req, res) => {
+    console.log('**yes**')
     res.sendFile(path.join(__dirname, '../../dist/index.html'));
   });
 };
