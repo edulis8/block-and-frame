@@ -153,7 +153,7 @@ class UniqueEvent extends React.Component {
     this.setState({ markers });
   }
 
-  handleMapClick(event) {
+  handleMapClick() {
     return;
   }
 
