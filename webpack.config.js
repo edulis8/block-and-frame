@@ -32,8 +32,13 @@ module.exports = {
         exclude: [PATHS.modules, PATHS.dist],
       },
       {
-        test: /\.css$/,
-        loader: 'style!css',
+        test: /\.css?$/,
+        loaders: ['style', 'raw'],
+        include: __dirname,
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass'],
       },
     ],
   },

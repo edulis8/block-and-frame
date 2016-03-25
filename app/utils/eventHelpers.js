@@ -67,7 +67,7 @@ const eventHelpers = {
       headers: { Authorization: token },
     })
     .then((response) => {
-      console.log(response);
+      console.log('cont save', response);
     })
     .catch((error) => {
       console.log(error);

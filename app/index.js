@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
+// import '../dist/main.css';
+import '../dist/main.scss';
+
+
 // Moved to index.html
 // jQuery and CDN for Semantic-UI
 // import $ from 'jquery';
@@ -11,7 +15,6 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 // $('head').append($('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">'));
 // $('body').append($('<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>'));
 // $('body').append($('<script src="../app/csstemp/main.css"></script>'));
-
 
 // TODO: do we even need App?
 // import App from './containers/App';
