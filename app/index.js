@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 import '../dist/main.css';
+import '../dist/main.scss';
+
 
 //Moved to index.html
 //jQuery and CDN for Semantic-UI
