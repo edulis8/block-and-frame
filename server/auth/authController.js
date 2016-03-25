@@ -1,16 +1,6 @@
 const User = require('../users/userModel');
 const jwt = require('jsonwebtoken');
 
-// TODO use enviroment variables
-// This is a work-around for Travis CI
-var secret; // let doesnt work
-try {
-  secret = require('../config/config.js').secret;
-} catch (err) {
-  console.log('authController.js:', err.message);
-  secret = 'localtestingsecret!';
-}
-
 module.exports = {
   signin(req, res) {
     const password = req.body.password;
@@ -28,7 +18,7 @@ module.exports = {
         if (!isMatch) {
           return res.status(500).end('Incorrect username or password.');
         }
-        const token = jwt.sign(user, secret, { expiresIn: 10080 });
+        const token = jwt.sign(user, process.env.SECRET, { expiresIn: 10080 });
         return res.json({ success: true, token: `JWT ${token}`, id: user.get('id') });
       })
       .catch((err) => {
@@ -55,7 +45,7 @@ module.exports = {
         });
         newUser.save()
         .then((createdUser) => {
-          const token = jwt.sign(user, secret, {
+          const token = jwt.sign(user, process.env.SECRET, {
             expiresIn: 10080,
           });
           res.json({ success: true, token: `JWT ${token}`, id: createdUser.get('id') });
