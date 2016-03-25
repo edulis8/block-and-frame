@@ -16,7 +16,6 @@ const MapView = (props) => {
         }
         googleMapElement={
           <GoogleMap
-            ref={(map) => { console.log('map', map); }}
             defaultZoom={4}
             defaultCenter={{ lat: 39.3456034, lng: -101.265312 }}
             onClick={props.handleMapClick.bind(this)}

@@ -8,18 +8,18 @@ class CreateEvent extends Component {
   constructor(props) {
     super(props);
 
-    // TODO: add coordinates
     this.state = {
       name: '',
       location: '',
       description: '',
       toBring: [],
+      coordinates: '',
       date: new Date(),
       time: '',
       markers: [],
     };
 
-    this.onNameChange = this.onNameChange.bind(this);
+    this.onNameChange = this.onNameChange.bind(this); 
     this.onLocationChange = this.onLocationChange.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
     this.onTimeChange = this.onTimeChange.bind(this);
@@ -33,6 +33,7 @@ class CreateEvent extends Component {
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
+    this.updateCoords = this.updateCoords.bind(this);
   }
 
   onNameChange(e) {
@@ -113,6 +114,13 @@ class CreateEvent extends Component {
     console.log(this.state);
   }
 
+  updateCoords() {
+    const lat = this.state.markers[0].position.lat().toString();
+    const lng = this.state.markers[0].position.lng().toString();
+    const coords = lat.concat(',').concat(lng);
+    this.setState({ coordinates: coords });
+  }
+
   // adds markers to map when map is left clicked
   handleMapClick(event) {
     if (this.state.markers.length === 1) {
@@ -177,6 +185,7 @@ class CreateEvent extends Component {
           onTimeChange={this.onTimeChange}
           handleMapClick={this.handleMapClick}
           handleMarkerRightClick={this.handleMarkerRightClick}
+          updateCoords={this.updateCoords}
         />
       </div>
     );

@@ -91,6 +91,7 @@ class CreateEventForm extends Component {
               markers={this.props.markers}
               handleMapClick={this.props.handleMapClick}
               handleMarkerRightClick={this.props.handleMarkerRightClick}
+              onClick={this.props.updateCoords}
             />
           </div>
 
