@@ -26,6 +26,7 @@ class UniqueEvent extends React.Component {
       url: location.href.split('/').pop(),
       creatorId: '',
       msgDivClass: 'warning',
+      coordinates: '',
     };
 
     this.setEdit = this.setEdit.bind(this);
@@ -37,6 +38,7 @@ class UniqueEvent extends React.Component {
     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
     this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
     this.handleJoinEventWithContributions = this.handleJoinEventWithContributions.bind(this);
+    this.loadMarker = this.loadMarker.bind(this);
   }
 
   componentDidMount() {
@@ -85,6 +87,7 @@ class UniqueEvent extends React.Component {
           creator_email: response.data.users[0].email,
           creator_name: response.data.users[0].username,
           contributions: response.data.toBring.contributions,
+          coordinates: response.data.coordinates,
         });
         // if (this.state.creatorId === Number(window.localStorage.id)) {
         //   this.setState({ editable: true });
@@ -92,11 +95,13 @@ class UniqueEvent extends React.Component {
         if (this.state.creator_email === sessionStorage.email) {
           this.setState({ editable: true });
         }
-        console.log('outer', this.state.contributions);
+        console.log('outer', this.state.coordinates);
       })
       .catch((error) => {
         console.log(error);
       });
+    setTimeout(this.loadMarker, 2000);
+    console.log('STATE', this.state);
   }
 
   editState(e) {
@@ -124,21 +129,32 @@ class UniqueEvent extends React.Component {
   }
 
   // adds markers to map when map is left clicked
-  handleMapClick(event) {
+  loadMarker() {
+    const location = {};
+    const coordinates = this.state.coordinates;
+    let { markers } = this.state;
     if (this.state.markers.length === 1) {
       return;
     }
-    let { markers } = this.state;
+    const latitude = coordinates.split(',').shift();
+    const longitude = coordinates.split(',').pop();
+    location.lat = Number(latitude);
+    location.lng = Number(longitude);
+    console.log('LOCATION', location);
     markers = update(markers, {
       $push: [
         {
-          position: event.latLng,
+          position: location,
           defaultAnimation: 2,
           key: Date.now(),
         },
       ],
     });
     this.setState({ markers });
+  }
+
+  handleMapClick() {
+    return;
   }
 
   // removes marker from map when marker is right clicked
