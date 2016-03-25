@@ -79,7 +79,9 @@ const eventController = {
   },
 
   editEvent(req, res) {
-    Event.fetchAndPopulate({ id: req.params.eventId })
+    Event
+    .where({ id: req.params.eventId })
+    .fetch()
     .then((event) => {
       if (!event) {
         res.sendStatus(404);
@@ -119,12 +121,8 @@ const eventController = {
     .then((event) => {
       event
       .users()
+      // attach pivot but leave is_creator null
       .attach(req.body.userId)
-      .then((eventUser) => {
-        return eventUser.updatePivot({
-          is_creator: false,
-        });
-      })
       .then((pivotStatus) => {
         res.status(200).send(pivotStatus);
       })

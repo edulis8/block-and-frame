@@ -3,6 +3,29 @@ import JoinEventButton from './JoinEventButton';
 import moment from 'moment';
 
 const UniqueEventView = (props) => {
+  console.log(props);
+  let button = null;
+  if (props.editable) {
+    button = (
+      <div className="inline fields">
+        <button
+          className="editButton ui button"
+          onClick={props.setEdit}
+        >
+          Quick edit
+        </button>
+      </div>
+    );
+  } else if (props.joinable) {
+    button = (
+      <JoinEventButton
+        eventId={props.eventId} 
+        contributions={props.contributions}
+        handleJoinEventWithContributions={props.handleJoinEventWithContributions}
+      />
+    );
+  }
+
   return (
     <div className="ui items">
       <div className="eventName item">
@@ -26,23 +49,7 @@ const UniqueEventView = (props) => {
         {props.description}
       </div>
 
-      {
-        props.sameEmail ?
-        <div className="inline fields">
-          <button
-            className="editButton ui button"
-            onClick={props.setEdit}
-          >
-            Quick edit
-          </button>
-        </div>
-      :
-        <JoinEventButton
-          eventId={props.eventId} 
-          contributions={props.contributions}
-          handleJoinEventWithContributions={props.handleJoinEventWithContributions}
-        />
-      }
+      { button }
     </div>
   );
 };

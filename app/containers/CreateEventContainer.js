@@ -52,12 +52,10 @@ class CreateEvent extends Component {
 
   onDateChange(e) {
     this.setState({ date: e.target.value });
-    console.log('Date', this.state.date);
   }
 
   onTimeChange(e) {
     this.setState({ time: e.target.value });
-    console.log('time', this.state.time);
   }
   
   onEventSubmit() {
@@ -113,7 +111,6 @@ class CreateEvent extends Component {
     this.setState({
       toBring: updated,
     });
-    console.log(this.state);
   }
 
   updateCoords() {

@@ -81,7 +81,6 @@ const eventHelpers = {
       method: 'put',
       data: {
         userId,
-        // TODO include contributions ?
       },
       headers: { Authorization: token },
     })
