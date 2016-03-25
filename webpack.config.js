@@ -34,11 +34,12 @@ module.exports = {
       {
         test: /\.css?$/,
         loaders: ['style', 'raw'],
-        include: __dirname,
+        include: [PATHS.app, PATHS.dist],
       },
       {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass'],
+        include: [PATHS.app, PATHS.dist],
       },
     ],
   },

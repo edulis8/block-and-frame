@@ -3,19 +3,21 @@ import update from 'react-addons-update';
 import eventHelpers from '../utils/eventHelpers';
 import MenuBar from '../components/MenuBar';
 import CreateEventForm from '../components/events/CreateEventForm';
+import moment from 'moment';
+
+const now = moment();
 
 class CreateEvent extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       name: '',
       location: '',
       description: '',
       toBring: [],
       coordinates: '',
-      date: new Date(),
-      time: '',
+      date: now.format('YYYY-MM-DD'),
+      time: now.format('hh:mm'),
       markers: [],
     };
 
@@ -172,6 +174,7 @@ class CreateEvent extends Component {
           description={this.state.description}
           toBring={this.state.toBring}
           markers={this.state.markers}
+          minDate={now.format('YYYY-MM-DD')}
           onNameChange={this.onNameChange}
           onLocationChange={this.onLocationChange}
           onDescriptionChange={this.onDescriptionChange}

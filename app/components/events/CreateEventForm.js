@@ -36,6 +36,7 @@ class CreateEventForm extends Component {
               <input
                 required
                 type="date"
+                min={this.props.minDate}
                 className="date-input"
                 value={this.props.date}
                 onChange={this.props.onDateChange}
