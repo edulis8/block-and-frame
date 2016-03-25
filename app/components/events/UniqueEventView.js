@@ -3,7 +3,6 @@ import JoinEventButton from './JoinEventButton';
 import moment from 'moment';
 
 const UniqueEventView = (props) => {
-  console.log(props);
   let button = null;
   if (props.editable) {
     button = (

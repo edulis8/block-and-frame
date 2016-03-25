@@ -40,53 +40,11 @@ class UniqueEvent extends React.Component {
     this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
     this.handleJoinEventWithContributions = this.handleJoinEventWithContributions.bind(this);
     this.loadMarker = this.loadMarker.bind(this);
+    this.initializePage = this.initializePage.bind(this);
   }
 
   componentDidMount() {
-    eventHelpers.getEventbyId(this.state.url)
-      .then((response) => {
-        // Populate state with users
-        let tempHost = null;
-        let tempEditable = false;
-        let tempJoinable = true;
-        const tempAttendants = [];
-
-        // Populate state with host and users
-        response.data.users.forEach((user) => {
-          if (user._pivot_is_creator) {
-            tempHost = user;
-            // Current user is host
-            if (tempHost._pivot_user_id === userId) {
-              tempEditable = true;
-              tempJoinable = false;
-            }
-          } else {
-            tempAttendants.push(user);
-            // User is already attending
-            if (user._pivot_user_id === userId) {
-              tempJoinable = false;
-            }
-          }
-        });
-
-        this.setState({
-          eventName: response.data.name,
-          description: response.data.description,
-          location: response.data.location,
-          date: response.data.date,
-          time: response.data.time,
-          eventId: response.data.id,
-          contributions: response.data.toBring.contributions,
-          coordinates: response.data.coordinates,
-          host: tempHost,
-          editable: tempEditable,
-          joinable: tempJoinable,
-          attendants: tempAttendants,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.initializePage();
     setTimeout(this.loadMarker, 2000);
   }
 
@@ -95,6 +53,53 @@ class UniqueEvent extends React.Component {
       this.saveEventChanges();
     }
     this.setState({ showEdit: !this.state.showEdit });
+  }
+
+  initializePage() {
+    eventHelpers.getEventbyId(this.state.url)
+    .then((response) => {
+      // Populate state with users
+      let tempHost = null;
+      let tempEditable = false;
+      let tempJoinable = true;
+      const tempAttendants = [];
+
+      // Populate state with host and users
+      response.data.users.forEach((user) => {
+        if (user._pivot_is_creator) {
+          tempHost = user;
+          // Current user is host
+          if (tempHost._pivot_user_id === userId) {
+            tempEditable = true;
+            tempJoinable = false;
+          }
+        } else {
+          tempAttendants.push(user);
+          // User is already attending
+          if (user._pivot_user_id === userId) {
+            tempJoinable = false;
+          }
+        }
+      });
+
+      this.setState({
+        eventName: response.data.name,
+        description: response.data.description,
+        location: response.data.location,
+        date: response.data.date,
+        time: response.data.time,
+        eventId: response.data.id,
+        contributions: response.data.toBring.contributions,
+        coordinates: response.data.coordinates,
+        host: tempHost,
+        editable: tempEditable,
+        joinable: tempJoinable,
+        attendants: tempAttendants,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   handleCheckBoxClick(e, index) {
@@ -109,7 +114,7 @@ class UniqueEvent extends React.Component {
 
   handleJoinEventWithContributions(eventId, contribs) {
     this.setState({ msgDivClass: 'positive' });
-    eventHelpers.joinEventWithContributions(eventId, contribs);
+    eventHelpers.joinEventWithContributions(eventId, contribs, this.initializePage);
   }
 
   editState(e) {
@@ -155,8 +160,6 @@ class UniqueEvent extends React.Component {
   }
 
   handleMapClick() {
-    console.log('STATE AT BOTTOM', this.state);
-
     return;
   }
 
