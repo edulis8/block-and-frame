@@ -31,7 +31,7 @@ class CreateEventForm extends Component {
               onPlacesChanged={this.props.onPlacesChanged}
             />
           </div>
-          
+
           <div className="fields">
             <div>
               <label>Date:</label>

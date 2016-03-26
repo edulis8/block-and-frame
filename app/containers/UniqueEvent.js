@@ -102,6 +102,8 @@ class UniqueEvent extends React.Component {
     .catch((error) => {
       console.log(error);
     });
+    setTimeout(this.loadMarker, 500);
+    setTimeout(this.determineCenter, 750);
   }
 
   handleCheckBoxClick(e, index) {
@@ -120,41 +122,6 @@ class UniqueEvent extends React.Component {
   handleJoinEventWithContributions(eventId, contributions) {
     this.setState({ msgDivClass: 'positive' });
     eventHelpers.joinEventWithContributions(eventId, contributions, this.initializePage);
-  }
-
-  initializePage() {
-    eventHelpers.getEventbyId(this.state.url)
-      .then((response) => {
-        console.log('response from init page', response.data);
-        response.data.users.forEach((user) => {
-          if (user._pivot_user_id === Number(window.localStorage.id)) {
-            this.setState({ creatorId: user._pivot_user_id });
-          }
-        });
-        this.setState({
-          eventName: response.data.name,
-          description: response.data.description,
-          location: response.data.location,
-          date: response.data.date,
-          time: response.data.time,
-          eventId: response.data.id,
-          creator_email: response.data.users[0].email,
-          creator_name: response.data.users[0].username,
-          contributions: response.data.toBring.contributions,
-          coordinates: response.data.coordinates,
-        });
-        // if (this.state.creatorId === Number(window.localStorage.id)) {
-        //   this.setState({ editable: true });
-        // here
-        if (this.state.creator_email === sessionStorage.email) {
-          this.setState({ editable: true });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    setTimeout(this.loadMarker, 500);
-    setTimeout(this.determineCenter, 750);
   }
 
   editState(e) {
