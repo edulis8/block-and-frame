@@ -14,7 +14,26 @@ class CreateEvent extends Component {
       name: '',
       location: '',
       description: '',
-      toBring: [],
+      toBring: [
+        {
+          index: 0,
+          item: '',
+          notes: '',
+          bringer: null,
+        },
+        {
+          index: 1,
+          item: '',
+          notes: '',
+          bringer: null,
+        },
+        {
+          index: 2,
+          item: '',
+          notes: '',
+          bringer: null,
+        },
+      ],
       coordinates: '',
       date: now.format('YYYY-MM-DD'),
       time: now.format('HH:mm'),
@@ -59,7 +78,17 @@ class CreateEvent extends Component {
   }
   
   onEventSubmit() {
-    // handle POST request for creating event
+    // filter blank contributions and fix indexing
+    const contributions = this.state.toBring.filter((contribution) => {
+      if (contribution.item) {
+        return true;
+      }
+      return false;
+    }).map((contribution, index) => {
+      contribution.index = index;
+      return contribution;
+    });
+
     eventHelpers.createEvent({
       name: this.state.name,
       location: this.state.location,
@@ -68,12 +97,7 @@ class CreateEvent extends Component {
       time: this.state.time,
       coordinates: this.state.coordinates,
       markers: this.state.markers,
-      toBring: this.state.toBring.filter((contribution) => {
-        if (contribution.item) {
-          return true;
-        }
-        return false;
-      }),
+      toBring: contributions,
     }, this);
 
     // reset forms
@@ -99,14 +123,16 @@ class CreateEvent extends Component {
     });
   }
 
-  onToBringRemove(e, index) {
+  onToBringRemove(e) {
     e.preventDefault();
     const updated = this.state.toBring.slice();
     updated.pop();
     this.setState({
-      toBring: updated,
+      toBring: updated.map((contribution, index) => {
+        contribution.index = index;
+        return contribution;
+      }),
     });
-    console.log(index);
   }
 
   onItemChange(e, index) {

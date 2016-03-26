@@ -8,13 +8,13 @@ import MapView from '../components/events/MapView';
 import ContributionList from '../components/events/ContributionList';
 import UserInfo from '../components/users/UserInfo';
 
-const userId = Number(window.localStorage.getItem('id'));
 
 class UniqueEvent extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      userId: Number(window.localStorage.getItem('id')),
       eventName: '',
       description: '',
       location: '',
@@ -39,6 +39,7 @@ class UniqueEvent extends React.Component {
     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
     this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
     this.handleJoinEventWithContributions = this.handleJoinEventWithContributions.bind(this);
+    this.handleContributionUpdate = this.handleContributionUpdate.bind(this);
     this.loadMarker = this.loadMarker.bind(this);
     this.initializePage = this.initializePage.bind(this);
   }
@@ -69,14 +70,15 @@ class UniqueEvent extends React.Component {
         if (user._pivot_is_creator) {
           tempHost = user;
           // Current user is host
-          if (tempHost._pivot_user_id === userId) {
+          tempHost.isTraveling = user.is_traveling;
+          if (tempHost._pivot_user_id === this.state.userId) {
             tempEditable = true;
             tempJoinable = false;
           }
         } else {
           tempAttendants.push(user);
           // User is already attending
-          if (user._pivot_user_id === userId) {
+          if (user._pivot_user_id === this.state.userId) {
             tempJoinable = false;
           }
         }
@@ -109,12 +111,15 @@ class UniqueEvent extends React.Component {
     } else {
       this.state.contributions[index].bringer = null;
     }
-    console.log(this.state.contributions[index]); 
   }
 
-  handleJoinEventWithContributions(eventId, contribs) {
+  handleContributionUpdate() {
+    eventHelpers.contributionsSave(this.state.contributions, this.state.eventId, this.refs['contribution-list'].forceUpdate());
+  }
+
+  handleJoinEventWithContributions(eventId, contributions) {
     this.setState({ msgDivClass: 'positive' });
-    eventHelpers.joinEventWithContributions(eventId, contribs, this.initializePage);
+    eventHelpers.joinEventWithContributions(eventId, contributions, this.initializePage);
   }
 
   editState(e) {
@@ -195,7 +200,8 @@ class UniqueEvent extends React.Component {
           </div>
           <div className="ten wide column">
             <div className="ui segment">
-              {this.state.showEdit ?
+              {
+                this.state.showEdit ?
                 <UniqueEventEdit
                   eventName={this.state.eventName}
                   description={this.state.description}
@@ -220,12 +226,20 @@ class UniqueEvent extends React.Component {
               }
             </div>
 
-            <ContributionList
-              ref="contribution-list"
-              msgDivClass={this.state.msgDivClass}
-              contributions={this.state.contributions}
-              onCheckBoxClick={this.handleCheckBoxClick}
-            />
+            {
+              this.state.contributions.length > 0 ? 
+              <ContributionList
+                ref="contribution-list"
+                eventId={this.state.url}
+                msgDivClass={this.state.msgDivClass}
+                contributions={this.state.contributions}
+                onCheckBoxClick={this.handleCheckBoxClick}
+                onContributionUpdate={this.handleContributionUpdate}
+                isAttending={!this.state.joinable}
+              />
+              :
+              null
+            }
           </div>
         </div>
       </div>
