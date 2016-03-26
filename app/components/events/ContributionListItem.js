@@ -29,20 +29,6 @@ class Contribution extends Component {
     }
   }
 
-  // componentWillUpdate() {
-  //   if (this.props.bringer) {
-  //     userHelpers.getAnyUserById(this.props.bringer)
-  //     .then((user) => {
-  //       this.setState({
-  //         userEmail: user.data.email,
-  //         userName: user.data.username,
-  //         isTraveling: user.data.is_traveling,
-  //         userLocation: user.data.location,
-  //       });
-  //     });
-  //   }
-  // }
-
   _onCheckBoxClick(e) {
     this.props._onCheckBoxClick(e, this.props.index);
   }
