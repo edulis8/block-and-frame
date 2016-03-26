@@ -39,6 +39,7 @@ class UniqueEvent extends React.Component {
     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
     this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
     this.handleJoinEventWithContributions = this.handleJoinEventWithContributions.bind(this);
+    this.handleContributionUpdate = this.handleContributionUpdate.bind(this);
     this.loadMarker = this.loadMarker.bind(this);
     this.initializePage = this.initializePage.bind(this);
   }
@@ -69,6 +70,7 @@ class UniqueEvent extends React.Component {
         if (user._pivot_is_creator) {
           tempHost = user;
           // Current user is host
+          tempHost.isTraveling = user.is_traveling;
           if (tempHost._pivot_user_id === this.state.userId) {
             tempEditable = true;
             tempJoinable = false;
@@ -111,9 +113,13 @@ class UniqueEvent extends React.Component {
     }
   }
 
-  handleJoinEventWithContributions(eventId, contribs) {
+  handleContributionUpdate() {
+    eventHelpers.contributionsSave(this.state.contributions, this.state.eventId, this.refs['contribution-list'].forceUpdate());
+  }
+
+  handleJoinEventWithContributions(eventId, contributions) {
     this.setState({ msgDivClass: 'positive' });
-    eventHelpers.joinEventWithContributions(eventId, contribs, this.initializePage);
+    eventHelpers.joinEventWithContributions(eventId, contributions, this.initializePage);
   }
 
   editState(e) {
@@ -224,9 +230,12 @@ class UniqueEvent extends React.Component {
               this.state.contributions.length > 0 ? 
               <ContributionList
                 ref="contribution-list"
+                eventId={this.state.url}
                 msgDivClass={this.state.msgDivClass}
                 contributions={this.state.contributions}
                 onCheckBoxClick={this.handleCheckBoxClick}
+                onContributionUpdate={this.handleContributionUpdate}
+                isAttending={!this.state.joinable}
               />
               :
               null

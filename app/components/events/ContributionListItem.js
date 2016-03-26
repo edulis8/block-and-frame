@@ -60,7 +60,7 @@ class Contribution extends Component {
           }
         </div>
         { /* If user is bringing item, display message, also checking all fields are avialble */
-          this.props.bringer && this.state.userName && this.state.isTraveling !== null && this.state.userLocation &&
+          this.props.bringer && this.state.userName && this.state.userLocation &&
           <div className="extra content">
             <p>Contributor:</p>
             <img className="ui avatar mini image" src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
