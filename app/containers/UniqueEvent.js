@@ -6,6 +6,9 @@ import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
 import MapView from '../components/events/MapView';
 import ContributionList from '../components/events/ContributionList';
+import UserInfo from '../components/users/UserInfo';
+
+const userId = Number(window.localStorage.getItem('id'));
 
 class UniqueEvent extends React.Component {
   constructor(props) {
@@ -18,39 +21,85 @@ class UniqueEvent extends React.Component {
       time: '',
       date: '',
       eventId: '',
-      creator_name: '',
-      creator_email: '',
       showEdit: false,
       editable: false,
+      joinable: true,
       markers: [],
       url: location.href.split('/').pop(),
-      creatorId: '',
       msgDivClass: 'warning',
       coordinates: '',
+      host: null,
+      attendants: [],
     };
 
     this.setEdit = this.setEdit.bind(this);
-    this.initializePage = this.initializePage.bind(this);
     this.editState = this.editState.bind(this);
-    this.determineName = this.determineName.bind(this);
     this.saveEventChanges = this.saveEventChanges.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
     this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
     this.handleJoinEventWithContributions = this.handleJoinEventWithContributions.bind(this);
     this.loadMarker = this.loadMarker.bind(this);
+    this.initializePage = this.initializePage.bind(this);
   }
 
   componentDidMount() {
     this.initializePage();
+    setTimeout(this.loadMarker, 2000);
   }
 
   setEdit() {
     if (this.state.showEdit) {
       this.saveEventChanges();
     }
-
     this.setState({ showEdit: !this.state.showEdit });
+  }
+
+  initializePage() {
+    eventHelpers.getEventbyId(this.state.url)
+    .then((response) => {
+      // Populate state with users
+      let tempHost = null;
+      let tempEditable = false;
+      let tempJoinable = true;
+      const tempAttendants = [];
+
+      // Populate state with host and users
+      response.data.users.forEach((user) => {
+        if (user._pivot_is_creator) {
+          tempHost = user;
+          // Current user is host
+          if (tempHost._pivot_user_id === userId) {
+            tempEditable = true;
+            tempJoinable = false;
+          }
+        } else {
+          tempAttendants.push(user);
+          // User is already attending
+          if (user._pivot_user_id === userId) {
+            tempJoinable = false;
+          }
+        }
+      });
+
+      this.setState({
+        eventName: response.data.name,
+        description: response.data.description,
+        location: response.data.location,
+        date: response.data.date,
+        time: response.data.time,
+        eventId: response.data.id,
+        contributions: response.data.toBring.contributions,
+        coordinates: response.data.coordinates,
+        host: tempHost,
+        editable: tempEditable,
+        joinable: tempJoinable,
+        attendants: tempAttendants,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   handleCheckBoxClick(e, index) {
@@ -65,54 +114,11 @@ class UniqueEvent extends React.Component {
 
   handleJoinEventWithContributions(eventId, contribs) {
     this.setState({ msgDivClass: 'positive' });
-    eventHelpers.joinEventWithContributions(eventId, contribs);
-  }
-
-  initializePage() {
-    eventHelpers.getEventbyId(this.state.url)
-      .then((response) => {
-        console.log('response from init page', response.data);
-        response.data.users.forEach((user) => {
-          if (user._pivot_user_id === Number(window.localStorage.id)) {
-            this.setState({ creatorId: user._pivot_user_id });
-          }
-        });
-        this.setState({
-          eventName: response.data.name,
-          description: response.data.description,
-          location: response.data.location,
-          date: response.data.date,
-          time: response.data.time,
-          eventId: response.data.id,
-          creator_email: response.data.users[0].email,
-          creator_name: response.data.users[0].username,
-          contributions: response.data.toBring.contributions,
-          coordinates: response.data.coordinates,
-        });
-        // if (this.state.creatorId === Number(window.localStorage.id)) {
-        //   this.setState({ editable: true });
-        // here
-        if (this.state.creator_email === sessionStorage.email) {
-          this.setState({ editable: true });
-        }
-        console.log('outer', this.state.coordinates);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    setTimeout(this.loadMarker, 2000);
-    console.log('STATE', this.state);
+    eventHelpers.joinEventWithContributions(eventId, contribs, this.initializePage);
   }
 
   editState(e) {
     this.setState({ [e.target.className]: e.target.value });
-  }
-
-  determineName() {
-    if (!this.state.creator_name) {
-      return this.state.creator_email;
-    }
-    return this.state.creator_name;
   }
 
   // TODO: add toBring and coordinates here as well
@@ -172,7 +178,6 @@ class UniqueEvent extends React.Component {
 
 
   render() {
-    console.log('creatorId!!', this.state.creatorId);
     this.state.contributions = this.state.contributions || [];
     return (
     <div>
@@ -181,16 +186,7 @@ class UniqueEvent extends React.Component {
       <div className="ui two column stackable grid container">
         <div className="sixteen wide column"><br /></div>
           <div className="five wide column">
-            {/* TODO: reuse UserInfo component here */}
-            <div className="ui very padded raised segment card">
-              <div className="ui image ">
-                <img className="ui tiny circular right floated image" src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
-              </div>
-              <div className="ui header">
-                Hosted by {this.determineName()}
-              </div>
-              <p>Host profile info here</p>
-            </div>
+            <UserInfo user={this.state.host || {}} />
             <MapView 
               markers={this.state.markers}
               handleMapClick={this.handleMapClick}
@@ -216,8 +212,9 @@ class UniqueEvent extends React.Component {
                   date={this.state.date}
                   time={this.state.time}
                   contributions={this.state.contributions}
+                  joinable={this.state.joinable}
+                  editable={this.state.editable}
                   setEdit={this.setEdit}
-                  sameEmail={this.state.editable}
                   handleJoinEventWithContributions={this.handleJoinEventWithContributions}
                 />
               }
