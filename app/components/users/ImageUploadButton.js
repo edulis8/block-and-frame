@@ -18,7 +18,7 @@ class ImageUploadButton extends React.Component {
   render() {
     return (
       <div>
-        <img className="ui tiny circular image" src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
+        <img id="test" className="ui tiny circular image" src="https://s3.amazonaws.com/spreadout-img/avatar.png" />
         <button className="ui icon floated" onClick={this.handleClick} >
           <i className="plus square icon"></i>Upload
         </button>

@@ -1,4 +1,5 @@
 const User = require('./userModel');
+const fs = require('fs');
 
 module.exports = {
   getAllUsers(req, res) {
@@ -114,11 +115,16 @@ module.exports = {
     });
   },
 
-  saveAvatar(req, res) {
-    const id = req.body.id;
-    const avatarUrl = req.body.url;
-    console.log('id: ', id, 'url: ', avatarUrl);
-    // save avatarUrl to the user
+  saveAvatarURL(req, res) {
+    const filepath = req.body.filepath;
+    const userId = req.body.userId;
+
+    fs.writeFile('testOutput', `userId:${userId} -- ${filepath}`, (err) => {
+      if (err) {
+        return res.end(err);
+      }
+      return res.end('file saved');
+    }); 
   },
 };
 // to test edit

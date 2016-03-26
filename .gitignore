@@ -44,4 +44,7 @@ config.js
 
 .floo
 .flooignore
-.env
+testOutput
+
+
+>>>>>>> (feat) uploaded image url sent to server

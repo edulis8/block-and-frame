@@ -1,37 +1,40 @@
 import React from 'react';
-import Dropzone from 'react-dropzone';
-import userHelpers from '../../utils/userHelpers';
+import imageHelpers from '../../utils/imageHelpers';
 
 class Uploader extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      url: '',
+      avatarURL: '',
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onDrop(files) {
-    // TODO: specify single file
-    // have file.preview for immediate render
-    const file = files[0];
-    userHelpers.getSignedRequest(file)
-    .then((res) => {
-      this.setState({ url: res.data.url });
-      userHelpers.uploadImage(file, res.data.signed_request, res.data.url);
-    })
-    .catch((err) => {
-      console.log('onDrop Error', err);
+  handleSubmit() {
+    const imageFile = document.querySelector('input[type=file]').files[0];
+
+    imageHelpers.readFileURL(imageFile, (filepath) => {
+      this.setState({ avatarURL: filepath });
+      imageHelpers.saveImage(filepath)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     });
   }
 
   render() {
     return (
       <div>
-        <Dropzone onDrop={this.onDrop}>
-          <div>Drop File Here</div>
-        </Dropzone>
-      </div>
+        <form onSubmit={(e) => {e.preventDefault(); }}>
+          <input type="file" accept="image/*" id="image-file" />
+          <input type="submit" value="submit" onClick={this.handleSubmit} /> 
+        </form>
+       </div>
     );
   }
 }
