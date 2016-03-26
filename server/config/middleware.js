@@ -15,6 +15,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware')(compiler);
 const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   noInfo: true,
+  quiet: true,
 });
 
 module.exports = (app, express) => {
@@ -39,16 +40,17 @@ module.exports = (app, express) => {
 //   the user by ID when deserializing.  However, since this example does not
 //   have a database of user records, the complete Instagram profile is
 //   serialized and deserialized.
-  passport.serializeUser(function(user, done) {
-    console.log('here in serialize, user:', user)
-    done(null, user);
+  passport.serializeUser((user, done) => {
+    console.log('serializeUser')
+    done(null, users);
   });
 
-  passport.deserializeUser(function(obj, done) {
-    console.log('here in deserialize, obj:', obj)
+  passport.deserializeUser((obj, done) => {
+    console.log('deserializeUser')
     done(null, obj);
   });
-//////////////////////
+
+//end passport stuff ^^////////////////////
 
   app.use('/auth', authRoutes);
   app.use('/api', /* passport.authenticate('jwt', { session: false }), */ routes);

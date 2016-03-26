@@ -56,4 +56,25 @@ module.exports = {
       }
     });
   },
+  instagramLogin(req, res) {
+    console.log('instagram callback code -- req.query', req.query)
+    console.log('account', req.account)
+    console.log('account.id', req.account.id)
+
+    new User({ instagram_id: req.account.id })
+    .fetch()
+    .then((user) => {
+      const token = jwt.sign(user, process.env.SECRET, { expiresIn: 10080 });
+      const id = user.get('id')
+      //return res.json({ success: true, token: `JWT ${token}`, id: user.get('id') });
+      res.redirect(303, '/editprofile?' + querystring.stringify(`JWT ${token}`));
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+
+    // Successful authentication, redirect home.
+    // res.redirect('/events')
+  },
 };
+

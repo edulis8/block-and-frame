@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ErrorMessage from './ErrorMessage';
+//
+import authHelpers from '../../utils/authHelpers.js'
+//
 
 const SignupForm = (props) => {
   return (
@@ -51,7 +54,11 @@ const SignupForm = (props) => {
           errorMessage={props.errorMessage}
         />
       </div>
-      <button><a href="http://localhost:8080/auth/instagram">sign up with instagram</a></button>
+      <button
+        onClick={authHelpers.signupInstagram}
+      >asdfjjjjj
+        <a href="http://localhost:8080/auth/instagram">sign up with instagram</a>
+      </button>
     </div>
   );
 };

@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha test/**/*.js --require ./test/setup.js --compilers js:babel-core/register",
-    "start": "nodemon index.js",
-    "lint": "eslint . --ext .js --ext .jsx"
+    "start": "node index.js",
+    "lint": "eslint . --ext .js --ext .jsx",
+    "nodemon": "nodemon index.js"
   },
   "pre-commit": "lint",
   "repository": {

@@ -2,6 +2,9 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require('../users/userModel');
 const InstagramStrategy = require('passport-instagram').Strategy;
+//
+const jwt = require('jsonwebtoken');
+//
 
 module.exports = (passport) => {
   const options = {
@@ -9,7 +12,6 @@ module.exports = (passport) => {
     secretOrKey: process.env.SECRET,
   };
   passport.use(new JwtStrategy(options, (jwtPayload, done) => {
-    console.log('JWT jwtPayloadID', jwtPayload.id)
     User.where({ id: jwtPayload.id })
       .fetch().then((user) => {
         if (user) {
@@ -32,12 +34,16 @@ module.exports = (passport) => {
       //console.log("This is the user", req.account);
       console.log("token is", accessToken);
       console.log("refreshtoken is", refreshToken);
-      console.log("profile is", profile);
+      //console.log("profile is", profile);
 
       User.where({ instagram_id: profile.id })
       .fetch().then((user) => {
         if (user) {
           console.log('found a instagrammer, returning the user');
+          //console.log('found user', user)
+          // const token = jwt.sign(user, process.env.SECRET, { expiresIn: 10080 });
+          // console.log('about to send JSON!!')
+          // res.json({ success: true, token: `JWT ${token}`, id: createdUser.get('id') });
           return done(null, user);
         } else {
           console.log('going to create an instagrammer');
@@ -51,11 +57,10 @@ module.exports = (passport) => {
           });
           newUser.save()
           .then((createdUser) => {
-           //  const token = jwt.sign(user, process.env.SECRET, {
-           //   expiresIn: 10080,
-           //  });
-           // res.json({ success: true, token: `JWT ${token}`, id: createdUser.get('id') });
-            console.log('saved a user, returning, createdUser: ', createdUser)
+            // const token = jwt.sign(user, process.env.SECRET, { expiresIn: 10080 });
+            // console.log('about to send JSON!!')
+            // res.json({ success: true, token: `JWT ${token}`, id: createdUser.get('id') });
+            console.log('saved a user, returning, createdUser: ')
             return done(null, createdUser);
           })
           .catch((err) => {
