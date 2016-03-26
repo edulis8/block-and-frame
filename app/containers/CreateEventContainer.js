@@ -19,6 +19,8 @@ class CreateEvent extends Component {
       date: now.format('YYYY-MM-DD'),
       time: now.format('HH:mm'),
       markers: [],
+      bounds: null,
+      center: { lat: 39.0038657, lng: -96.5672834 },
     };
 
     this.onNameChange = this.onNameChange.bind(this); 
@@ -33,9 +35,10 @@ class CreateEvent extends Component {
     this.onNotesChange = this.onNotesChange.bind(this);
     this.onBringerChange = this.onBringerChange.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
-    this.handleMapClick = this.handleMapClick.bind(this);
-    this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
-    this.updateCoords = this.updateCoords.bind(this);
+    this.addMarker = this.addMarker.bind(this);
+    this.deleteMarker = this.deleteMarker.bind(this);
+    this.handleBoundsChanged = this.handleBoundsChanged.bind(this);
+    this.setCenter = this.setCenter.bind(this);
   }
 
   onNameChange(e) {
@@ -137,41 +140,61 @@ class CreateEvent extends Component {
     });
   }
 
-  updateCoords() {
-    const lat = this.state.markers[0].position.lat().toString();
-    const lng = this.state.markers[0].position.lng().toString();
-    const coords = lat.concat(',').concat(lng);
-    this.setState({ coordinates: coords });
+  setCenter() {
+    const location = {};
+    const coordinates = this.state.coordinates;
+    location.lat = Number(coordinates.split(',').shift());
+    location.lng = Number(coordinates.split(',').pop());
+    this.setState({ center: location });
   }
 
-  // adds markers to map when map is left clicked
-  handleMapClick(event) {
-    if (this.state.markers.length === 1) {
-      return;
-    }
+  handleBoundsChanged() {
+    console.log('BOUNDS', this.refs);
+    this.setState({
+      bounds: this.refs.map.getBounds(),
+      center: this.refs.map.getCenter(),
+    });
+  }
+
+  handlePlacesChange() {
+    console.log(this.refs);
+    const places = this.refs.searchBox.getPlaces();
     let { markers } = this.state;
     markers = update(markers, {
       $push: [
         {
-          position: event.latLng,
-          defaultAnimation: 2,
-          key: Date.now(),
+          position: places.geometry.location,
         },
       ],
     });
+
     this.setState({ markers });
   }
 
-  // removes marker from map when marker is right clicked
-  handleMarkerRightClick(index, event) {
-    console.log('here in rightclick');
-    console.log(event);
-    let { markers } = this.state;
+  // adds markers to map when map is left clicked
+  addMarker(coordinates) {
+    const location = {};
+    location.lat = Number(coordinates.split(',').shift());
+    location.lng = Number(coordinates.split(',').pop());
+    if (this.state.markers.length > 0) {
+      this.deleteMarker();
+    }
+    let markers = this.state.markers;
     markers = update(markers, {
-      $splice: [
-        [index, 1],
+      $push: [
+        {
+          position: location,
+        },
       ],
     });
+    this.setState({ coordinates, markers });
+    this.setCenter();
+  }
+
+  // removes marker from map when marker is right clicked
+  deleteMarker() {
+    console.log('delete marker');
+    const markers = [];
     this.setState({ markers });
   }
 
@@ -196,6 +219,8 @@ class CreateEvent extends Component {
           toBring={this.state.toBring}
           markers={this.state.markers}
           minDate={now.format('YYYY-MM-DD')}
+          bounds={this.state.bounds}
+          center={this.state.center}
           onNameChange={this.onNameChange}
           onLocationChange={this.onLocationChange}
           onDescriptionChange={this.onDescriptionChange}
@@ -208,9 +233,10 @@ class CreateEvent extends Component {
           preventDefaultSubmit={this.preventDefaultSubmit}
           onDateChange={this.onDateChange}
           onTimeChange={this.onTimeChange}
-          handleMapClick={this.handleMapClick}
-          handleMarkerRightClick={this.handleMarkerRightClick}
-          updateCoords={this.updateCoords}
+          addMarker={this.addMarker}
+          deleteMarker={this.deleteMarker}
+          handleBoundsChanged={this.handleBoundsChanged}
+          onPlacesChanged={this.handlePlacesChange}
         />
       </div>
     );

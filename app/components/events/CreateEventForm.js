@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ToBringList from './ToBringList';
-import MapView from './MapView';
+import CreateMapView from './CreateMapView';
 
 class CreateEventForm extends Component {
   render() {
@@ -94,11 +94,12 @@ class CreateEventForm extends Component {
 
           <div className="map">
             Select where you're hosting this event! Right click to undo your selection.
-            <MapView 
+            <CreateMapView 
               markers={this.props.markers}
-              handleMapClick={this.props.handleMapClick}
-              handleMarkerRightClick={this.props.handleMarkerRightClick}
-              onClick={this.props.updateCoords}
+              addMarker={this.props.addMarker}
+              handleBoundsChanged={this.props.handleBoundsChanged}
+              center={this.props.center}
+              onPlacesChanged={this.props.onPlacesChanged}
             />
           </div>
 

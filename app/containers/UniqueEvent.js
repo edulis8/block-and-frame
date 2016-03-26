@@ -4,7 +4,7 @@ import eventHelpers from '../utils/eventHelpers';
 import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
-import MapView from '../components/events/MapView';
+import UniqueMapView from '../components/events/UniqueMapView';
 import ContributionList from '../components/events/ContributionList';
 import UserInfo from '../components/users/UserInfo';
 
@@ -30,17 +30,18 @@ class UniqueEvent extends React.Component {
       coordinates: '',
       host: null,
       attendants: [],
+      center: {},
+      zoom: 3,
     };
 
     this.setEdit = this.setEdit.bind(this);
     this.editState = this.editState.bind(this);
     this.saveEventChanges = this.saveEventChanges.bind(this);
-    this.handleMapClick = this.handleMapClick.bind(this);
-    this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
     this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
     this.handleJoinEventWithContributions = this.handleJoinEventWithContributions.bind(this);
     this.loadMarker = this.loadMarker.bind(this);
     this.initializePage = this.initializePage.bind(this);
+    this.determineCenter = this.determineCenter.bind(this);
   }
 
   componentDidMount() {
@@ -117,6 +118,42 @@ class UniqueEvent extends React.Component {
     eventHelpers.joinEventWithContributions(eventId, contribs, this.initializePage);
   }
 
+  initializePage() {
+    eventHelpers.getEventbyId(this.state.url)
+      .then((response) => {
+        console.log('response from init page', response.data);
+        response.data.users.forEach((user) => {
+          if (user._pivot_user_id === Number(window.localStorage.id)) {
+            this.setState({ creatorId: user._pivot_user_id });
+          }
+        });
+        this.setState({
+          eventName: response.data.name,
+          description: response.data.description,
+          location: response.data.location,
+          date: response.data.date,
+          time: response.data.time,
+          eventId: response.data.id,
+          creator_email: response.data.users[0].email,
+          creator_name: response.data.users[0].username,
+          contributions: response.data.toBring.contributions,
+          coordinates: response.data.coordinates,
+        });
+        // if (this.state.creatorId === Number(window.localStorage.id)) {
+        //   this.setState({ editable: true });
+        // here
+        if (this.state.creator_email === sessionStorage.email) {
+          this.setState({ editable: true });
+        }
+        console.log('outer', this.state.coordinates);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setTimeout(this.loadMarker, 500);
+    setTimeout(this.determineCenter, 750);
+  }
+
   editState(e) {
     this.setState({ [e.target.className]: e.target.value });
   }
@@ -134,19 +171,28 @@ class UniqueEvent extends React.Component {
     eventHelpers.editEvent(this.state.url, edits);
   }
 
-  // adds markers to map when map is left clicked
+  determineCenter() {
+    const location = {};
+    if (this.state.coordinates !== '') {
+      const coordinates = this.state.coordinates;
+      location.lat = Number(coordinates.split(',').shift());
+      location.lng = Number(coordinates.split(',').pop());
+      this.setState({ center: location });
+    } else {
+      this.setState({ center: { lat: 39.3456034, lng: -101.265312 } });
+    }
+  }
+
   loadMarker() {
     const location = {};
     const coordinates = this.state.coordinates;
+    console.log('COORDS', coordinates);
     let { markers } = this.state;
     if (this.state.markers.length === 1) {
       return;
     }
-    const latitude = coordinates.split(',').shift();
-    const longitude = coordinates.split(',').pop();
-    location.lat = Number(latitude);
-    location.lng = Number(longitude);
-    console.log('LOCATION', location);
+    location.lat = Number(coordinates.split(',').shift());
+    location.lng = Number(coordinates.split(',').pop());
     markers = update(markers, {
       $push: [
         {
@@ -157,25 +203,8 @@ class UniqueEvent extends React.Component {
       ],
     });
     this.setState({ markers });
+    console.log('STATE', this.state);
   }
-
-  handleMapClick() {
-    return;
-  }
-
-  // removes marker from map when marker is right clicked
-  handleMarkerRightClick(index, event) {
-    console.log('here in rightclick', event);
-    let { markers } = this.state;
-    console.log('here');
-    markers = update(markers, {
-      $splice: [
-        [index, 1],
-      ],
-    });
-    this.setState({ markers });
-  }
-
 
   render() {
     this.state.contributions = this.state.contributions || [];
@@ -188,9 +217,20 @@ class UniqueEvent extends React.Component {
           <div className="five wide column">
             <UserInfo user={this.state.host || {}} />
             <MapView 
+            {/* TODO: reuse UserInfo component here */}
+            <div className="ui very padded raised segment card">
+              <div className="ui image ">
+                <img className="ui tiny circular right floated image" src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
+              </div>
+              <div className="ui header">
+                Hosted by {this.determineName()}
+              </div>
+              <p>Host profile info here</p>
+            </div>
+            <UniqueMapView 
               markers={this.state.markers}
-              handleMapClick={this.handleMapClick}
-              handleMarkerRightClick={this.handleMarkerRightClick}
+              center={this.state.center}
+              zoom={this.state.zoom}
             />
           </div>
           <div className="ten wide column">

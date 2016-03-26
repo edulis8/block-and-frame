@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
 
-const MapView = (props) => {
+const UniqueMapView = (props) => {
   return (
     <div>
       <GoogleMapLoader
@@ -17,14 +17,12 @@ const MapView = (props) => {
         googleMapElement={
           <GoogleMap
             defaultZoom={4}
-            defaultCenter={{ lat: 39.3456034, lng: -101.265312 }}
-            onClick={props.handleMapClick.bind(this)}
+            center={props.center}
           >
             {props.markers.map((marker, index) => {
               return (
                 <Marker
                   {...marker}
-                  onRightClick={props.handleMarkerRightClick.bind(this, index)}
                 />
               );
             })}
@@ -35,4 +33,4 @@ const MapView = (props) => {
   );
 };
 
-module.exports = MapView;
+module.exports = UniqueMapView;
