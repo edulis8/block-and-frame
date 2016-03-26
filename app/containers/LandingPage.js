@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Signin from './Signin';
-import Image from '../components/landing/Image';
-import Direction from '../components/landing/Direction';
-import Parallax from '../components/landing/Direction';
+import Directions from '../components/landing/Direction';
+import AboutUs from '../components/landing/AboutUs';
 
 class LandingPage extends Component {
   constructor(props) {
@@ -21,24 +20,21 @@ class LandingPage extends Component {
     this.setState({ showCredentials: !!!this.state.showCredentials });
   }
   render() {
-    const style1 = { 
-      height: '800px', 
-      align: 'center', 
+    const Style = {
+      maxHeight: '800',
     };
     return (
-      <div className="ui compact" id="stuck" style={{ backgroundColor: '#284947' }} >
-        <div onClick={this.handleClick} className="ui sticky" style={{ width: '200' }} >
-          <h3 style={{ textAlign: 'center', color: 'white' }} >Sign In    -   Sign Up</h3>
+      <div className="ui compact" id="stuck" >
+        <header onClick={this.handleClick} className="ui sticky" style={{ width: '200' }} >
+          <h3 style={{ textAlign: 'center', color: 'orange' }} >Sign In    -   Sign Up</h3>
           {this.state.showCredentials ? <Signin /> : null}
+        </header>
+        <img style={Style} src="https://s3.amazonaws.com/spreadout-img/LandingPage/photo11.jpg" />
+        <div style={{ height: '500', verticalAlign: 'center', margin: '100' }} >
+          <Directions />
         </div>
-        <Image source="http://i.imgur.com/5CtyRes.png" style={style} />
-        <div className="ui three column doubling stackable grid container" style={style} >
-          <Direction style={style} source="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
-          <Direction style={style} source="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
-          <Direction style={style} source="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
-        </div>
-        <div style={style}></div>
-        <Image source="http://i.imgur.com/5CtyRes.png" style={style} />
+        <div className="ui divider"></div>
+        <AboutUs />
       </div>
     );
   }

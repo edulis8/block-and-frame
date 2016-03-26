@@ -9,7 +9,7 @@ class Image extends Component {
   render() {
     return (
       <div>
-        <img src={this.props.source} />
+        <img src={this.props.source} style={this.props.style} />
       </div>
     );
   } 
