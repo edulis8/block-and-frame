@@ -17,7 +17,7 @@ class CreateEvent extends Component {
       toBring: [],
       coordinates: '',
       date: now.format('YYYY-MM-DD'),
-      time: now.format('hh:mm'),
+      time: now.format('HH:mm'),
       markers: [],
     };
 
