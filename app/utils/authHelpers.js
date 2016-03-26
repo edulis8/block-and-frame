@@ -14,6 +14,7 @@ const authHelpers = {
     this.logoutInstagram();
   },
   logoutInstagram() {
+    // this performs a req.logout() on the server
     return axios.get('/auth/logout');
   },
   signupInstagram() {

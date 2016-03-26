@@ -2,9 +2,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require('../users/userModel');
 const InstagramStrategy = require('passport-instagram').Strategy;
-//
-const jwt = require('jsonwebtoken');
-//
+
 
 module.exports = (passport) => {
   const options = {
@@ -51,6 +49,7 @@ module.exports = (passport) => {
 
           const newUser = new User({
             username: profile.displayName,
+            instagram_token: accessToken,
             instagram_id: profile.id,
             bio: profile.bio,
             instagram_profile_pic: profile._json.data.profile_picture,
@@ -77,18 +76,7 @@ module.exports = (passport) => {
       .catch((err) => {
         return done(err, false);
       });
-      
-      // To keep the example simple, the user's Instagram profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the Instagram account with a user record in your database,
-      // and return that user instead.
-      console.log('ABOUT TO RETURN')
-      return done(null, profile);
     });
-
-    // User.findOrCreate({ instagramId: profile.id }, function (err, user) {
-    //   return done(err, user);
-    //});
   }));
 };
 

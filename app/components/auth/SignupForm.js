@@ -54,11 +54,6 @@ const SignupForm = (props) => {
           errorMessage={props.errorMessage}
         />
       </div>
-      <button
-        onClick={authHelpers.signupInstagram}
-      >asdfjjjjj
-        <a href="http://localhost:8080/auth/instagram">sign up with instagram</a>
-      </button>
     </div>
   );
 };

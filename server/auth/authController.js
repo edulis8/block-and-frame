@@ -56,25 +56,29 @@ module.exports = {
       }
     });
   },
+  logout(req, res) {
+    console.log('Logging out!');
+    req.logout();
+    res.send('logging you out!');
+  },
   instagramLogin(req, res) {
     console.log('instagram callback code -- req.query', req.query)
     console.log('account', req.account)
     console.log('account.id', req.account.id)
-
-    new User({ instagram_id: req.account.id })
-    .fetch()
-    .then((user) => {
-      const token = jwt.sign(user, process.env.SECRET, { expiresIn: 10080 });
-      const id = user.get('id')
-      //return res.json({ success: true, token: `JWT ${token}`, id: user.get('id') });
-      res.redirect(303, '/editprofile?' + querystring.stringify(`JWT ${token}`));
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
-
+    // An attempt to get JWTs to the browser via a query string. Might actually work. Some day.
+    // new User({ instagram_id: req.account.id })
+    // .fetch()
+    // .then((user) => {
+    //   const token = jwt.sign(user, process.env.SECRET, { expiresIn: 10080 });
+    //   const id = user.get('id')
+    //   //return res.json({ success: true, token: `JWT ${token}`, id: user.get('id') });
+    //   res.redirect(303, '/editprofile?' + querystring.stringify(`JWT ${token}`));
+    // })
+    // .catch((err) => {
+    //   res.status(500).send(err);
+    // });
     // Successful authentication, redirect home.
-    // res.redirect('/events')
+    res.redirect('/editprofile');
   },
 };
 

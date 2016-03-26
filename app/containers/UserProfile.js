@@ -22,6 +22,7 @@ class UserProfile extends Component {
   componentDidMount() {
     userHelpers.getCurrentUserData()
     .then((user) => {
+      console.log('user in comp did mount', user)
       this.setState({
         email: user.data.email,
         username: user.data.username,

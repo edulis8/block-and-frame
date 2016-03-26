@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.post('/signin', authController.signin);
 router.post('/signup', authController.signup);
+// this has to do with the instagram session:
+router.get('/logout', authController.logout);
 
 // My try:
 router.get('/instagram',
@@ -23,10 +25,6 @@ router.get('/instagram/callback',
   authController.instagramLogin);
 
 
-router.get('/logout', (req, res) => {
-  console.log('Logging out!');
-  req.logout();
-  res.send('logging you out!');
-});
+
 
 module.exports = router;
