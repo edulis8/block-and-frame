@@ -29,7 +29,7 @@ class CreateMapView extends Component {
               {...this.props}
               style={{
                 height: '250px',
-                width: '100%',
+                width: '500px',
               }}
             />
           }

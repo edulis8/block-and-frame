@@ -21,15 +21,17 @@ class CreateEventForm extends Component {
             />
           </div>
 
-          <div className="field">
-            <label>Location:</label>
-            <input
-              className="location-input"
-              placeholder="Where is it?"
-              value={this.props.location}
-              onChange={this.props.onLocationChange}
+          <div className="map">
+            Select where you're hosting this event by typing in the location!
+            <CreateMapView 
+              markers={this.props.markers}
+              addMarker={this.props.addMarker}
+              handleBoundsChanged={this.props.handleBoundsChanged}
+              center={this.props.center}
+              onPlacesChanged={this.props.onPlacesChanged}
             />
           </div>
+          
           <div className="fields">
             <div>
               <label>Date:</label>
@@ -89,17 +91,6 @@ class CreateEventForm extends Component {
               onNotesChange={this.props.onNotesChange}
               onBringerChange={this.props.onBringerChange}
               onToBringRemove={this.props.onToBringRemove}
-            />
-          </div>
-
-          <div className="map">
-            Select where you're hosting this event! Right click to undo your selection.
-            <CreateMapView 
-              markers={this.props.markers}
-              addMarker={this.props.addMarker}
-              handleBoundsChanged={this.props.handleBoundsChanged}
-              center={this.props.center}
-              onPlacesChanged={this.props.onPlacesChanged}
             />
           </div>
 
