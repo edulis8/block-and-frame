@@ -27,7 +27,8 @@ module.exports = (passport) => {
   passport.use(new InstagramStrategy({
     clientID: process.env.INSTAGRAM_CLIENT_ID,
     clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/auth/instagram/callback",
+    callbackURL: 'http://localhost:8080/auth/instagram/callback',
+    scope: 'public_content',
   }, 
   (accessToken, refreshToken, profile, done) => {
     process.nextTick(function () {
