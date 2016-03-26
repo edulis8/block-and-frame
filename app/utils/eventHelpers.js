@@ -4,7 +4,6 @@ const eventHelpers = {
   createEvent(event, component) {
     const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('id');
-    console.log('event in helper', event);
     axios({
       url: `/api/events/${userId}`,
       method: 'post',
@@ -14,9 +13,7 @@ const eventHelpers = {
     .then((res) => {
       console.log('res from creating', res);
       component.context.router.push({
-        pathname: '/events',
-        // TODO: change path to /event once available
-        // state: res.data,
+        pathname: `/${res.data.id}`,
       });
     })
     .catch((res) => {
