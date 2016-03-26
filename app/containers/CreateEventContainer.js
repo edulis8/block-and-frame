@@ -25,10 +25,10 @@ class CreateEvent extends Component {
     this.onLocationChange = this.onLocationChange.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
     this.onTimeChange = this.onTimeChange.bind(this);
-
     this.onDescriptionChange = this.onDescriptionChange.bind(this);
     this.onEventSubmit = this.onEventSubmit.bind(this);
     this.onToBringAdd = this.onToBringAdd.bind(this);
+    this.onToBringRemove = this.onToBringRemove.bind(this);
     this.onItemChange = this.onItemChange.bind(this);
     this.onNotesChange = this.onNotesChange.bind(this);
     this.onBringerChange = this.onBringerChange.bind(this);
@@ -60,7 +60,21 @@ class CreateEvent extends Component {
   
   onEventSubmit() {
     // handle POST request for creating event
-    eventHelpers.createEvent(this.state, this);
+    eventHelpers.createEvent({
+      name: this.state.name,
+      location: this.state.location,
+      description: this.state.description,
+      date: this.state.date,
+      time: this.state.time,
+      coordinates: this.state.coordinates,
+      markers: this.state.markers,
+      toBring: this.state.toBring.filter((contribution) => {
+        if (contribution.item) {
+          return true;
+        }
+        return false;
+      }),
+    }, this);
 
     // reset forms
     this.setState({
@@ -83,6 +97,16 @@ class CreateEvent extends Component {
         bringer: null,
       }]),
     });
+  }
+
+  onToBringRemove(e, index) {
+    e.preventDefault();
+    const updated = this.state.toBring.slice();
+    updated.pop();
+    this.setState({
+      toBring: updated,
+    });
+    console.log(index);
   }
 
   onItemChange(e, index) {
@@ -177,6 +201,7 @@ class CreateEvent extends Component {
           onDescriptionChange={this.onDescriptionChange}
           onEventSubmit={this.onEventSubmit}
           onToBringAdd={this.onToBringAdd}
+          onToBringRemove={this.onToBringRemove}
           onItemChange={this.onItemChange}
           onNotesChange={this.onNotesChange}
           onBringerChange={this.onBringerChange}

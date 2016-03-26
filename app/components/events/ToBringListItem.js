@@ -35,6 +35,7 @@ class ToBringItem extends Component {
             placeholder="Contribution Item"
           />
         </div>
+
         <div className="ten wide field">
           <input
             className={`to-bring-notes-${this.props.index}`}
@@ -43,6 +44,7 @@ class ToBringItem extends Component {
             placeholder="Where and how do they find it?"
           />
         </div>
+
         <div className="two wide field center">
           <label htmlFor="to-bring">
             You'll bring:
