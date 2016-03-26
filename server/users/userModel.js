@@ -19,6 +19,7 @@ const User = bookshelf.Model.extend({
           console.log('Error here');
           reject(err);
         }
+        console.log('PASSWORD', model.get('password'));
         model.set('password', hash);
         resolve(hash);
       });
