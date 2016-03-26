@@ -203,7 +203,7 @@ class UniqueEvent extends React.Component {
                   editState={this.editState}
                   setEdit={this.setEdit}
                 />
-                 :
+                :
                 <UniqueEventView
                   eventId={this.state.url}
                   eventName={this.state.eventName}
@@ -221,6 +221,7 @@ class UniqueEvent extends React.Component {
             </div>
 
             <ContributionList
+              ref="contribution-list"
               msgDivClass={this.state.msgDivClass}
               contributions={this.state.contributions}
               onCheckBoxClick={this.handleCheckBoxClick}

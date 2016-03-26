@@ -70,7 +70,8 @@ class EventList extends React.Component {
           name={event.name}
           location={event.location}
           description={event.description}
-          dateTime={event.dateTime}
+          date={event.date}
+          time={event.time}
           id={event.id}
           creator_name={event.users[0] ? event.users[0].username : 'Anonymous' }
           creator_email={event.users[0] ? event.users[0].email : ''}

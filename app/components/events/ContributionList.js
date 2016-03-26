@@ -32,6 +32,7 @@ class ContributionList extends Component {
               <Contribution
                 key={index}
                 {...contrib}
+                ref={`contribution-${index}`}
                 _onCheckBoxClick={this.props.onCheckBoxClick}
               />
             )}

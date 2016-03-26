@@ -36,7 +36,8 @@ class UserEventList extends Component {
                 name={event.name}
                 location={event.location}
                 isHost={event._pivot_is_creator}
-                dateTime={event.dateTime}
+                date={event.date}
+                time={event.time}
                 id={event.id}
               />
             );
