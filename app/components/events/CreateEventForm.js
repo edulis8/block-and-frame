@@ -22,7 +22,7 @@ class CreateEventForm extends Component {
           </div>
 
           <div className="map">
-            Select where you're hosting this event by typing in the location!
+            Select where you're hosting this spread by typing in the location!
             <CreateMapView 
               markers={this.props.markers}
               addMarker={this.props.addMarker}
