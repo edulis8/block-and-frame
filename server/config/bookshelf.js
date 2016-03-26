@@ -23,6 +23,9 @@ bookshelf.knex.schema.hasTable('users').then((exists) => {
       user.string('email', 100).unique();
       user.string('username', 100).unique();
       user.string('password', 100);
+      user.string('instagram_id', 100).unique();
+      user.string('instagram_username', 100);
+      user.string('instagram_profile_pic', 200);
       user.string('bio', 1000);
       user.string('location', 50);
       user.boolean('is_traveling');
