@@ -30,24 +30,6 @@ module.exports = (app, express) => {
   app.use(passport.initialize());
   require('./passport')(passport);
 
-// Passport session setup. (For instagram auth)
-//   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.  However, since this example does not
-//   have a database of user records, the complete Instagram profile is
-//   serialized and deserialized.
-  passport.serializeUser(function(user, done) {
-    console.log('here in serialize, user:', user)
-    done(null, user);
-  });
-
-  passport.deserializeUser(function(obj, done) {
-    console.log('here in deserialize, obj:', obj)
-    done(null, obj);
-  });
-//////////////////////
-
   app.use('/auth', authRoutes);
   app.use('/api', /* passport.authenticate('jwt', { session: false }), */ routes);
 

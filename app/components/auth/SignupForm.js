@@ -51,7 +51,9 @@ const SignupForm = (props) => {
           errorMessage={props.errorMessage}
         />
       </div>
-      <button><a href="http://localhost:8080/auth/instagram">sign up with instagram</a></button>
+       <button className="ui button" >
+        <a href="/auth/instagram">sign up with instagram</a>
+      </button>
     </div>
   );
 };

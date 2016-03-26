@@ -8,57 +8,36 @@ const router = express.Router();
 
 router.post('/signin', authController.signin);
 router.post('/signup', authController.signup);
-//
-router.get('/signin', function(req,res){
-  console.log('yoooohooo')
-})
-router.get('/logout', function(req, res){
-  console.log('Logging out!')
-  req.logout();
-  res.send('logging you out!');
-});
-
-// Docs:
-// app.get('/auth/instagram',
-//   passport.authenticate('instagram'));
-
-// app.get('/auth/instagram',
-//   passport.authenticate('instagram'),
-//   function(req, res){
-//     // The request will be redirected to Instagram for authentication, so this
-//     // function will not be called.
-//   });
+// this has to do with the instagram session:
 
 // My try:
 router.get('/instagram',
-  passport.authenticate('instagram'),
-  function(req, res) {
+  passport.authorize('instagram', { session: false }),
+  (req, res) => {
     // The request will be redirected to Instagram for authentication, so this
     // function will not be called.
-    console.log('Is this function called???');
-  });
-  
-
-// Docs:
-// app.get('/auth/instagram/callback', 
-//   passport.authenticate('instagram', { failureRedirect: '/login' }),
-//   function(req, res) {
-//     // Successful authentication, redirect home.
-//     res.redirect('/');
-//   });
-
-router.get('/instagram/callback', 
-  passport.authenticate('instagram', { failureRedirect: '/signin' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    console.log('Successful AUTHENTICATION!!!, redirect home.')
-    res.redirect('/events')
   });
 
-// Docs:
-// app.get('/logout', function(req, res){
-//   req.logout();
-//   res.redirect('/');
-// });
+const jwt = require('jsonwebtoken');
+
+router.get('/instagram/callback', (req, res, next) => {
+  passport.authorize('instagram', {
+    scope: ['public_content'],
+    failureRedirect: '/' },
+  (err, user, info) => {
+    console.log('user', user, 'info', info);
+    if (err) { 
+      console.log('error', err);
+      return next(err); 
+    }
+    if (!user) { 
+      console.log('no user!');
+      return res.redirect('/'); 
+    }
+    const token = jwt.sign(user, process.env.SECRET, { expiresIn: 10080 });
+    const id = user.get('id');
+    res.redirect(`/editprofile?${token}&${id}`);
+  })(req, res, next);
+});
 
 module.exports = router;

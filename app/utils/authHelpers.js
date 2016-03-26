@@ -6,10 +6,6 @@ const authHelpers = {
 
   logout() {
     window.localStorage.clear();
-    this.logoutInstagram();
-  },
-  logoutInstagram() {
-    return axios.get('/auth/logout');
   },
 };
 
