@@ -109,7 +109,6 @@ class UniqueEvent extends React.Component {
     } else {
       this.state.contributions[index].bringer = null;
     }
-    console.log(this.state.contributions[index]); 
   }
 
   handleJoinEventWithContributions(eventId, contribs) {
