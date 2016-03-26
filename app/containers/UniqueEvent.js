@@ -46,7 +46,6 @@ class UniqueEvent extends React.Component {
 
   componentDidMount() {
     this.initializePage();
-    setTimeout(this.loadMarker, 2000);
   }
 
   setEdit() {
@@ -145,7 +144,6 @@ class UniqueEvent extends React.Component {
         if (this.state.creator_email === sessionStorage.email) {
           this.setState({ editable: true });
         }
-        console.log('outer', this.state.coordinates);
       })
       .catch((error) => {
         console.log(error);
@@ -186,9 +184,8 @@ class UniqueEvent extends React.Component {
   loadMarker() {
     const location = {};
     const coordinates = this.state.coordinates;
-    console.log('COORDS', coordinates);
     let { markers } = this.state;
-    if (this.state.markers.length === 1) {
+    if (this.state.markers.length > 0) {
       return;
     }
     location.lat = Number(coordinates.split(',').shift());
@@ -203,7 +200,6 @@ class UniqueEvent extends React.Component {
       ],
     });
     this.setState({ markers });
-    console.log('STATE', this.state);
   }
 
   render() {
@@ -216,17 +212,6 @@ class UniqueEvent extends React.Component {
         <div className="sixteen wide column"><br /></div>
           <div className="five wide column">
             <UserInfo user={this.state.host || {}} />
-            <MapView 
-            {/* TODO: reuse UserInfo component here */}
-            <div className="ui very padded raised segment card">
-              <div className="ui image ">
-                <img className="ui tiny circular right floated image" src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
-              </div>
-              <div className="ui header">
-                Hosted by {this.determineName()}
-              </div>
-              <p>Host profile info here</p>
-            </div>
             <UniqueMapView 
               markers={this.state.markers}
               center={this.state.center}

@@ -109,7 +109,6 @@ class CreateEvent extends Component {
     this.setState({
       toBring: updated,
     });
-    console.log(index);
   }
 
   onItemChange(e, index) {
@@ -149,7 +148,6 @@ class CreateEvent extends Component {
   }
 
   handleBoundsChanged() {
-    console.log('BOUNDS', this.refs);
     this.setState({
       bounds: this.refs.map.getBounds(),
       center: this.refs.map.getCenter(),
@@ -157,7 +155,6 @@ class CreateEvent extends Component {
   }
 
   handlePlacesChange() {
-    console.log(this.refs);
     const places = this.refs.searchBox.getPlaces();
     let { markers } = this.state;
     markers = update(markers, {
@@ -171,7 +168,6 @@ class CreateEvent extends Component {
     this.setState({ markers });
   }
 
-  // adds markers to map when map is left clicked
   addMarker(coordinates) {
     const location = {};
     location.lat = Number(coordinates.split(',').shift());
@@ -191,9 +187,7 @@ class CreateEvent extends Component {
     this.setCenter();
   }
 
-  // removes marker from map when marker is right clicked
   deleteMarker() {
-    console.log('delete marker');
     const markers = [];
     this.setState({ markers });
   }
