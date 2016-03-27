@@ -2,10 +2,10 @@ import React from 'react';
 
 const UserInfo = ({ user }) => {
   return (
-    <div className="six wide column">
+    <div>
       <div className="ui card">
         <div className="image">
-          <img src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
+          <img src={user.instagramProfilePicUrl || 'http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png'} />
         </div>
         <div className="content">
           <div className="header">

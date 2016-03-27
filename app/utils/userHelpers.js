@@ -36,7 +36,17 @@ const userHelpers = {
       headers: { Authorization: token },
     });
   },
-
+  saveInstagramUsername(instagramUsername) {
+    const token = window.localStorage.getItem('token');
+    const userId = window.localStorage.getItem('id');
+    console.log('saveInsta called with:', instagramUsername);
+    return axios({
+      url: `api/users/${userId}`,
+      method: 'put',
+      data: { instagram_username: instagramUsername },
+      headers: { Authorization: token },
+    });
+  },
   deleteUser() {
     const userId = window.localStorage.getItem('id');
     const token = window.localStorage.getItem('token');

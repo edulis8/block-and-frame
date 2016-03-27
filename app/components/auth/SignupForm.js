@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ErrorMessage from './ErrorMessage';
-//
-import authHelpers from '../../utils/authHelpers.js'
-//
 
 const SignupForm = (props) => {
   return (

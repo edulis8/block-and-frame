@@ -73,17 +73,29 @@ class UserProfileForm extends Component {
           </div>
 
           <div className="field">
-            <label><i className="instagram icon"></i> Instagram:</label>
-            <input placeholder= "@spread_out" />
+            <label>Connect to Instagram:</label>
+            <input
+              value={this.props.instagram}
+              onChange={this.props.onInstagramChange}
+              placeholder= "Enter your Instagram username to connect to Instagram" 
+            />
+            <button 
+              className="ui tiny instagram button"
+              onClick={this.props.onInstagramSubmit}
+            >
+                <i className="instagram icon"></i>
+                <a href="http://localhost:8080/auth/instagram">Connect to Instagram</a>
+            </button>
           </div>
 
-          <button
-            className="ui button"
-            onClick={this.props.onProfileSubmit}
-          >
-            <i className="icon save"></i>
-            Save Profile
-          </button>
+            <button
+              className="ui button"
+              onClick={this.props.onProfileSubmit}
+            >
+              <i className="icon save"></i>
+              Save Profile
+            </button>
+
 
           <button
             className="ui basic button"

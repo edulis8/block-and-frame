@@ -11,5 +11,7 @@ router.post('/', userController.createUser);
 router.put('/avatar', userController.saveAvatar);
 router.put('/:userId', userController.editUser);
 router.delete('/:userId', userController.deleteUser);
+//
+router.post('/testInsta', userController.testInsta)
 
 module.exports = router;

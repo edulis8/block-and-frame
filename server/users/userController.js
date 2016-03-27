@@ -1,6 +1,19 @@
 const User = require('./userModel');
+const axios = require('axios');
 
 module.exports = {
+  testInsta(req, res) {
+    console.log('in testinsa!!', req.body)
+    axios.get(`https://api.instagram.com/v1/users/self/media/recent/?access_token=${req.body.accessToken}`)
+    .then((data) => {
+      console.log('DATA', data)
+      res.status(201).send(data)
+    })
+    .catch((err) => {
+      console.error('myErr', err);
+      res.sendStatus(500);
+    });
+  },
   getAllUsers(req, res) {
     User.fetchAll({
       // NOTE password is being sent to front-end
@@ -20,7 +33,9 @@ module.exports = {
     User.where({ id: req.params.userId })
     .fetch({
       withRelated: ['events'],
-      columns: ['id', 'email', 'username', 'bio', 'location', 'is_traveling'],
+      columns: [
+        'id', 'email', 'username', 'bio', 'location', 'is_traveling', 'instagram_id', 'instagram_token', 'instagram_username', 'instagram_profile_pic',
+      ],
     })
     .then((user) => {
       if (!user) {
@@ -72,6 +87,7 @@ module.exports = {
   },
 
   editUser(req, res) {
+    console.log('REQ BODY XXX', req.body)
     User.where({ id: req.params.userId })
     .fetch()
     .then((user) => {
@@ -84,6 +100,7 @@ module.exports = {
           bio: req.body.bio,
           location: req.body.location,
           is_traveling: req.body.is_traveling,
+          instagram_username: req.body.instagram_username,
         });
       }
     })

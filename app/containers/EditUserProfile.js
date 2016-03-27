@@ -18,7 +18,8 @@ class UserProfile extends React.Component {
       location: '',
       isTraveling: null,
       sucess: false,
-      // instagram
+      instagram: '',
+      instagramProfilePic: '',
     };
 
     this.onNameChange = this.onNameChange.bind(this);
@@ -31,18 +32,22 @@ class UserProfile extends React.Component {
     this.handleImageSubmit = this.handleImageSubmit.bind(this);
     this.handleDeleteUser = this.handleDeleteUser.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
-    // this.onInstagramChange = this.onBioChange.bind(this);
+    this.onInstagramChange = this.onInstagramChange.bind(this);
+    this.handleInstagramSubmit = this.handleInstagramSubmit.bind(this);
   }
 
   componentDidMount() {
     userHelpers.getCurrentUserData()
     .then((user) => {
+      console.log('user in comp did mount', user.data);
       this.setState({
         email: user.data.email,
         username: user.data.username,
         bio: user.data.bio,
         location: user.data.location,
         isTraveling: user.data.is_traveling,
+        instagramProfilePic: user.data.instagram_profile_pic,
+        instagram: user.data.instagram_username,
       });
     });
   }
@@ -71,9 +76,23 @@ class UserProfile extends React.Component {
     this.setState({ isTraveling: e.target.checked });
   }
 
-  // onInstagramChange(e) {
-  //   this.setState({ instagram: e.target.value });
-  // }
+  onInstagramChange(e) {
+    this.setState({ instagram: e.target.value });
+  }
+
+  handleInstagramSubmit() {
+    userHelpers.saveInstagramUsername(this.state.instagram)
+    .then((user) => {
+      console.log('user after instagram submit', user);
+      // TODO: something to show success similar to: this.setState({ success: true });
+    })
+    .then(() => {
+      this.render();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
   handleProfileSubmit() {
     userHelpers.updateUser(this.state)
@@ -135,11 +154,13 @@ class UserProfile extends React.Component {
               onDeleteUser={this.handleDeleteUser}
               onProfileSubmit={this.handleProfileSubmit}
               preventDefaultSubmit={this.preventDefaultSubmit}
-              // TODO instagram={this.state.instagram}
-              // TODO onInstagramChange={this.onInstagramChange}
+              instagram={this.state.instagram}
+              onInstagramChange={this.onInstagramChange}
+              onInstagramSubmit={this.handleInstagramSubmit}
             />
             <EditSuccess success={this.state.success} />
           </div>
+          <img src={this.state.instagramProfilePic} alt="" className="ui circular image" />
         </div>
       </div>
     );

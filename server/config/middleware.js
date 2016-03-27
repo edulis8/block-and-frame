@@ -41,12 +41,12 @@ module.exports = (app, express) => {
 //   have a database of user records, the complete Instagram profile is
 //   serialized and deserialized.
   passport.serializeUser((user, done) => {
-    console.log('serializeUser')
+    console.log('serializeUser', user)
     done(null, users);
   });
 
   passport.deserializeUser((obj, done) => {
-    console.log('deserializeUser')
+    console.log('deserializeUser', obj)
     done(null, obj);
   });
 

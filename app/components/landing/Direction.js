@@ -12,8 +12,8 @@ class Direction extends Component {
     $('.shape').shape();
   }
   handleClick(str) {
-    console.log(str);
-    $('.shape').shape('flip right');
+    console.log(this.props.uniqueId);
+    $(`#${this.props.uniqueId}`).shape('flip right');
   }
   render() {
     return (
@@ -32,7 +32,7 @@ class Direction extends Component {
             </div>
           </div>
         </div>
-        <div className="ui shape column" onClick={this.handleClick}>
+        <div className="ui shape column" id={this.props.uniqueId} onClick={this.handleClick}>
           <div className="sides">
             <div className="active side">
               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Food_Bank_icon.svg/2000px-Food_Bank_icon.svg.png" width="130px" />

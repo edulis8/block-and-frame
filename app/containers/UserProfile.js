@@ -3,7 +3,8 @@ import userHelpers from '../utils/userHelpers';
 import MenuBar from '../components/MenuBar';
 import UserInfo from '../components/users/UserInfo';
 import UserEventList from '../components/users/UserEventList';
-
+import instaHelpers from '../utils/instaHelpers';
+import InstaUserPics from '../components/instagram/InstaUserPics';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -16,13 +17,15 @@ class UserProfile extends Component {
       location: '',
       isTraveling: null,
       events: [],
+      allThisUsersInstaPics: [],
+      instagramProfilePicUrl: '',
     };
   }
 
   componentDidMount() {
     userHelpers.getCurrentUserData()
     .then((user) => {
-      console.log('user in comp did mount', user)
+      console.log('user in comp did mount in user profile', user.data);
       this.setState({
         email: user.data.email,
         username: user.data.username,
@@ -30,7 +33,19 @@ class UserProfile extends Component {
         location: user.data.location,
         isTraveling: user.data.is_traveling,
         events: user.data.events,
+        instagramProfilePicUrl: user.data.instagram_profile_pic,
       });
+      // / get all the users insta pics, to be filtered later to only #spread_out_space
+      if (user.data.instagram_token) {
+        instaHelpers.getAllThisUsersPics(user.data.instagram_token)
+        .then((data) => {
+          this.setState({ allThisUsersInstaPics: data.data.data.data });
+          console.log('in the state now?', this.state.allThisUsersInstaPics);
+        })
+        .catch((err) => {
+          console.log('error', err);
+        });
+      }
     });
   }
 
@@ -41,7 +56,23 @@ class UserProfile extends Component {
         <br />
         <div className="ui two column stackable grid container">
           <div className="sixteen wide column"><br /></div>
+          <div className="six wide column">
           <UserInfo user={this.state} />
+          {this.state.allThisUsersInstaPics.map((object, index) => {
+            // here is where can set #tag we want:
+            if (object.tags.indexOf('tamarillo') >= 0) {
+              return (
+                <div className="ui segment">
+                  <InstaUserPics 
+                    key={index}
+                    data={object} 
+                  />
+                </div>
+              );
+            }
+            return '';
+          })}; 
+          </div>
           <div className="ten wide column">
             <div className="ui centered header">My Spreads</div>
             <div className="ui segment">

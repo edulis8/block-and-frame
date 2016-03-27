@@ -21,7 +21,7 @@ router.get('/instagram',
 router.get('/instagram/callback', 
   passport.authorize('instagram', {
     scope: ['public_content'],
-    failureRedirect: '/signin' }),
+    failureRedirect: '/editprofile' }),
   authController.instagramLogin);
 
 

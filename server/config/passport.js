@@ -29,47 +29,32 @@ module.exports = (passport) => {
     scope: 'public_content',
   }, 
   (accessToken, refreshToken, profile, done) => {
-    process.nextTick(function () {
-      //console.log("This is the user", req.account);
+    process.nextTick(() => {
+      // console.log("This is the user", req.account);
       console.log("token is", accessToken);
       console.log("refreshtoken is", refreshToken);
-      //console.log("profile is", profile);
+      console.log("profile is", profile);
 
-      User.where({ instagram_id: profile.id })
-      .fetch().then((user) => {
+      User.where({ instagram_username: profile.username })
+      .fetch()
+      .then((user) => {
+        if (!user) {
+          return done(null, false);  
+        } 
         if (user) {
-          console.log('found a instagrammer, returning the user');
-          //console.log('found user', user)
-          // const token = jwt.sign(user, process.env.SECRET, { expiresIn: 10080 });
-          // console.log('about to send JSON!!')
-          // res.json({ success: true, token: `JWT ${token}`, id: createdUser.get('id') });
-          return done(null, user);
-        } else {
-          console.log('going to create an instagrammer');
+          console.log('found a instagrammer, heres the user', user);
+          console.log('about to save em')
 
-          const newUser = new User({
+          user.save({
             username: profile.displayName,
             instagram_token: accessToken,
             instagram_id: profile.id,
-            bio: profile.bio,
+            //bio: profile.bio,
             instagram_profile_pic: profile._json.data.profile_picture,
             instagram_username: profile.username,
           });
-          newUser.save()
-          .then((createdUser) => {
-            // const token = jwt.sign(user, process.env.SECRET, { expiresIn: 10080 });
-            // console.log('about to send JSON!!')
-            // res.json({ success: true, token: `JWT ${token}`, id: createdUser.get('id') });
-            console.log('saved a user, returning, createdUser: ')
-            return done(null, createdUser);
-          })
-          .catch((err) => {
-            console.log('Error saving user in passport.js', err);
-            res.status(500).send(err);
-          });
+          return done(null, user);
         }
-        // we just tried to either find or save an instagrammer
-        // if that fails, do this?
         console.log('failed to find an instagrammer')
         return done(null, false);
       })
@@ -79,4 +64,29 @@ module.exports = (passport) => {
     });
   }));
 };
+
+// else {
+//           console.log('going to create an instagrammer');
+
+//           const newUser = new User({
+//             username: profile.displayName,
+//             instagram_token: accessToken,
+//             instagram_id: profile.id,
+//             bio: profile.bio,
+//             instagram_profile_pic: profile._json.data.profile_picture,
+//             instagram_username: profile.username,
+//           });
+//           newUser.save()
+//           .then((createdUser) => {
+//             // const token = jwt.sign(user, process.env.SECRET, { expiresIn: 10080 });
+//             // console.log('about to send JSON!!')
+//             // res.json({ success: true, token: `JWT ${token}`, id: createdUser.get('id') });
+//             console.log('saved a user, returning, createdUser: ')
+//             return done(null, createdUser);
+//           })
+//           .catch((err) => {
+//             console.log('Error saving user in passport.js', err);
+//             res.status(500).send(err);
+//           });
+
 

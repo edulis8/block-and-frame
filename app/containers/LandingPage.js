@@ -31,7 +31,7 @@ class LandingPage extends Component {
         </header>
         <img style={Style} src="https://s3.amazonaws.com/spreadout-img/LandingPage/photo11.jpg" />
         <div style={{ height: '500', verticalAlign: 'center', margin: '100' }} >
-          <Directions />
+          <Directions uniqueId="1" />
         </div>
         <div className="ui divider"></div>
         <AboutUs />
