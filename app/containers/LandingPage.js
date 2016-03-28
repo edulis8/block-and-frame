@@ -49,7 +49,8 @@ class LandingPage extends Component {
               s1Source={el.s1Source} 
               s1Step={el.s1Step} 
               s2Header={el.s2Header}
-              s2Text={el.s2Text} />
+              s2Text={el.s2Text} 
+            />
           )}
         </div>
 
