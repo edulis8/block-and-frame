@@ -25,7 +25,7 @@ const UserInfo = ({ user }) => {
       </div>
       <div className="ui card">
         <div className="content">
-        {user.bio || `${(user.username || user.email)} hasnt filled out their bio`}
+        {user.bio || `${(user.username || user.email)} hasn't filled out their bio`}
         </div>
       </div>
     </div>

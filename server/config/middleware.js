@@ -42,7 +42,7 @@ module.exports = (app, express) => {
 //   serialized and deserialized.
   passport.serializeUser((user, done) => {
     console.log('serializeUser', user)
-    done(null, users);
+    done(null, user);
   });
 
   passport.deserializeUser((obj, done) => {

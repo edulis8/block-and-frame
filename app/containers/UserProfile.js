@@ -60,7 +60,7 @@ class UserProfile extends Component {
           <UserInfo user={this.state} />
           {this.state.allThisUsersInstaPics.map((object, index) => {
             // here is where can set #tag we want:
-            if (object.tags.indexOf('tamarillo') >= 0) {
+            if (object.tags.indexOf('spread_out_space') >= 0) {
               return (
                 <div className="ui segment">
                   <InstaUserPics 
@@ -70,8 +70,7 @@ class UserProfile extends Component {
                 </div>
               );
             }
-            return '';
-          })}; 
+          })} 
           </div>
           <div className="ten wide column">
             <div className="ui centered header">My Spreads</div>

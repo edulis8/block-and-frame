@@ -25,12 +25,12 @@ module.exports = (passport) => {
   passport.use(new InstagramStrategy({
     clientID: process.env.INSTAGRAM_CLIENT_ID,
     clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
-    callbackURL: 'http://localhost:8080/auth/instagram/callback',
+    callbackURL: process.env.CALLBACK_URL || 'http://localhost:8080/auth/instagram/callback',
     scope: 'public_content',
   }, 
-  (accessToken, refreshToken, profile, done) => {
+  (req, accessToken, refreshToken, profile, done) => {
     process.nextTick(() => {
-      // console.log("This is the user", req.account);
+      console.log("This is the user", req.account);
       console.log("token is", accessToken);
       console.log("refreshtoken is", refreshToken);
       console.log("profile is", profile);
@@ -47,7 +47,7 @@ module.exports = (passport) => {
 
           user.save({
             username: profile.displayName,
-            instagram_token: accessToken,
+            instagram_token: accessToken || refreshToken.access_token,
             instagram_id: profile.id,
             //bio: profile.bio,
             instagram_profile_pic: profile._json.data.profile_picture,

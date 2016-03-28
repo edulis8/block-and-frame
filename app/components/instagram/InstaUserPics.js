@@ -5,7 +5,7 @@ const InstaUserPics = ({ data }) => {
     <div>
       <img src={data.images.thumbnail.url} alt="" className="ui circular tiny image" />  
     </div>
-  );
+  )
 };
 
 export default InstaUserPics;

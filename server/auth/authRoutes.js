@@ -12,7 +12,7 @@ router.get('/logout', authController.logout);
 
 // My try:
 router.get('/instagram',
-  passport.authorize('instagram'),
+  passport.authorize('instagram',  { session: false }),
   (req, res) => {
     // The request will be redirected to Instagram for authentication, so this
     // function will not be called.
@@ -21,7 +21,7 @@ router.get('/instagram',
 router.get('/instagram/callback', 
   passport.authorize('instagram', {
     scope: ['public_content'],
-    failureRedirect: '/editprofile' }),
+    failureRedirect: '/' }),
   authController.instagramLogin);
 
 
