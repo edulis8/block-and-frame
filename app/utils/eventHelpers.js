@@ -51,12 +51,14 @@ const eventHelpers = {
       console.log(error);
     });
   },
+
   // wrap blobSender and joinEvent in third function
   joinEventWithContributions(eventId, contributions, callback, host) {
     eventHelpers.joinEvent(eventId, callback, host);
     // return this?
     eventHelpers.contributionsSave(contributions, eventId, callback);
   },
+
   contributionsSave(contributionsArray, eventId, callback) {
     const token = window.localStorage.getItem('token');
     return axios({
@@ -97,10 +99,32 @@ const eventHelpers = {
       console.log(error);
     });
   },
+
   getAllEvents() {
     const token = window.localStorage.getItem('token');
     return axios({
       url: '/api/events/',
+      method: 'get',
+      headers: { Authorization: token },
+    });
+  },
+
+  addComment(comment, eventId) {
+    const token = window.localStorage.getItem('token');
+
+    return axios({
+      url: `/api/events/${eventId}/comments`,
+      method: 'post',
+      headers: { Authorization: token },
+      data: comment,
+    });
+  },
+
+  getComments(eventId) {
+    const token = window.localStorage.getItem('token');
+
+    return axios({
+      url: `/api/events/${eventId}/comments`,
       method: 'get',
       headers: { Authorization: token },
     });

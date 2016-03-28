@@ -1,5 +1,6 @@
 import React from 'react';
 import imageHelpers from '../../utils/imageHelpers';
+import ImageUpload from './ImageUpload';
 
 class Uploader extends React.Component {
   constructor(props) {
@@ -8,10 +9,12 @@ class Uploader extends React.Component {
     this.state = {
       avatarURL: 'https://s3.amazonaws.com/spreadout-img/avatar.png',
       filename: '',
+      uploaded: false,
     };
 
     this.handleUploadClick = this.handleUploadClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.checkForInstagram = this.checkForInstagram.bind(this);
   }
 
   componentWillMount() {
@@ -30,6 +33,12 @@ class Uploader extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.uploaded && nextProps.instagramProfilePic) {
+      this.setState({ avatarURL: nextProps.instagramProfilePic });
+    }
+  }
+
   handleUploadClick() {
     const fileInput = document.querySelector('input[type=file]');
     fileInput.onchange = (e) => {
@@ -45,6 +54,7 @@ class Uploader extends React.Component {
       this.setState({ avatarURL: filepath });
       imageHelpers.saveAvatarURL(filepath)
       .then((res) => {
+        this.setState({ uploaded: true });
         console.log(res);
       })
       .catch((err) => {
@@ -53,30 +63,20 @@ class Uploader extends React.Component {
     });
   }
 
+  checkForInstagram() {
+    if (this.props.instagramProfilePic) {
+      this.setState({ avatarURL: this.props.instagramProfilePic });
+    }
+  }
+
   render() {
     return (
-      <div className="ui compact segment">
-        <img id="test" className="ui small spaced rounded image" src={this.state.avatarURL} />
-        <div className="ui divider" />
-        <form onSubmit={(e) => {e.preventDefault(); }}>
-          <button className="ui tiny button" onClick={this.handleUploadClick} >
-            Select Profile Image
-          </button>
-          <div className="ui fitted hidden divider" />
-          <div>
-            { /* show filename after image is selected */ this.state.filename && 
-              <div className="ui basic small label">{this.state.filename}</div>
-            }
-          </div>
-          <div className="ui fitted hidden divider" />
-          {/*  Actual input field hidden - using a styled button in its place to activate submit */}
-          <input type="file" accept="image/*" id="image-file" placeholder="upload image" style={{ display: 'none' }} />
-          <button className="ui tiny button" onClick={this.handleSubmit} >
-            <i className="plus square icon"></i>
-            Upload
-          </button>
-        </form>
-       </div>
+      <ImageUpload
+        avatarURL={this.state.avatarURL}
+        handleUploadClick={this.handleUploadClick}
+        filename={this.state.filename}
+        handleSubmit={this.handleSubmit}
+      />
     );
   }
 }

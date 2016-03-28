@@ -84,6 +84,21 @@ bookshelf.knex.schema.hasTable('images').then((exists) => {
   }
 });
 
+bookshelf.knex.schema.hasTable('comments').then((exists) => {
+  if (!exists) {
+    bookshelf.knex.schema.createTable('comments', (comments) => {
+      comments.increments('id').primary();
+      comments.string('text', 1000);
+      comments.integer('event_id');
+      comments.integer('user_id');
+      comments.string('username');
+      comments.date('created_at');
+    }).then(() => {
+      console.log('Created comments table');
+    });
+  }
+});
+
 // Contribution
 // bookshelf.knex.schema.hasTable('contributions').then((exists) => {
 //   if (!exists) {

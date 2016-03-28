@@ -14,8 +14,6 @@ import '../dist/main.scss';
 // $('body').append($('<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>'));
 // $('body').append($('<script src="../app/csstemp/main.css"></script>'));
 
-// TODO: do we even need App?
-// import App from './containers/App';
 import Site from './containers/Site';
 import EventList from './containers/EventList';
 import CreateEvent from './containers/CreateEventContainer';

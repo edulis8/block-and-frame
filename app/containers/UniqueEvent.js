@@ -6,10 +6,11 @@ import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
 import UniqueMapView from '../components/events/UniqueMapView';
-import ContributionList from '../components/events/ContributionList';
+import ContributionList from '../components/events/contributions/ContributionList';
 import UserInfo from '../components/users/UserInfo';
 import HashTagPicsContainer from '../components/instagram/HashTagPicsContainer';
 import instaHelpers from '../utils/instaHelpers';
+import Comments from '../components/events/comments/Comments';
 
 class UniqueEvent extends React.Component {
   constructor(props) {
@@ -265,6 +266,8 @@ class UniqueEvent extends React.Component {
               :
               null
             }
+            <div className="ui hidden divider"></div>
+            <Comments />
           </div>
           <div className="two wide column">
             <HashTagPicsContainer 

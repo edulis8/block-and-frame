@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import eventHelpers from '../../utils/eventHelpers';
+// import eventHelpers from '../../../utils/eventHelpers';
 
 class ContributeButton extends Component {
   constructor(props) {

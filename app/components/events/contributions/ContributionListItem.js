@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import userHelpers from '../../utils/userHelpers';
-import BringerView from './BringerView.js';
+import BringerView from '../BringerView.js';
+import userHelpers from '../../../utils/userHelpers';
 
 class Contribution extends Component {
   constructor(props) {

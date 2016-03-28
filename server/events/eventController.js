@@ -1,5 +1,7 @@
 const Event = require('./eventModel');
 const userController = require('../users/userController');
+const User = require('../users/userModel').User;
+const Comment = require('./commentModel');
 
 const eventController = {
   getAllEvents(req, res) {
@@ -144,6 +146,47 @@ const eventController = {
     })
     .catch((err) => {
       res.status(500).send(err);
+    });
+  },
+
+  addComment(req, res) {
+    // Find the user who comment belongs to
+    User.where({ id: req.body.userId })
+    .fetch().then((foundUser) => {
+      // save the comment
+      new Comment({
+        user_id: req.body.userId,
+        text: req.body.text,
+        event_id: req.params.eventId,
+        username: foundUser.attributes.username,
+        created_at: req.body.timeCreated,
+      }).save().then((savedComment) => {
+        res.json(`Saved comment. ${savedComment}`);
+      })
+      .catch((err) => {
+        res.end(err);
+      });
+    });
+  },
+
+  getComments(req, res) {
+    // comment has everything on retrieval from db
+    // except the avatar url
+    Comment.where({ event_id: req.params.eventId })
+    .fetchAll().then((comments) => {
+      console.log('COMMENTS');
+      const commentData = comments.models.map((comment) => {
+        return {
+          id: comment.attributes.user_id,
+          username: comment.attributes.username,
+          timeCreated: comment.attributes.created_at,
+          text: comment.attributes.text,
+        };
+      });
+      res.json(commentData);
+    })
+    .catch((err) => {
+      res.end(err);
     });
   },
 };
