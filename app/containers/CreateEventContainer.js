@@ -42,11 +42,7 @@ class CreateEvent extends Component {
       center: { lat: 39.0038657, lng: -96.5672834 },
     };
 
-    this.onNameChange = this.onNameChange.bind(this); 
-    this.onLocationChange = this.onLocationChange.bind(this);
-    this.onDateChange = this.onDateChange.bind(this);
-    this.onTimeChange = this.onTimeChange.bind(this);
-    this.onDescriptionChange = this.onDescriptionChange.bind(this);
+    this.editState = this.editState.bind(this);
     this.onEventSubmit = this.onEventSubmit.bind(this);
     this.onToBringAdd = this.onToBringAdd.bind(this);
     this.onToBringRemove = this.onToBringRemove.bind(this);
@@ -60,26 +56,6 @@ class CreateEvent extends Component {
     this.setCenter = this.setCenter.bind(this);
   }
 
-  onNameChange(e) {
-    this.setState({ name: e.target.value });
-  }
-
-  onLocationChange(e) {
-    this.setState({ location: e.target.value });
-  }
-
-  onDescriptionChange(e) {
-    this.setState({ description: e.target.value });
-  }
-
-  onDateChange(e) {
-    this.setState({ date: e.target.value });
-  }
-
-  onTimeChange(e) {
-    this.setState({ time: e.target.value });
-  }
-  
   onEventSubmit() {
     // filter blank contributions and fix indexing
     const contributions = this.state.toBring.filter((contribution) => {
@@ -174,6 +150,10 @@ class CreateEvent extends Component {
     this.setState({ center: location });
   }
 
+  editState(e) {
+    this.setState({ [e.target.className]: e.target.value });
+  }
+
   handleBoundsChanged() {
     this.setState({
       bounds: this.refs.map.getBounds(),
@@ -242,9 +222,7 @@ class CreateEvent extends Component {
           minDate={now.format('YYYY-MM-DD')}
           bounds={this.state.bounds}
           center={this.state.center}
-          onNameChange={this.onNameChange}
-          onLocationChange={this.onLocationChange}
-          onDescriptionChange={this.onDescriptionChange}
+          editState={this.editState}
           onEventSubmit={this.onEventSubmit}
           onToBringAdd={this.onToBringAdd}
           onToBringRemove={this.onToBringRemove}
@@ -252,8 +230,6 @@ class CreateEvent extends Component {
           onNotesChange={this.onNotesChange}
           onBringerChange={this.onBringerChange}
           preventDefaultSubmit={this.preventDefaultSubmit}
-          onDateChange={this.onDateChange}
-          onTimeChange={this.onTimeChange}
           addMarker={this.addMarker}
           deleteMarker={this.deleteMarker}
           handleBoundsChanged={this.handleBoundsChanged}

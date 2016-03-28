@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import eventHelpers from '../utils/eventHelpers';
 import Event from '../components/events/EventListItem';
 import MenuBar from '../components/MenuBar';
 import SearchBar from '../components/SearchBar';
@@ -20,19 +21,12 @@ class EventList extends React.Component {
 
   // TODO: factor out request into eventHelpers
   componentDidMount() {
-    axios({
-      url: '/api/events/',
-      method: 'get',
-      headers: { Authorization: localStorage.getItem('token') },
-    })
+    eventHelpers.getAllEvents()
     .then((response) => {
       this.setState({
         data: response.data,
         filtered: response.data,
       });
-    })
-    .catch((error) => {
-      console.log(error);
     });
   }
 
