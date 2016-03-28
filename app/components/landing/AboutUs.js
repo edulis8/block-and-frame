@@ -4,7 +4,6 @@ class About extends Component {
   render() {
     return (
       <div className="ui three column doubling stackable grid container" >
-        <h1 className="ui centered">Our Team</h1>
         <div className="ui container stackable five column grid">
           <div className="column center aligned ">
             <img className="ui small circular bordered image" src="https://avatars3.githubusercontent.com/u/13525195?v=3&s=460" alt="" />
@@ -14,7 +13,7 @@ class About extends Component {
           </div>
           <div className="column center aligned">
             <img className="ui small circular bordered image" src="https://avatars2.githubusercontent.com/u/15180113?v=3&s=460" alt="" />
-            <h4 className="ui header centered">Bryan More </h4>
+            <h4 className="ui header centered">Bryan Moore</h4>
             <p>Scrum Master</p>
             <p>Full Stack Engineer</p>
           </div>
