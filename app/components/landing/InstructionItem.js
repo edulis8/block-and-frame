@@ -12,7 +12,8 @@ class InstructionItem extends Component {
     $('.shape').shape();
   }
   handleClick() {
-    const item = '#' + this.props.s1Step;
+    const item = `#${this.props.s1Step}`;
+    console.log(item);
     let dir = '';
     if (item === '#1') {
       dir = 'flip left';
