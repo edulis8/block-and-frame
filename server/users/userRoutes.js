@@ -9,6 +9,7 @@ router.post('/', userController.createUser);
 router.put('/:userId', userController.editUser);
 router.delete('/:userId', userController.deleteUser);
 
-router.post('/upload', userController.saveAvatarURL);
+router.post('/avatar', userController.saveAvatarURL);
+router.get('/avatar/:userId', userController.getAvatarURL);
 
 module.exports = router;

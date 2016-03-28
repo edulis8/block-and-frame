@@ -2,7 +2,7 @@ import React from 'react';
 import userHelpers from '../utils/userHelpers';
 import MenuBar from '../components/MenuBar';
 import UserProfileForm from '../components/users/UserProfileForm';
-import ImageUploadButton from '../components/users/ImageUploadButton';
+import ImageUpload from '../components/users/Uploader';
 import EditSuccess from '../components/users/EditSuccess';
 
 // TODO: Confirm profile deletion, msg about success, redirect user to home.
@@ -28,7 +28,6 @@ class UserProfile extends React.Component {
     this.onBioChange = this.onBioChange.bind(this);
     this.onTravelingChange = this.onTravelingChange.bind(this);
     this.handleProfileSubmit = this.handleProfileSubmit.bind(this);
-    this.handleImageSubmit = this.handleImageSubmit.bind(this);
     this.handleDeleteUser = this.handleDeleteUser.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
     // this.onInstagramChange = this.onBioChange.bind(this);
@@ -86,10 +85,6 @@ class UserProfile extends React.Component {
     });
   }
 
-  handleImageSubmit() {
-
-  }
-
   handleDeleteUser() {
     userHelpers.deleteUser().
     then((info) => {
@@ -109,17 +104,13 @@ class UserProfile extends React.Component {
       <div>
         <MenuBar />
         <div className="ui container">
-          <h1 className="ui dividing header"
-            id="editprofileheader"
-          >
+          <h1 className="ui dividing header" id="editprofileheader">
             Edit Profile:
           </h1>
         </div>
         <div className="ui raised very padded text container segment">
           <div className="ui container">
-            <ImageUploadButton
-              onImageSubmit={this.handleImageSubmit}
-            />
+            <ImageUpload />
             <UserProfileForm
               username={this.state.username}
               email={this.state.email}

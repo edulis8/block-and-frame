@@ -11,7 +11,6 @@ const imageHelpers = {
     }
   },
 
-
 /* Not currently using this func - converts image to 
    binary if we choose to store image in that format.
    Right now we are only sending & storing the url */
@@ -26,18 +25,28 @@ const imageHelpers = {
     }
   },
 
-  saveImage(filepath) {
+  saveAvatarURL(filepath) {
     const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('id');
 
     return axios({
-      url: 'api/users/upload',
+      url: 'api/users/avatar',
       method: 'post',
       headers: { Authorization: token },
       data: { filepath, userId },
-
     });
   },
+
+  getUserAvatar(userId) {
+    const id = userId || window.localStorage.getItem('id');
+    const token = window.localStorage.getItem('token');
+    return axios({
+      url: `api/users/avatar/${id}`,
+      method: 'get',
+      headers: { Authorization: token },
+    }); // avatarURL will be in the response
+  },
+
 };
 
 export default imageHelpers;

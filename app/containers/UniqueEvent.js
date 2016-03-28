@@ -29,6 +29,7 @@ class UniqueEvent extends React.Component {
       msgDivClass: 'warning',
       coordinates: '',
       host: null,
+      hostId: Number(window.localStorage.getItem('id')),
       attendants: [],
       center: {},
       zoom: 3,
@@ -69,6 +70,7 @@ class UniqueEvent extends React.Component {
       response.data.users.forEach((user) => {
         if (user._pivot_is_creator) {
           tempHost = user;
+          this.setState({ hostId: user._pivot_user_id });
           // Current user is host
           tempHost.isTraveling = user.is_traveling;
           if (tempHost._pivot_user_id === this.state.userId) {
@@ -183,8 +185,8 @@ class UniqueEvent extends React.Component {
       <div className="ui two column stackable grid container">
         <div className="sixteen wide column"><br /></div>
           <div className="five wide column">
-            <UserInfo user={this.state.host || {}} />
-            <UniqueMapView 
+            <UserInfo user={this.state.host || {}} id={this.state.hostId} />
+            <UniqueMapView
               markers={this.state.markers}
               center={this.state.center}
               zoom={this.state.zoom}

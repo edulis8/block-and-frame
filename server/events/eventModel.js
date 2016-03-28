@@ -4,7 +4,7 @@ const Event = bookshelf.Model.extend({
   tableName: 'events',
   hasTimestamps: true,
   users() {
-    const User = require('../users/userModel');
+    const User = require('../users/userModel').User;
     return this.belongsToMany(User).withPivot(['is_creator']);
   },
 });

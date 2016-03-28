@@ -1,35 +1,60 @@
-import React from 'react';
+import React, { Component } from 'react';
+import imageHelpers from '../../utils/imageHelpers';
 
-const UserInfo = ({ user }) => {
-  return (
-    <div className="six wide column">
-      <div className="ui card">
-        <div className="image">
-          <img src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
+class UserInfo extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      avatarURL: props.avatarURL,
+    };
+  }
+
+  componentWillMount() {
+    console.log('ID', this.props.id);
+    imageHelpers.getUserAvatar(this.props.id)
+    .then((res) => {
+      if (res.data.filepath) {
+        // if found, set the state
+        this.setState({ avatarURL: res.data.filepath });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  render() {
+    return (
+      <div className="six wide column">
+        <div className="ui card">
+          <div className="image">
+            <img src={this.state.avatarURL} />
+          </div>
+          <div className="content">
+            <div className="header">
+              {this.props.user.username || this.props.user.email}
+            </div>
+            <div className="meta">
+              <i className="marker icon" />
+              {this.props.user.location}
+            </div>
+            <div className="meta">
+              <i className="road icon" />
+              {
+                this.props.user.isTraveling ? 'Currently Traveling' : 'Not Traveling'
+              }
+            </div>
+          </div>
         </div>
-        <div className="content">
-          <div className="header">
-            {user.username || user.email}
-          </div>
-          <div className="meta">
-            <i className="marker icon" />
-            {user.location}
-          </div>
-          <div className="meta">
-            <i className="road icon" />
-            {
-              user.isTraveling ? 'Currently Traveling' : 'Not Traveling'
-            }
-          </div>
+        <div className="ui card">
+          <div className="content">
+          {this.props.user.bio || `${(this.props.user.username || this.props.user.email)} hasnt filled out thier bio`}
+        </div>
         </div>
       </div>
-      <div className="ui card">
-        <div className="content">
-        {user.bio || `${(user.username || user.email)} hasnt filled out their bio`}
-        </div>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default UserInfo;
