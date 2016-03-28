@@ -1,11 +1,59 @@
-
 $color:white;
 
 body {
   background-color: $color;
+  font-family: Roboto, sans-serif;
+  font-weight: 100;
+  line-height: 1;
 }
 
-#editprofileheader {
-  margin-top: 20px;
+.carousel {
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+}
+
+  .carousel__panes {
+    margin:  100px;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    display: table;
+    width: 500%;
+    overflow: hidden;
+    -webkit-animation: carousel 18s alternate infinite;
+    -moz-animation: carousel 18s alternate infinite;
+    animation: carousel 18s alternate infinite;
+  }
+    
+  .carousel__pane {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    width: 20%;
+  }
+
+@keyframes carousel {
+  0%,
+  20% {
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+  40% {
+    transform: translate3d(-20%, 0, 0);
+    filter: blur(2px);
+  }
+  60% {
+    transform: translate3d(-40%, 0, 0);
+    filter: blur(0);
+  }
+  80% {
+    filter: blur(2px);
+    transform: translate3d(-60%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-80%, 0, 0);
+    filter: blur(0);
+  }
 }
 
