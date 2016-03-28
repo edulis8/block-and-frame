@@ -86,21 +86,28 @@ describe('Event API: Event Controller Spec', () => {
 
   // Need a user id to access this endpoint
   // TODO move to user spec
-  // xit('POST /api/events/:user_id should respond with 200', (done) => {
-  //   request
-  //   .put(`/api/events/${testUser.id}`)
-  //   .send({
-  //     name: 'Something!',
-  //     location: 'Somewhere!',
-  //   })
-  //   .expect(200)
-  //   .end(done);
-  // });
+  xit('POST /api/events/:user_id should respond with 200', (done) => {
+    request
+    .put(`/api/events/${testUser.id}`)
+    .send({
+      name: 'Something!',
+      location: 'Somewhere!',
+    })
+    .expect(200)
+    .end(done);
+  });
 
   it('DELETE /api/events/:event_id should respond with 200', (done) => {
     request
     .delete(`/api/events/${testEvent.id}`)
     .expect(200)
+    .end(done);
+  });
+
+  it('GET /api/events/:event_id should respond with 404 for delete event', (done) => {
+    request
+    .get(`/api/events/${testEvent.id}`)
+    .expect(404)
     .end(done);
   });
 });
