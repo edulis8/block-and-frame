@@ -26,6 +26,7 @@ bookshelf.knex.schema.hasTable('users').then((exists) => {
       user.string('bio', 1000);
       user.string('location', 50);
       user.boolean('is_traveling');
+      user.integer('avatar_id').references('images.id');
       user.timestamps();
     }).then(() => {
       console.log('Created users table');
@@ -63,6 +64,17 @@ bookshelf.knex.schema.hasTable('events_users').then((exists) => {
       eventUser.timestamps();
     }).then(() => {
       console.log('Created events_users table');
+    });
+  }
+});
+
+bookshelf.knex.schema.hasTable('images').then((exists) => {
+  if (!exists) {
+    bookshelf.knex.schema.createTable('images', (images) => {
+      images.increments('id').primary();
+      images.json('avatar_url');
+    }).then(() => {
+      console.log('Created images table');
     });
   }
 });

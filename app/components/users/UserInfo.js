@@ -1,11 +1,11 @@
 import React from 'react';
 
-const UserInfo = ({ user }) => {
+const UserInfo = ({ user, avatarURL }) => {
   return (
     <div className="six wide column">
       <div className="ui card">
         <div className="image">
-          <img src="http://www.geekstogo.com/forum/public/style_images/shift/profile/xdefault_large.png.pagespeed.ic.-RW8oDYs8z.png" />
+          <img src={avatarURL} />
         </div>
         <div className="content">
           <div className="header">
@@ -25,8 +25,8 @@ const UserInfo = ({ user }) => {
       </div>
       <div className="ui card">
         <div className="content">
-        {user.bio || `${(user.username || user.email)} hasnt filled out their bio`}
-        </div>
+        {user.bio || `${(user.username || user.email)} hasnt filled out thier bio`}
+      </div>
       </div>
     </div>
   );

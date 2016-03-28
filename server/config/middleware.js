@@ -15,6 +15,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware')(compiler);
 const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   noInfo: true,
+  quiet: true,
 });
 
 module.exports = (app, express) => {
@@ -22,9 +23,6 @@ module.exports = (app, express) => {
   if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('dev'));
   }
-
-  // testing S3
-  require('./s3');
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());

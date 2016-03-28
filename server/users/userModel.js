@@ -8,10 +8,16 @@ const User = bookshelf.Model.extend({
   initialize() {
     this.on('creating', this.hashPassword, this);
   },
+ 
   events() {
     const Event = require('../events/eventModel');
     return this.belongsToMany(Event).withPivot(['is_creator']);
   },
+  
+  image() {
+    return this.hasOne(Image);
+  },
+
   hashPassword(model) {
     return new Promise((resolve, reject) => {
       bcrypt.hash(model.get('password'), null, null, (err, hash) => {
@@ -34,4 +40,11 @@ const User = bookshelf.Model.extend({
   },
 });
 
-module.exports = User;
+const Image = bookshelf.Model.extend({
+  tableName: 'images',
+  users() {
+    return this.belongsTo(User);
+  },
+});
+
+module.exports = { User, Image };

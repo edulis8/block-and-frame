@@ -1,4 +1,5 @@
-const User = require('./userModel');
+const User = require('./userModel').User;
+const Image = require('./userModel').Image;
 
 module.exports = {
   getAllUsers(req, res) {
@@ -114,11 +115,47 @@ module.exports = {
     });
   },
 
-  saveAvatar(req, res) {
-    const id = req.body.id;
-    const avatarUrl = req.body.url;
-    console.log('id: ', id, 'url: ', avatarUrl);
-    // save avatarUrl to the user
+  saveAvatarURL(req, res) {
+    const filepath = req.body.filepath;
+    const userId = req.body.userId;
+
+    new Image({
+      avatar_url: { filepath },
+    })
+    .save()
+    .then((image) => {
+      User.where({ id: userId })
+      .fetch()
+      .then((user) => {
+        if (!user) {
+          res.status(404).send('User not found');
+        } else {
+          user.save({
+            avatar_id: image.attributes.id,
+          });
+          res.status(200).json('Avatar saved.');
+        }
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err);
+    });
+  },
+
+  getAvatarURL(req, res) {
+    User.where({ id: req.params.userId })
+    .fetch()
+    .then((user) => {
+      Image.where({ id: user.attributes.avatar_id })
+      .fetch()
+      .then((image) => {
+        res.json(image.attributes.avatar_url);
+      });
+    })
+    .catch((err) => {
+      res.send(`User not found - ${err}`);
+    });
   },
 };
 // to test edit
