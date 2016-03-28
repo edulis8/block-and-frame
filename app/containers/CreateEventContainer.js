@@ -40,6 +40,7 @@ class CreateEvent extends Component {
       markers: [],
       bounds: null,
       center: { lat: 39.0038657, lng: -96.5672834 },
+      missingItems: [],
     };
 
     this.editState = this.editState.bind(this);
@@ -67,6 +68,25 @@ class CreateEvent extends Component {
       contribution.index = index;
       return contribution;
     });
+
+    this.setState({ name: 'here' });
+
+    for (const key in this.state) {
+      if (key === 'name' || key === 'description' || key === 'coordinates') {
+        console.log('missingItems', this.state.name);
+        console.log('KEY', key);
+        if (this.state[key] === '') {
+          const newState = this.state.missingItems;
+          newState.push(key);
+          this.setState({ missingItems: newState });
+          console.log('MISSING STATE', this.state.missingItems);
+        }
+      }
+    }
+    // return if any items are missing
+    if (this.state.missingItems.length) {
+      return;
+    }
 
     eventHelpers.createEvent({
       name: this.state.name,
@@ -204,12 +224,23 @@ class CreateEvent extends Component {
   }
 
   render() {
+    const style = {
+      color: 'red',
+    };
     return (
       <div>
         <MenuBar />
         <br />
         <div className="ui container">
           <h1 className="ui dividing header">Host a Spread!</h1>
+          <div>
+            {this.state.missingItems.length === 0 ? 
+            null : 
+            <h1 style={style}>Please fill out {this.state.missingItems.map((item) => {
+              return <b>{item} </b>;
+            })}
+            forms</h1>}
+          </div>
         </div>
         <CreateEventForm
           name={this.state.name}
