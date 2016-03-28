@@ -37,11 +37,14 @@ class UserProfile extends React.Component {
   }
   componentWillMount() {
     // instagram sign in.
-    const jwtAndId = location.href.split('?')[1];
-    const array = jwtAndId.split('&');
-    const jwt = `JWT '${array[0]}`;
-    const id = array[1];
-    authHelpers.storeToken(jwt, id);
+    // server sends jwt and id as query string
+    if (location.href.indexOf('?') >= 0) {
+      const jwtAndId = location.href.split('?')[1];
+      const array = jwtAndId.split('&');
+      const jwt = `JWT '${array[0]}`;
+      const id = array[1];
+      authHelpers.storeToken(jwt, id); 
+    }
     // TODO: get the jwt out of the href
   }
   componentDidMount() {
