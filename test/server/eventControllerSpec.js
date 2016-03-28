@@ -7,7 +7,6 @@ const request = requestModule(server);
 const testEvent = {
   name: 'red spread',
   location: 'mars',
-  coordinates: 'n/a',
   description: 'bring your own oxygen tank!',
   toBring: { contributions: [] },
 };
@@ -17,8 +16,8 @@ describe('Event API: Event Controller Spec', () => {
     new Event(testEvent)
     .save()
     .then((event) => {
-      console.log('Created test event');
       testEvent.id = event.get('id');
+      console.log(`Created test event id: ${testEvent.id}`);
       done();
     })
     .catch((err) => {
@@ -27,8 +26,7 @@ describe('Event API: Event Controller Spec', () => {
     });
   });
 
-  after('delete stored test event', function (done) {
-    this.timeout(10000);
+  after('delete stored test event', (done) => {
     Event
     .where({
       id: testEvent.id,
@@ -52,15 +50,14 @@ describe('Event API: Event Controller Spec', () => {
     });
   });
 
-  xit('GET / should respond with 200', (done) => {
+  it('GET / should respond with 200', (done) => {
     request
     .get('/')
     .expect(200)
     .end(done);
   });
 
-  it('GET /api/events/ should respond with 200', function (done) {
-    this.timeout(10000);
+  it('GET /api/events/ should respond with 200', (done) => {
     request
     .get('/api/events')
     .expect('Content-Type', /json/)
@@ -68,25 +65,41 @@ describe('Event API: Event Controller Spec', () => {
     .end(done);
   });
 
-  xit('GET /api/events/:user_id should respond with 200', function (done) {
-    const id = 1;
-    this.timeout(10000);
+  it('GET /api/events/:event_id should respond with 200', (done) => {
     request
+    .get(`/api/events/${testEvent.id}`)
     .expect('Content-Type', /json/)
-    .get(`/api/events/${id}`)
     .expect(200)
     .end(done);
   });
 
-  // requires user 1 to be in db
-  xit('POST /api/events/:id should respond with 200', function (done) {
-    this.timeout(3000);
+  it('PUT /api/events/:event_id should respond with 200', (done) => {
     request
-    .post(`/api/events/${1}`)
+    .put(`/api/events/${testEvent.id}`)
     .send({
       name: 'blue spread',
       location: 'neptune',
     })
+    .expect(200)
+    .end(done);
+  });
+
+  // Need a user id to access this endpoint
+  // TODO move to user spec
+  // xit('POST /api/events/:user_id should respond with 200', (done) => {
+  //   request
+  //   .put(`/api/events/${testUser.id}`)
+  //   .send({
+  //     name: 'Something!',
+  //     location: 'Somewhere!',
+  //   })
+  //   .expect(200)
+  //   .end(done);
+  // });
+
+  it('DELETE /api/events/:event_id should respond with 200', (done) => {
+    request
+    .delete(`/api/events/${testEvent.id}`)
     .expect(200)
     .end(done);
   });

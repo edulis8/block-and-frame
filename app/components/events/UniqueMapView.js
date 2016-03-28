@@ -19,7 +19,7 @@ const UniqueMapView = (props) => {
             defaultZoom={4}
             center={props.center}
           >
-            {props.markers.map((marker, index) => {
+            {props.markers.map((marker) => {
               return (
                 <Marker
                   {...marker}

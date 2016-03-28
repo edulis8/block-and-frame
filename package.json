@@ -4,7 +4,7 @@
   "description": "Meals and traveling and sharing",
   "main": "server.js",
   "scripts": {
-    "test": "mocha test/**/*.js --require ./test/setup.js --compilers js:babel-core/register",
+    "test": "mocha test/delay.js test/**/*.js",
     "start": "node index.js",
     "lint": "eslint . --ext .js --ext .jsx",
     "nodemon": "nodemon index.js"

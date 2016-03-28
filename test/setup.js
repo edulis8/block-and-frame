@@ -1,4 +1,4 @@
-const jsdom = require('jsdom');
+import jsdom from 'jsdom';
 
 console.log('Creating DOM for React Testing');
 
@@ -16,7 +16,6 @@ global.window.localStorage = {
   setItem(item, value) {
     storage[item] = value;
   },
-
   getItem(item) {
     return storage[item];
   },
