@@ -1,6 +1,7 @@
 import React from 'react';
 import update from 'react-addons-update';
 import eventHelpers from '../utils/eventHelpers';
+import imageHelpers from '../utils/imageHelpers';
 import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
@@ -29,7 +30,7 @@ class UniqueEvent extends React.Component {
       msgDivClass: 'warning',
       coordinates: '',
       host: null,
-      hostId: Number(window.localStorage.getItem('id')),
+      avatarURL: 'https://s3.amazonaws.com/spreadout-img/avatar.png',
       attendants: [],
       center: {},
       zoom: 3,
@@ -62,6 +63,7 @@ class UniqueEvent extends React.Component {
     .then((response) => {
       // Populate state with users
       let tempHost = null;
+      let tempHostId = this.state.userId;
       let tempEditable = false;
       let tempJoinable = true;
       const tempAttendants = [];
@@ -70,7 +72,7 @@ class UniqueEvent extends React.Component {
       response.data.users.forEach((user) => {
         if (user._pivot_is_creator) {
           tempHost = user;
-          this.setState({ hostId: user._pivot_user_id });
+          tempHostId = user._pivot_user_id;
           // Current user is host
           tempHost.isTraveling = user.is_traveling;
           if (tempHost._pivot_user_id === this.state.userId) {
@@ -86,6 +88,17 @@ class UniqueEvent extends React.Component {
         }
       });
 
+      imageHelpers.getUserAvatar(tempHostId)
+      .then((res) => {
+        if (res.data.filepath) {
+          // if found, set the state
+          this.setState({ avatarURL: res.data.filepath });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
       this.setState({
         eventName: response.data.name,
         description: response.data.description,
@@ -96,6 +109,7 @@ class UniqueEvent extends React.Component {
         contributions: response.data.toBring.contributions,
         coordinates: response.data.coordinates,
         host: tempHost,
+        hostId: tempHostId,
         editable: tempEditable,
         joinable: tempJoinable,
         attendants: tempAttendants,
@@ -177,6 +191,7 @@ class UniqueEvent extends React.Component {
   }
 
   render() {
+    console.log('HOST ID', this.state.hostId);
     this.state.contributions = this.state.contributions || [];
     return (
     <div>
@@ -185,7 +200,7 @@ class UniqueEvent extends React.Component {
       <div className="ui two column stackable grid container">
         <div className="sixteen wide column"><br /></div>
           <div className="five wide column">
-            <UserInfo user={this.state.host || {}} id={this.state.hostId} />
+            <UserInfo user={this.state.host || {}} avatarURL={this.state.avatarURL} />
             <UniqueMapView
               markers={this.state.markers}
               center={this.state.center}
