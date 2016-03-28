@@ -30,8 +30,6 @@ module.exports = (passport) => {
   },
   (accessToken, refreshToken, profile, done, res, req, next) => {
     process.nextTick(() => {
-      console.log('typeof req, res', typeof req, typeof res)
-      console.log('typeof next', typeof next)
       //console.log("This is the user", req.account);
       console.log("token is", accessToken);
       console.log("refreshtoken is", refreshToken);
