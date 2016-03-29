@@ -52,6 +52,7 @@ class CreateEvent extends Component {
     this.onItemChange = this.onItemChange.bind(this);
     this.onNotesChange = this.onNotesChange.bind(this);
     this.onBringerChange = this.onBringerChange.bind(this);
+    this.onLocationChange = this.onLocationChange.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
     this.addMarker = this.addMarker.bind(this);
     this.deleteMarker = this.deleteMarker.bind(this);
@@ -90,7 +91,7 @@ class CreateEvent extends Component {
       }
     }, 0);
 
-    setTimeout(() => { 
+    setTimeout(() => {
       // return if any items are missing
       if (this.state.missingItems.length) {
         return;
@@ -158,6 +159,10 @@ class CreateEvent extends Component {
     this.setState({
       toBring: updated,
     });
+  }
+
+  onLocationChange(address) {
+    this.setState({ location: address });
   }
 
   onBringerChange(e, index) {
@@ -253,7 +258,7 @@ class CreateEvent extends Component {
           <h1 className="ui dividing header">Host a Spread!</h1>
           <div>
             {
-              this.state.missingItems.length === 0 ? null : 
+              this.state.missingItems.length === 0 ? null :
               <div className="ui negative message">
                 Please fill out the following forms:<br />
                   {
@@ -287,6 +292,7 @@ class CreateEvent extends Component {
           onToBringRemove={this.onToBringRemove}
           onItemChange={this.onItemChange}
           onNotesChange={this.onNotesChange}
+          onLocationChange={this.onLocationChange}
           onBringerChange={this.onBringerChange}
           preventDefaultSubmit={this.preventDefaultSubmit}
           addMarker={this.addMarker}

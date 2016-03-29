@@ -23,7 +23,7 @@ class CreateEventForm extends Component {
                   />
                 </div>
               </div>
-            
+
             </div>
             <div className="ui basic segment">
               <div className="inline fields">
@@ -41,18 +41,19 @@ class CreateEventForm extends Component {
                   </div>
                 </div>
               </div>
-              
+
             </div>
 
 
           <div className="map field ui basic segment">
             <label>Select where you're hosting this spread by typing in the location!</label>
-            <CreateMapView 
+            <CreateMapView
               markers={this.props.markers}
               addMarker={this.props.addMarker}
               handleBoundsChanged={this.props.handleBoundsChanged}
               center={this.props.center}
               onPlacesChanged={this.props.onPlacesChanged}
+              onLocationChange={this.props.onLocationChange}
               zoom={this.props.zoom}
             />
           </div>

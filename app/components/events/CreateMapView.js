@@ -11,13 +11,13 @@ class CreateMapView extends Component {
   }
 
   handlePlacesChanged() {
-    console.log('places changed');
     const places = this.refs.searchBox.getPlaces();
-    console.log(places);
+    const address = places[0].formatted_address;
     const lat = places[0].geometry.location.lat().toString();
     const lng = places[0].geometry.location.lng().toString();
     const coordinates = lat.concat(',').concat(lng);
     this.props.addMarker(coordinates);
+    this.props.onLocationChange(address);
   }
 
   render() {
