@@ -21,6 +21,7 @@ class ContributionList extends Component {
     }, false);
     return (
       <div>
+        {!this.props.isAttending ?
         <div className={`ui attached ${this.props.msgDivClass} message`}>
           {/* TODO: add close message behavior */}
           {this.props.msgDivClass === 'positive' ? <h1>Joined!</h1> : ''}
@@ -30,11 +31,11 @@ class ContributionList extends Component {
             <p>Remember to commit to a contribution before joining!</p>
           </div>
           <p>Just check the box under a contribution.</p>
-        </div>
+        </div> : null}
         <div className="ui segment">
           <div className="ui header medium">{openContributions ? 'Bring Something!' : 'What people are bringing'}</div>
 
-          {this.props.isAttending && openContributions ? 
+          {this.props.isAttending && openContributions ?
           <ContributeButton
             onClick={this.props.onContributionUpdate}
           /> : null}
@@ -62,4 +63,3 @@ module.exports = ContributionList;
 // item={contrib.item}
 // notes={contrib.notes}
 // index={contrib.index}
-

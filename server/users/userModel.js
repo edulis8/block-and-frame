@@ -8,12 +8,12 @@ const User = bookshelf.Model.extend({
   initialize() {
     this.on('creating', this.hashPassword, this);
   },
- 
+
   events() {
     const Event = require('../events/eventModel');
     return this.belongsToMany(Event).withPivot(['is_creator']);
   },
-  
+
   image() {
     return this.hasOne(Image);
   },

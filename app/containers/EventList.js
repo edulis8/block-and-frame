@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import moment from 'moment';
 import eventHelpers from '../utils/eventHelpers';
 import Event from '../components/events/EventListItem';
