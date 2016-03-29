@@ -8,7 +8,8 @@ import MenuBar from '../components/MenuBar';
 import UniqueMapView from '../components/events/UniqueMapView';
 import ContributionList from '../components/events/ContributionList';
 import UserInfo from '../components/users/UserInfo';
-
+import HashTagPicsContainer from '../components/instagram/HashTagPicsContainer';
+import instaHelpers from '../utils/instaHelpers';
 
 class UniqueEvent extends React.Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class UniqueEvent extends React.Component {
       attendants: [],
       center: {},
       zoom: 3,
+      tagArray: [],
     };
 
     this.setEdit = this.setEdit.bind(this);
@@ -58,7 +60,6 @@ class UniqueEvent extends React.Component {
     }
     this.setState({ showEdit: !this.state.showEdit });
   }
-
   initializePage() {
     eventHelpers.getEventbyId(this.state.url)
     .then((response) => {
@@ -116,7 +117,14 @@ class UniqueEvent extends React.Component {
         joinable: tempJoinable,
         attendants: tempAttendants,
       });
-      console.log('state at page load unique event', this.state)
+      console.log('state at page load unique event', this.state);
+      instaHelpers.getUniqueTagPics(this.state.hashtag)
+      .then((tagObject) => {
+        console.log('tag data', tagObject.data.data.data);
+        this.setState({
+          tagArray: tagObject.data.data.data,
+        });
+      });
     })
     .catch((error) => {
       console.log(error);
@@ -200,7 +208,7 @@ class UniqueEvent extends React.Component {
     <div>
       <MenuBar />
       <br />
-      <div className="ui three column stackable grid container">
+      <div className="ui three column stackable grid">
         <div className="sixteen wide column"><br /></div>
           <div className="four wide column">
             <UserInfo user={this.state.host || {}} avatarURL={this.state.avatarURL} />
@@ -254,10 +262,10 @@ class UniqueEvent extends React.Component {
               null
             }
           </div>
-          <div className="three wide column">
-          <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam nulla nisi architecto perferendis, cum, reprehenderit ipsum voluptates in animi quae, quibusdam eum totam. Quasi cum, labore fuga qui rerum amet!</div>
-          <div>Eligendi voluptate ab odit rem unde pariatur magnam, corporis obcaecati, accusantium excepturi sunt impedit animi, nemo enim. Praesentium deleniti natus illo odio, dolorum, quisquam adipisci est quos rem? Culpa, possimus.</div>
-
+          <div className="two wide column">
+            <HashTagPicsContainer 
+              hashTagPics = {this.state.tagArray}
+            /> 
           </div>
         </div>
       </div>

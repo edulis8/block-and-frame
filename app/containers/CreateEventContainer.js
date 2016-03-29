@@ -192,7 +192,6 @@ class CreateEvent extends Component {
 
   editState(e) {
     this.setState({ [e.target.className]: e.target.value });
-    console.log(this.state)
   }
 
   handleBoundsChanged() {
