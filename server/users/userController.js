@@ -153,7 +153,7 @@ module.exports = {
       Image.where({ id: user.attributes.avatar_id })
       .fetch()
       .then((image) => {
-        res.json(image.attributes.avatar_url);
+       // res.json(image.attributes.avatar_url);
       });
     })
     .catch((err) => {

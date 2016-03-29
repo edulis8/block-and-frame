@@ -6,6 +6,8 @@ const router = express.Router();
 
 
 router.post('/getUserPics', instaController.getUserPics);
+router.post('/getUniqueTagPics', instaController.getUniqueTagPics);
+
 
 
 module.exports = router;

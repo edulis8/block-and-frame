@@ -32,7 +32,7 @@ class ContributionList extends Component {
           <p>Just check the box under a contribution.</p>
         </div>
         <div className="ui segment">
-          <div className="ui header medium">{openContributions ? 'Bring Something!' : 'What people are brining'}</div>
+          <div className="ui header medium">{openContributions ? 'Bring Something!' : 'What people are bringing'}</div>
 
           {this.props.isAttending && openContributions ? 
           <ContributeButton

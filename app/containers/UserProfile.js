@@ -44,7 +44,6 @@ class UserProfile extends Component {
         instaHelpers.getAllThisUsersPics(user.data.instagram_token)
         .then((data) => {
           this.setState({ allThisUsersInstaPics: data.data.data.data });
-          console.log('in the state now?', this.state.allThisUsersInstaPics);
         })
         .catch((err) => {
           console.log('error', err);

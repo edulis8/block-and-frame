@@ -8,7 +8,8 @@ import MenuBar from '../components/MenuBar';
 import UniqueMapView from '../components/events/UniqueMapView';
 import ContributionList from '../components/events/ContributionList';
 import UserInfo from '../components/users/UserInfo';
-
+import HashTagPicsContainer from '../components/instagram/HashTagPicsContainer';
+import instaHelpers from '../utils/instaHelpers';
 
 class UniqueEvent extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class UniqueEvent extends React.Component {
       location: '',
       time: '',
       date: '',
+      hashtag: '',
       eventId: '',
       showEdit: false,
       editable: false,
@@ -34,6 +36,7 @@ class UniqueEvent extends React.Component {
       attendants: [],
       center: {},
       zoom: 3,
+      tagArray: [],
     };
 
     this.setEdit = this.setEdit.bind(this);
@@ -57,7 +60,6 @@ class UniqueEvent extends React.Component {
     }
     this.setState({ showEdit: !this.state.showEdit });
   }
-
   initializePage() {
     eventHelpers.getEventbyId(this.state.url)
     .then((response) => {
@@ -102,6 +104,7 @@ class UniqueEvent extends React.Component {
       this.setState({
         eventName: response.data.name,
         description: response.data.description,
+        hashtag: response.data.hashtag,
         location: response.data.location,
         date: response.data.date,
         time: response.data.time,
@@ -113,6 +116,14 @@ class UniqueEvent extends React.Component {
         editable: tempEditable,
         joinable: tempJoinable,
         attendants: tempAttendants,
+      });
+      console.log('state at page load unique event', this.state);
+      instaHelpers.getUniqueTagPics(this.state.hashtag)
+      .then((tagObject) => {
+        console.log('tag data', tagObject.data.data.data);
+        this.setState({
+          tagArray: tagObject.data.data.data,
+        });
       });
     })
     .catch((error) => {
@@ -197,9 +208,9 @@ class UniqueEvent extends React.Component {
     <div>
       <MenuBar />
       <br />
-      <div className="ui two column stackable grid container">
+      <div className="ui three column stackable grid">
         <div className="sixteen wide column"><br /></div>
-          <div className="five wide column">
+          <div className="four wide column">
             <UserInfo user={this.state.host || {}} avatarURL={this.state.avatarURL} />
             <UniqueMapView
               markers={this.state.markers}
@@ -207,7 +218,7 @@ class UniqueEvent extends React.Component {
               zoom={this.state.zoom}
             />
           </div>
-          <div className="ten wide column">
+          <div className="nine wide column">
             <div className="ui segment">
               {
                 this.state.showEdit ?
@@ -223,6 +234,7 @@ class UniqueEvent extends React.Component {
                   eventId={this.state.url}
                   eventName={this.state.eventName}
                   description={this.state.description}
+                  hashtag={this.state.hashtag}
                   location={this.state.location}
                   date={this.state.date}
                   time={this.state.time}
@@ -249,6 +261,11 @@ class UniqueEvent extends React.Component {
               :
               null
             }
+          </div>
+          <div className="two wide column">
+            <HashTagPicsContainer 
+              hashTagPics = {this.state.tagArray}
+            /> 
           </div>
         </div>
       </div>

@@ -1,17 +1,42 @@
 const axios = require('axios');
+const User = require('../users/userModel').User;
+
 
 module.exports = {
   getUserPics(req, res) {
-    console.log('in testinsa!!', req.body);
     axios.get(`https://api.instagram.com/v1/users/self/media/recent/?access_token=${req.body.accessToken}`)
     .then((data) => {
-      console.log('DATA', data);
       res.status(201).send(data);
     })
     .catch((err) => {
-      console.error('myErr', err);
+      console.error(err);
       res.sendStatus(500);
     });
   },
-};
+  getUniqueTagPics(req, res) {
+    const hashtag = req.body.hashtag;
 
+    User.where({ id: req.body.userId })
+    .fetch()
+    .then((user) => {
+      if (!user) {
+        res.status(404).send('User not found');
+      } else {
+        const accessToken = user.get('instagram_token');
+        console.log('accessToken', accessToken)
+        axios.get(`https://api.instagram.com/v1/tags/${hashtag}/media/recent?access_token=${accessToken}`)
+        .then((data) => {
+          console.log(data)
+          res.status(201).send(data);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+  },
+};
