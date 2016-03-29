@@ -21,6 +21,7 @@ class UniqueEvent extends React.Component {
       location: '',
       time: '',
       date: '',
+      hashtag: '',
       eventId: '',
       showEdit: false,
       editable: false,
@@ -102,6 +103,7 @@ class UniqueEvent extends React.Component {
       this.setState({
         eventName: response.data.name,
         description: response.data.description,
+        hashtag: response.data.hashtag,
         location: response.data.location,
         date: response.data.date,
         time: response.data.time,
@@ -114,6 +116,7 @@ class UniqueEvent extends React.Component {
         joinable: tempJoinable,
         attendants: tempAttendants,
       });
+      console.log('state at page load unique event', this.state)
     })
     .catch((error) => {
       console.log(error);
@@ -197,9 +200,9 @@ class UniqueEvent extends React.Component {
     <div>
       <MenuBar />
       <br />
-      <div className="ui two column stackable grid container">
+      <div className="ui three column stackable grid container">
         <div className="sixteen wide column"><br /></div>
-          <div className="five wide column">
+          <div className="four wide column">
             <UserInfo user={this.state.host || {}} avatarURL={this.state.avatarURL} />
             <UniqueMapView
               markers={this.state.markers}
@@ -207,7 +210,7 @@ class UniqueEvent extends React.Component {
               zoom={this.state.zoom}
             />
           </div>
-          <div className="ten wide column">
+          <div className="nine wide column">
             <div className="ui segment">
               {
                 this.state.showEdit ?
@@ -223,6 +226,7 @@ class UniqueEvent extends React.Component {
                   eventId={this.state.url}
                   eventName={this.state.eventName}
                   description={this.state.description}
+                  hashtag={this.state.hashtag}
                   location={this.state.location}
                   date={this.state.date}
                   time={this.state.time}
@@ -249,6 +253,11 @@ class UniqueEvent extends React.Component {
               :
               null
             }
+          </div>
+          <div className="three wide column">
+          <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam nulla nisi architecto perferendis, cum, reprehenderit ipsum voluptates in animi quae, quibusdam eum totam. Quasi cum, labore fuga qui rerum amet!</div>
+          <div>Eligendi voluptate ab odit rem unde pariatur magnam, corporis obcaecati, accusantium excepturi sunt impedit animi, nemo enim. Praesentium deleniti natus illo odio, dolorum, quisquam adipisci est quos rem? Culpa, possimus.</div>
+
           </div>
         </div>
       </div>

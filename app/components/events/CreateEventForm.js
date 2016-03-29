@@ -16,7 +16,7 @@ class CreateEventForm extends Component {
                 <div className="sixteen wide field">
                   <label>Name of your Spread:</label>
                   <input
-                    className="name-input"
+                    className="name"
                     placeholder="Give your spread a name!"
                     value={this.props.name}
                     onChange={this.props.editState}
@@ -31,7 +31,7 @@ class CreateEventForm extends Component {
                   <label><i className="icon instagram"></i>Give your spread a unique instagram hashtag:
                   </label>
                   <input
-                    className="hashtag-input"
+                    className="hashtag"
                     placeholder="e.g.: #spreadOutProspectParkMar31, #KeckParkSpeadMay20"
                     value={this.props.hashtag}
                     onChange={this.props.editState}
