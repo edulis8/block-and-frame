@@ -41,6 +41,7 @@ class CreateEvent extends Component {
       bounds: null,
       center: { lat: 39.0038657, lng: -96.5672834 },
       missingItems: [],
+      zoom: 4,
     };
 
     this.editState = this.editState.bind(this);
@@ -69,45 +70,50 @@ class CreateEvent extends Component {
       return contribution;
     });
 
-    this.setState({ name: 'here' });
-
-    for (const key in this.state) {
-      if (key === 'name' || key === 'description' || key === 'coordinates') {
-        console.log('missingItems', this.state.name);
-        console.log('KEY', key);
-        if (this.state[key] === '') {
-          const newState = this.state.missingItems;
-          newState.push(key);
-          this.setState({ missingItems: newState });
-          console.log('MISSING STATE', this.state.missingItems);
+    this.setState({ missingItems: [] });
+    console.log('update', this.forceUpdate);
+    // setTimeout because setting the state above is asyncronous
+    setTimeout(() => {
+      for (const key in this.state) {
+        if (key === 'name' || key === 'description' || key === 'coordinates') {
+          console.log('missingItems', this.state.name);
+          console.log('KEY', key);
+          if (this.state[key] === '') {
+            const newState = this.state.missingItems;
+            newState.push(key);
+            this.setState({ missingItems: newState });
+            console.log('MISSING STATE', this.state.missingItems);
+          }
         }
       }
-    }
-    // return if any items are missing
-    if (this.state.missingItems.length) {
-      return;
-    }
+    }, 0);
 
-    eventHelpers.createEvent({
-      name: this.state.name,
-      location: this.state.location,
-      description: this.state.description,
-      date: this.state.date,
-      time: this.state.time,
-      coordinates: this.state.coordinates,
-      markers: this.state.markers,
-      toBring: contributions,
-    }, this);
+    setTimeout(() => { 
+      // return if any items are missing
+      if (this.state.missingItems.length) {
+        return;
+      }
+      eventHelpers.createEvent({
+        name: this.state.name,
+        location: this.state.location,
+        description: this.state.description,
+        date: this.state.date,
+        time: this.state.time,
+        coordinates: this.state.coordinates,
+        markers: this.state.markers,
+        toBring: contributions,
+      }, this);
 
     // reset forms
-    this.setState({
-      name: '',
-      location: '',
-      description: '',
-      toBring: [],
-      date: '',
-      time: '',
-    });
+      this.setState({
+        name: '',
+        location: '',
+        description: '',
+        toBring: [],
+        date: '',
+        time: '',
+      });
+    }, 500);
   }
 
   onToBringAdd(e) {
@@ -196,6 +202,7 @@ class CreateEvent extends Component {
   }
 
   addMarker(coordinates) {
+    const zoom = 13;
     const location = {};
     location.lat = Number(coordinates.split(',').shift());
     location.lng = Number(coordinates.split(',').pop());
@@ -210,7 +217,7 @@ class CreateEvent extends Component {
         },
       ],
     });
-    this.setState({ coordinates, markers });
+    this.setState({ coordinates, markers, zoom });
     this.setCenter();
   }
 
@@ -234,12 +241,20 @@ class CreateEvent extends Component {
         <div className="ui container">
           <h1 className="ui dividing header">Host a Spread!</h1>
           <div>
-            {this.state.missingItems.length === 0 ? 
-            null : 
-            <h1 style={style}>Please fill out {this.state.missingItems.map((item) => {
-              return <b>{item} </b>;
-            })}
-            forms</h1>}
+            {
+              this.state.missingItems.length === 0 ? null : 
+              <h1 style={style}>
+                Please fill out the following forms:<br />
+                  {
+                    this.state.missingItems.map((item) => {
+                      if (item === 'coordinates') {
+                        item = 'location';
+                      }
+                      return <b>{item}<br /></b>;
+                    })
+                  }
+              </h1>
+            }
           </div>
         </div>
         <CreateEventForm
@@ -253,6 +268,7 @@ class CreateEvent extends Component {
           minDate={now.format('YYYY-MM-DD')}
           bounds={this.state.bounds}
           center={this.state.center}
+          zoom={this.state.zoom}
           editState={this.editState}
           onEventSubmit={this.onEventSubmit}
           onToBringAdd={this.onToBringAdd}

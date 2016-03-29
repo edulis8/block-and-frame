@@ -35,7 +35,7 @@ class CreateMapView extends Component {
           }
           googleMapElement={
             <GoogleMap
-              defaultZoom={4}
+              zoom={this.props.zoom}
               center={this.props.center}
               onClick={this.props.addMarker.bind(this)}
             >
@@ -44,7 +44,7 @@ class CreateMapView extends Component {
                 ref="searchBox"
                 bounds={this.props.bounds}
                 controlPosition={google.maps.ControlPosition.TOP_LEFT}
-                placeholder="Enter your location (e.g. a park)"
+                placeholder="Enter spread location (e.g. a park)"
                 onPlacesChanged={this.handlePlacesChanged.bind(this)}
               />
               {this.props.markers.map((marker, index) => {

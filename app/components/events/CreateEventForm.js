@@ -29,6 +29,7 @@ class CreateEventForm extends Component {
               handleBoundsChanged={this.props.handleBoundsChanged}
               center={this.props.center}
               onPlacesChanged={this.props.onPlacesChanged}
+              zoom={this.props.zoom}
             />
           </div>
 
