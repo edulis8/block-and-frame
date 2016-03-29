@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InstaButton = (props) => {
+const InstaButton = () => {
   return (
   
   <button className="ui instagram button toggle" >

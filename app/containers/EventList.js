@@ -57,7 +57,6 @@ class EventList extends React.Component {
       }
       return 0;
     }).map((event) => {
-      console.log('event in the mapper', event)
       return (
         <Event
           key={event.id}

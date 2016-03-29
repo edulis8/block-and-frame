@@ -67,9 +67,7 @@ const eventHelpers = {
     })
     .then((response) => {
       console.log('cont save', response);
-      console.log('callback before IF', callback)
       if (callback) {
-        console.log('callback about to be called', callback)
         callback();
       }
     })
