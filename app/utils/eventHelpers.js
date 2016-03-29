@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const eventHelpers = {
   createEvent(event, component) {
-    console.log('event to be created', event)
+    console.log('event to be created', event);
     const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('id');
     axios({

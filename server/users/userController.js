@@ -81,7 +81,7 @@ module.exports = {
       if (!user) {
         res.status(404).send('User not found');
       } else {
-        user.save({
+        return user.save({
           email: req.body.email,
           username: req.body.username,
           bio: req.body.bio,
