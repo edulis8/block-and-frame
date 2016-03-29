@@ -48,6 +48,8 @@ class UniqueEvent extends React.Component {
     this.loadMarker = this.loadMarker.bind(this);
     this.initializePage = this.initializePage.bind(this);
     this.determineCenter = this.determineCenter.bind(this);
+
+    this.callbackRender = this.render.bind(this);
   }
 
   componentDidMount() {
@@ -120,7 +122,7 @@ class UniqueEvent extends React.Component {
       console.log('state at page load unique event', this.state);
       instaHelpers.getUniqueTagPics(this.state.hashtag)
       .then((tagObject) => {
-        console.log('tag data', tagObject.data.data.data);
+        // console.log('tag data', tagObject.data.data.data);
         this.setState({
           tagArray: tagObject.data.data.data,
         });
@@ -202,7 +204,9 @@ class UniqueEvent extends React.Component {
   }
 
   render() {
-    console.log('HOST ID', this.state.hostId);
+    // console.log('host id: ', this.state.hostId);
+    console.log('RENDERING ', this.state.contributions);
+
     this.state.contributions = this.state.contributions || [];
     return (
     <div>
