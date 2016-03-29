@@ -230,9 +230,6 @@ class CreateEvent extends Component {
   }
 
   render() {
-    const style = {
-      color: 'red',
-    };
     return (
       <div>
         <MenuBar />
@@ -242,7 +239,7 @@ class CreateEvent extends Component {
           <div>
             {
               this.state.missingItems.length === 0 ? null : 
-              <h1 style={style}>
+              <div className="ui negative message">
                 Please fill out the following forms:<br />
                   {
                     this.state.missingItems.map((item) => {
@@ -252,7 +249,7 @@ class CreateEvent extends Component {
                       return <b>{item}<br /></b>;
                     })
                   }
-              </h1>
+              </div>
             }
           </div>
         </div>
