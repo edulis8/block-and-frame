@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ErrorMessage from './ErrorMessage';
+import InstaButton from './InstaButton';
+
 
 const SignupForm = (props) => {
   return (
@@ -37,11 +39,15 @@ const SignupForm = (props) => {
               onChange={props.onPasswordChange}
             />
           </div>
-          <button
-            className="ui button"
-            type="submit"
-            onClick={props.onSignupSubmit}
-          >Sign Up</button>
+          <div className="ui large buttons">
+            <button
+              className="ui button"
+              type="submit"
+              onClick={props.onSignupSubmit}
+            >Sign Up</button>
+            <div className="or"></div>
+            <InstaButton />
+          </div>
         </form>
         <div className="ui bottom attached warning message">
           <i className="icon help"></i>
@@ -51,9 +57,6 @@ const SignupForm = (props) => {
           errorMessage={props.errorMessage}
         />
       </div>
-       <button className="ui button" >
-        <a href="/auth/instagram">sign up with instagram</a>
-      </button>
     </div>
   );
 };
