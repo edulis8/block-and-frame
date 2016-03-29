@@ -13,7 +13,7 @@ class HashTagPic extends Component {
     return (
       <div className="ui shape" id={this.props.id}>
         <div className="sides insta-fixed">
-          <div className="active side"> 
+          <div className="active side">
             <div className="ui card insta-fixed">
               <div className="image insta-fixed">
                 <img className="hashtag-img" src={this.props.pic.images.thumbnail.url} />
@@ -32,8 +32,6 @@ class HashTagPic extends Component {
 }
 
 export default HashTagPic;
-
-
 
 // class Contribution extends Component {
 //   constructor(props) {
@@ -62,4 +60,3 @@ export default HashTagPic;
 //       });
 //     }
 //   }
-
