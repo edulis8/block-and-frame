@@ -4,7 +4,7 @@
   "description": "Meals and traveling and sharing",
   "main": "server.js",
   "scripts": {
-    "test": "mocha test/**/*.js --require ./test/setup.js --compilers js:babel-core/register",
+    "test": "mocha test/delay.js test/**/*.js",
     "start": "node index.js",
     "lint": "eslint . --ext .js --ext .jsx",
     "nodemon": "nodemon index.js"
@@ -31,10 +31,11 @@
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
-    "eslint": "^2.4.0",
+    "eslint": "^2.5.3",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-loader": "^1.3.0",
     "eslint-plugin-react": "^4.2.1",
+    "fs": "0.0.2",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "node-sass": "^3.4.2",

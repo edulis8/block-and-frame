@@ -9,7 +9,6 @@ module.exports = {
       columns: ['id', 'email', 'username', 'password', 'bio', 'location', 'is_traveling'],
     })
     .then((users) => {
-      console.log(users.models[0].relations.events);
       res.status(200).send(users.models);
     })
     .catch((err) => {
@@ -17,6 +16,7 @@ module.exports = {
       res.sendStatus(500);
     });
   },
+
   getUserbyId(req, res) {
     User.where({ id: req.params.userId })
     .fetch({
@@ -65,7 +65,7 @@ module.exports = {
         newUser.save()
         .then((createdUser) => {
           // TODO: omit password
-          res.status(201).send(createdUser);
+          res.status(200).send(createdUser);
         })
         .catch((err) => {
           res.status(500).send(err);
@@ -75,7 +75,6 @@ module.exports = {
   },
 
   editUser(req, res) {
-    console.log('REQ BODY XXX', req.body)
     User.where({ id: req.params.userId })
     .fetch()
     .then((user) => {

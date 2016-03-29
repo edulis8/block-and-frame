@@ -47,7 +47,7 @@ class CreateMapView extends Component {
                 placeholder="Enter your location (e.g. a park)"
                 onPlacesChanged={this.handlePlacesChanged.bind(this)}
               />
-              {this.props.markers.map((marker, index) => {
+              {this.props.markers.map((marker) => {
                 return (
                   <Marker
                     {...marker}

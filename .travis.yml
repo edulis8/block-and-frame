@@ -1,7 +1,7 @@
 sudo: required
 language: node_js
 node_js:
-- "5"
+- "5.7"
 env:
 - DB_URL=127.0.0.1 DB_USER= DB_PASSWORD= DB_NAME=block_and_frame_test SECRET=youwillnevergetthis AWS_ACCESS_KEY=idontknowthis AWS_SECRET_KEY=idontknowthis S3_BUCKET=idontknowthis INSTAGRAM_CLIENT_ID=4f78b288bdbb424d901b758546c8e821 INSTAGRAM_CLIENT_SECRET=16cf87bcbd9748c5b05d191932671c7f CALLBACK_URL=http://spreadout.space/auth/instagram/callback
 
