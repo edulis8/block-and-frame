@@ -13,6 +13,7 @@ class CreateEvent extends Component {
     this.state = {
       name: '',
       location: '',
+      hashtag: '',
       description: '',
       toBring: [
         {
@@ -103,6 +104,7 @@ class CreateEvent extends Component {
         coordinates: this.state.coordinates,
         markers: this.state.markers,
         toBring: contributions,
+        hashtag: this.state.hashtag,
       }, this);
 
     // reset forms
@@ -113,6 +115,7 @@ class CreateEvent extends Component {
         toBring: [],
         date: '',
         time: '',
+        hashtag: '',
       });
     }, 500);
   }
@@ -268,6 +271,7 @@ class CreateEvent extends Component {
         <CreateEventForm
           name={this.state.name}
           location={this.state.location}
+          hashtag={this.state.hashtag}
           date={this.state.date}
           time={this.state.time}
           description={this.state.description}

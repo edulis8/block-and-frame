@@ -10,19 +10,43 @@ class CreateEventForm extends Component {
           className="ui form"
           onSubmit={this.props.preventDefaultSubmit}
         >
+          <div className="ui very padded raised segments">
+            <div className="ui basic segment">
+              <div className="inline fields">
+                <div className="sixteen wide field">
+                  <label>Name of your Spread:</label>
+                  <input
+                    className="name-input"
+                    placeholder="Give your spread a name!"
+                    value={this.props.name}
+                    onChange={this.props.editState}
+                  />
+                </div>
+              </div>
+            
+            </div>
+            <div className="ui basic segment">
+              <div className="inline fields">
+                <div className="sixteen wide field">
+                  <label><i className="icon instagram"></i>Give your spread a unique instagram hashtag:
+                  </label>
+                  <input
+                    className="hashtag-input"
+                    placeholder="e.g.: #spreadOutProspectParkMar31, #KeckParkSpeadMay20"
+                    value={this.props.hashtag}
+                    onChange={this.props.editState}
+                  />
+                  <div className="ui right floated raised compact segment">
+                    <small><i className="info circle icon"></i>Providing a hashtag will allow all participants to post their instagram photos to the Spread's page</small>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
 
-          <div className="field">
-            <label>Name:</label>
-            <input
-              className="name"
-              placeholder="Give it a name!"
-              value={this.props.name}
-              onChange={this.props.editState}
-            />
-          </div>
 
-          <div className="map">
-            Select where you're hosting this spread by typing in the location!
+          <div className="map field ui basic segment">
+            <label>Select where you're hosting this spread by typing in the location!</label>
             <CreateMapView 
               markers={this.props.markers}
               addMarker={this.props.addMarker}
@@ -33,8 +57,8 @@ class CreateEventForm extends Component {
             />
           </div>
 
-          <div className="fields">
-            <div>
+          <div className="fields ui basic segment">
+            <div className="field">
               <label>Date:</label>
               <input
                 required
@@ -45,7 +69,7 @@ class CreateEventForm extends Component {
                 onChange={this.props.editState}
               />
             </div>
-              <div>
+              <div className="field">
                 <label>Time:</label>
                 <input
                   required
@@ -56,11 +80,11 @@ class CreateEventForm extends Component {
                 />
               </div>
             </div>
-            <div className="field">
+            <div className="field ui basic segment">
               <label>Description:</label>
               <textarea
                 className="description"
-                placeholder="Whats the spread about?"
+                placeholder="What's the spread about? E.g. a picnic, BBQ, potluck. Does it have a theme?"
                 value={this.props.description}
                 onChange={this.props.editState}
               >
@@ -68,7 +92,7 @@ class CreateEventForm extends Component {
             </div>
 
           <div className="inline fields">
-            <div >
+            <div className="ui basic segment">
               <button
                 className="to-bring-button ui icon button one wide"
                 onClick={this.props.onToBringAdd}
@@ -81,11 +105,11 @@ class CreateEventForm extends Component {
               >
                 <i className="remove icon"></i>
               </button>
-              What should people bring?
+              <strong>What should people bring?</strong>
             </div>
           </div>
 
-          <div>
+          <div className="ui basic segment">
             <ToBringList
               toBring={this.props.toBring}
               onItemChange={this.props.onItemChange}
@@ -101,8 +125,10 @@ class CreateEventForm extends Component {
           >
             Create the Spread!
           </button>
+        </div>
         </form>
       </div>
+
     );
   }
 }

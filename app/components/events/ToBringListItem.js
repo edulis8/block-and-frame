@@ -27,27 +27,27 @@ class ToBringItem extends Component {
   render() {
     return (
       <div className="inline fields ui action input">
-        <div className="four wide field">
+        <div className="five wide field">
           <input
             className={`to-bring-item-${this.props.index}`}
             value={this.props.item}
             onChange={this._onItemChange}
-            placeholder="Contribution Item"
+            placeholder="We're gonna need some..."
           />
         </div>
 
-        <div className="ten wide field">
+        <div className="nine wide field">
           <input
             className={`to-bring-notes-${this.props.index}`}
             value={this.props.notes}
             onChange={this._onNotesChange}
-            placeholder="Where and how do they find it?"
+            placeholder="...and the best place to find it around here is...?"
           />
         </div>
 
-        <div className="two wide field center">
+        <div className="three wide field center">
           <label htmlFor="to-bring">
-            You'll bring:
+            Host will bring:
           </label>
           <input
             id="host-bring"
