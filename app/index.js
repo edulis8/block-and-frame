@@ -4,8 +4,8 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 // Sass file imported:
 import '../dist/main.scss';
 
-//Moved to index.html
-//jQuery and CDN for Semantic-UI
+// Moved to index.html
+// jQuery and CDN for Semantic-UI
 // import $ from 'jquery';
 // import jQuery from 'jquery';
 // window.$ = $;

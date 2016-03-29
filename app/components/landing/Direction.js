@@ -11,7 +11,9 @@ class Direction extends Component {
   componentDidMount() {
     $('.shape').shape();
   }
+
   handleClick(str) {
+    console.log(str);
     console.log(this.props.uniqueId);
     $(`#${this.props.uniqueId}`).shape('flip right');
   }
