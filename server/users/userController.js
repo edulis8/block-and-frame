@@ -1,5 +1,7 @@
 const User = require('./userModel').User;
 const Image = require('./userModel').Image;
+const Mailgun = require('mailgun').Mailgun;
+const mg = new Mailgun(process.env.MAILGUN_KEY);
 
 module.exports = {
   getAllUsers(req, res) {
@@ -158,6 +160,35 @@ module.exports = {
     })
     .catch((err) => {
       res.send(`User not found - ${err}`);
+    });
+  },
+
+  emailHost(userId) {
+    User.where({ id: userId })
+    .fetch({
+      withRelated: ['events'],
+      columns: [
+        'id', 'email', 'username', 'bio', 'location', 'is_traveling', 'instagram_id', 'instagram_token', 'instagram_username', 'instagram_profile_pic',
+      ],
+    })
+    .then((user) => {
+      if (!user) {
+        res.status(404).send('User not found');
+      } else {
+        // send curl here
+        const userEmail = user.attributes.email;
+        mg.sendText('bmoorebrian53@gmail.com', ['bmoorebrian53@gmail.com'], 'Hello', 'Hi', err => {
+          if (err) {
+            console.log('ERROR SENDING EMAIL', error);
+          } else {
+            console.log('SUCCESS SENDING EMAIL');
+          }
+        });
+        res.status(200).send(user);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
   },
 };

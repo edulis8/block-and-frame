@@ -57,7 +57,6 @@ class CreateMapView extends Component {
             </GoogleMap>
           }
         />
-
       </div>
     );
   }
