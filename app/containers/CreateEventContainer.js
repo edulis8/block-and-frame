@@ -80,13 +80,10 @@ class CreateEvent extends Component {
     setTimeout(() => {
       for (const key in this.state) {
         if (key === 'name' || key === 'description' || key === 'coordinates') {
-          console.log('missingItems', this.state.name);
-          console.log('KEY', key);
           if (this.state[key] === '') {
             const newState = this.state.missingItems;
             newState.push(key);
             this.setState({ missingItems: newState });
-            console.log('MISSING STATE', this.state.missingItems);
           }
         }
       }
