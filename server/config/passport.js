@@ -1,6 +1,6 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const User = require('../users/userModel');
+const User = require('../users/userModel').User;
 const InstagramStrategy = require('passport-instagram').Strategy;
 
 
