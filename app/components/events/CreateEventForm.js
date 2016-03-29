@@ -120,6 +120,23 @@ class CreateEventForm extends Component {
             />
           </div>
 
+          <div>
+            {
+              this.props.missingItems.length === 0 ? null : 
+              <div className="ui negative message">
+                Please fill out the following forms:<br />
+                  {
+                    this.props.missingItems.map((item) => {
+                      if (item === 'coordinates') {
+                        item = 'location';
+                      }
+                      return <b>{item}<br /></b>;
+                    })
+                  }
+              </div>
+            }
+          </div>
+
           <button
             className="ui button"
             onClick={this.props.onEventSubmit}
