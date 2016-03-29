@@ -41,7 +41,7 @@ class CreateEvent extends Component {
       bounds: null,
       center: { lat: 39.0038657, lng: -96.5672834 },
       missingItems: [],
-      zoom: 4,
+      zoom: 9,
     };
 
     this.editState = this.editState.bind(this);
@@ -56,6 +56,11 @@ class CreateEvent extends Component {
     this.deleteMarker = this.deleteMarker.bind(this);
     this.handleBoundsChanged = this.handleBoundsChanged.bind(this);
     this.setCenter = this.setCenter.bind(this);
+    this.getUserLocation = this.getUserLocation.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserLocation();
   }
 
   onEventSubmit() {
@@ -164,6 +169,16 @@ class CreateEvent extends Component {
     }
     this.setState({
       toBring: updated,
+    });
+  }
+
+  getUserLocation() {
+    navigator.geolocation.getCurrentPosition(position => {
+      const center = {};
+      center.lat = position.coords.latitude;
+      center.lng = position.coords.longitude;
+      console.log(center);
+      this.setState({ center });
     });
   }
 
