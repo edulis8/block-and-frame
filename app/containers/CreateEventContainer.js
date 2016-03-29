@@ -71,7 +71,6 @@ class CreateEvent extends Component {
     });
 
     this.setState({ missingItems: [] });
-    console.log('update', this.forceUpdate);
     // setTimeout because setting the state above is asyncronous
     setTimeout(() => {
       for (const key in this.state) {
