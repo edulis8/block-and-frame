@@ -41,7 +41,7 @@ class CreateEvent extends Component {
       bounds: null,
       center: { lat: 39.0038657, lng: -96.5672834 },
       missingItems: [],
-      zoom: 4,
+      zoom: 9,
     };
 
     this.editState = this.editState.bind(this);
@@ -56,6 +56,11 @@ class CreateEvent extends Component {
     this.deleteMarker = this.deleteMarker.bind(this);
     this.handleBoundsChanged = this.handleBoundsChanged.bind(this);
     this.setCenter = this.setCenter.bind(this);
+    this.getUserLocation = this.getUserLocation.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserLocation();
   }
 
   onEventSubmit() {
@@ -75,13 +80,10 @@ class CreateEvent extends Component {
     setTimeout(() => {
       for (const key in this.state) {
         if (key === 'name' || key === 'description' || key === 'coordinates') {
-          console.log('missingItems', this.state.name);
-          console.log('KEY', key);
           if (this.state[key] === '') {
             const newState = this.state.missingItems;
             newState.push(key);
             this.setState({ missingItems: newState });
-            console.log('MISSING STATE', this.state.missingItems);
           }
         }
       }
@@ -167,6 +169,16 @@ class CreateEvent extends Component {
     });
   }
 
+  getUserLocation() {
+    navigator.geolocation.getCurrentPosition(position => {
+      const center = {};
+      center.lat = position.coords.latitude;
+      center.lng = position.coords.longitude;
+      console.log(center);
+      this.setState({ center });
+    });
+  }
+
   setCenter() {
     const location = {};
     const coordinates = this.state.coordinates;
@@ -230,9 +242,6 @@ class CreateEvent extends Component {
   }
 
   render() {
-    const style = {
-      color: 'red',
-    };
     return (
       <div>
         <MenuBar />
@@ -242,7 +251,7 @@ class CreateEvent extends Component {
           <div>
             {
               this.state.missingItems.length === 0 ? null : 
-              <h1 style={style}>
+              <div className="ui negative message">
                 Please fill out the following forms:<br />
                   {
                     this.state.missingItems.map((item) => {
@@ -252,7 +261,7 @@ class CreateEvent extends Component {
                       return <b>{item}<br /></b>;
                     })
                   }
-              </h1>
+              </div>
             }
           </div>
         </div>
