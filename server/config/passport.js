@@ -1,8 +1,7 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const User = require('../users/userModel');
 const InstagramStrategy = require('passport-instagram').Strategy;
-
+const User = require('../users/userModel').User;
 
 module.exports = (passport) => {
   const options = {
