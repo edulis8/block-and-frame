@@ -112,3 +112,10 @@ body {
   width: 150px;
   height: 150px;
 }
+
+.instabutton {
+  color: white;
+  &:hover {
+    color: #e0e1e2;
+  }
+}
