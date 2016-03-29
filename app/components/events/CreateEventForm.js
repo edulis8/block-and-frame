@@ -14,10 +14,10 @@ class CreateEventForm extends Component {
           <div className="field">
             <label>Name:</label>
             <input
-              className="name-input"
+              className="name"
               placeholder="Give it a name!"
               value={this.props.name}
-              onChange={this.props.onNameChange}
+              onChange={this.props.editState}
             />
           </div>
 
@@ -29,6 +29,7 @@ class CreateEventForm extends Component {
               handleBoundsChanged={this.props.handleBoundsChanged}
               center={this.props.center}
               onPlacesChanged={this.props.onPlacesChanged}
+              zoom={this.props.zoom}
             />
           </div>
 
@@ -39,9 +40,9 @@ class CreateEventForm extends Component {
                 required
                 type="date"
                 min={this.props.minDate}
-                className="date-input"
+                className="date"
                 value={this.props.date}
-                onChange={this.props.onDateChange}
+                onChange={this.props.editState}
               />
             </div>
               <div>
@@ -49,19 +50,19 @@ class CreateEventForm extends Component {
                 <input
                   required
                   type="time"
-                  className="time-input"
+                  className="time"
                   value={this.props.time}
-                  onChange={this.props.onTimeChange}
+                  onChange={this.props.editState}
                 />
               </div>
             </div>
             <div className="field">
               <label>Description:</label>
               <textarea
-                className="description-input"
+                className="description"
                 placeholder="Whats the spread about?"
                 value={this.props.description}
-                onChange={this.props.onDescriptionChange}
+                onChange={this.props.editState}
               >
               </textarea>
             </div>

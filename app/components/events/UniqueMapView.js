@@ -16,7 +16,7 @@ const UniqueMapView = (props) => {
         }
         googleMapElement={
           <GoogleMap
-            defaultZoom={4}
+            defaultZoom={13}
             center={props.center}
           >
             {props.markers.map((marker) => {

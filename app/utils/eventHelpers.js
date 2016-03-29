@@ -94,6 +94,14 @@ const eventHelpers = {
       console.log(error);
     });
   },
+  getAllEvents() {
+    const token = window.localStorage.getItem('token');
+    return axios({
+      url: '/api/events/',
+      method: 'get',
+      headers: { Authorization: token },
+    });
+  },
 };
 
 export default eventHelpers;
