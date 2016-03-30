@@ -13,6 +13,7 @@ module.exports = {
       res.sendStatus(500);
     });
   },
+
   getUniqueTagPics(req, res) {
     const hashtag = req.body.hashtag;
     User.where({ id: req.body.userId })

@@ -36,14 +36,14 @@ class UserProfile extends React.Component {
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
   }
 
-  componentWillMount() {
-    // instagram sign in.
-    // server sends jwt and id as query string
-    const { token, userId } = this.props.location.query;
-    if (token && userId) {
-      authHelpers.storeToken(token, userId);
-    }
-  }
+  // componentWillMount() {
+  //   // instagram sign in.
+  //   // server sends jwt and id as query string
+  //   const { token, userId } = this.props.location.query;
+  //   if (token && userId) {
+  //     authHelpers.storeToken(token, userId);
+  //   }
+  // }
 
   componentDidMount() {
     userHelpers.getCurrentUserData()

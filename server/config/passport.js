@@ -31,12 +31,9 @@ module.exports = (passport) => {
   },
   (accessToken, refreshToken, profile, done, res, req, next) => {
     console.log('\tinstagram Strategy Auth');
-    console.log("token is", accessToken);
-    console.log("refreshtoken is", refreshToken);
+    console.log("accessToken is", accessToken);
+    console.log("refreshToken is", refreshToken);
     console.log("profile is", profile);
-    console.log("This is the req", req);
-    console.log("This is the res", res);
-    console.log("This is the next", next);
     process.nextTick(() => {
       User.where({ instagram_id: profile.id })
       .fetch().then((user) => {
