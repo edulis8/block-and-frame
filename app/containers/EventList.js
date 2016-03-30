@@ -76,6 +76,7 @@ class EventList extends React.Component {
       location.lat = Number(event.coordinates.split(',').shift());
       location.lng = Number(event.coordinates.split(',').pop());
       markers.push({ position: location });
+
       return (
         <Event
           key={event.id}
