@@ -14,6 +14,7 @@ class EventList extends React.Component {
     this.state = {
       data: [],
       filtered: [],
+      hashtags: [],
     };
 
     this.updateFiltered = this.updateFiltered.bind(this);
@@ -33,6 +34,12 @@ class EventList extends React.Component {
         data: response.data,
         filtered: response.data,
       });
+
+      this.setState({
+        hashtags: response.data.map((event) => {
+          return event.hashtag;
+        }),
+      });
     });
   }
 
@@ -43,6 +50,7 @@ class EventList extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     const eventNodes = this.state.filtered.sort((eventA, eventB) => {
       eventA.dateTime = moment(eventA.date)
       .set({
@@ -70,28 +78,31 @@ class EventList extends React.Component {
           name={event.name}
           location={event.location}
           description={event.description}
+          hashtag={event.hashtag}
           date={event.date}
           time={event.time}
           id={event.id}
-          creator_name={event.users[0] ? event.users[0].username : 'Anonymous' }
-          creator_email={event.users[0] ? event.users[0].instagram_username : ''}
+          creatorName={ eventHelpers.findCreator(event.users).username}
+          creatorInstaname={eventHelpers.findCreator(event.users).instagram_username }
+          creatorInstaPic={eventHelpers.findCreator(event.users).instagram_profile_pic }
+          numAttendees={event.users.length}
+
         />
       );
     });
     return (
       <div>
         <MenuBar />
-        <br />
         <div className="ui container">
           <h1 className="ui dividing header">Local Spreads</h1>
           <SearchBar
             items={this.state.data}
             updateFiltered={this.updateFiltered}
           />
-        </div>
-        <div className="ui segment">
+        <div className="ui three stackable cards">
           {eventNodes.length === 0 ? 'No events found :(' : eventNodes}
         </div>
+      </div>
       </div>
     );
   }
