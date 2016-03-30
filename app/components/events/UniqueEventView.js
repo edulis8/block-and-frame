@@ -47,7 +47,7 @@ const UniqueEventView = (props) => {
 
       <div className="date item">
         <div className="ui small header">
-          <p>{dateTime.format('MMMM Do YYYY, h:mm:ss a')} at {moment(props.time, ['H:mm']).format('hh:mm A')}</p>
+          <p>{dateTime.format('MMMM Do YYYY, h:mm a')}</p>
         </div>
       </div>
 
