@@ -1,7 +1,6 @@
 const axios = require('axios');
 const User = require('../users/userModel').User;
 
-
 module.exports = {
   getUserPics(req, res) {
     axios.get(`https://api.instagram.com/v1/users/self/media/recent/?access_token=${req.body.accessToken}`)

@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import eventHelpers from '../utils/eventHelpers';
+import authHelpers from '../utils/authHelpers';
 import Event from '../components/events/EventListItem';
 import MenuBar from '../components/MenuBar';
 import SearchBar from '../components/SearchBar';
@@ -18,8 +19,14 @@ class EventList extends React.Component {
     this.updateFiltered = this.updateFiltered.bind(this);
   }
 
-  // TODO: factor out request into eventHelpers
   componentDidMount() {
+    // When signing in with instagram, back end will redirect here with token and id in url
+    // Check if user arrived here with token and id and store it to log in
+    const { token, userId } = this.props.location.query;
+    if (token && userId) {
+      authHelpers.storeToken(token, userId);
+    }
+
     eventHelpers.getAllEvents()
     .then((response) => {
       this.setState({
