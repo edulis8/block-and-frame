@@ -5,7 +5,7 @@ import MenuBar from '../components/MenuBar';
 import UserInfo from '../components/users/UserInfo';
 import UserEventList from '../components/users/UserEventList';
 import instaHelpers from '../utils/instaHelpers';
-import InstaUserPics from '../components/instagram/InstaUserPics';
+import UserPicContainer from '../components/instagram/UserPicContainer';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -69,38 +69,45 @@ class UserProfile extends Component {
       <div>
         <MenuBar />
         <br />
-        <div className="ui two column stackable grid container">
+        <div className="ui three column stackable grid">
           <div className="sixteen wide column"><br /></div>
-          <div className="six wide column">
+          <div className="four wide column">
           <UserInfo user={this.state} avatarURL={this.state.avatarURL} />
-          {this.state.allThisUsersInstaPics.map((object, index) => {
-            // here is where can set #tag we want:
-            if (
-              object.tags.indexOf('spread_out_space') >= 0 ||
-              object.tags.indexOf('spreadoutspace') >= 0
-              ) {
-              return (
-                <div className="ui segment">
-                  <InstaUserPics 
-                    key={index}
-                    data={object} 
-                  />
-                </div>
-              );
-            }
-          })} 
+          
           </div>
-          <div className="ten wide column">
+          <div className="nine wide column">
             <div className="ui centered large header">My Spreads</div>
             <div className="ui segment">
               <UserEventList events={this.state.events} />
             </div>
           </div>
-
+          
+          <div className="two wide column">
+          <UserPicContainer 
+            userPics={this.state.allThisUsersInstaPics}
+          />
+          </div>
         </div>
       </div>
     );
   }
 }
+
+    // {this.state.allThisUsersInstaPics.map((object, index) => {
+    //         // here is where can set #tag we want:
+    //         if (
+    //           object.tags.indexOf('spread_out_space') >= 0 ||
+    //           object.tags.indexOf('spreadoutspace') >= 0
+    //           ) {
+    //           return (
+    //             <div className="">
+    //               <InstaUserPics 
+    //                 key={index}
+    //                 data={object} 
+    //               />
+    //             </div>
+    //           );
+    //         }
+    //       })} 
 
 export default UserProfile;

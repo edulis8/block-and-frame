@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import FlipPic from './FlipPic';
 
-class HashTagPic extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+class UserPic extends Component {
+  
   componentDidMount() {
     $(`#${this.props.id}`).click(function () {
       $(this).shape('flip over');
@@ -12,12 +10,11 @@ class HashTagPic extends Component {
   }
   render() {
     return (
-      <FlipPic
+      <FlipPic 
         data = {this.props}
       />
     );
   }
 }
-
-export default HashTagPic;
+export default UserPic;
 
