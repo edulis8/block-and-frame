@@ -5,7 +5,7 @@ const eventHelpers = {
     console.log('event to be created', event);
     const token = window.localStorage.getItem('token');
     axios({
-      url: `/api/events/`,
+      url: '/api/events/',
       method: 'post',
       data: event,
       headers: { Authorization: token },
