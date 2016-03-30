@@ -163,7 +163,7 @@ module.exports = {
     });
   },
 
-  emailHost(userId) {
+  emailHost(userId, host, req, res) {
     User.where({ id: userId })
     .fetch({
       withRelated: ['events'],
@@ -175,16 +175,18 @@ module.exports = {
       if (!user) {
         res.status(404).send('User not found');
       } else {
-        // send curl here
-        // const userEmail = user.attributes.email;
-        // currently sends an email to myself
-        mg.sendText('bmoorebrian53@gmail.com', ['bmoorebrian53@gmail.com'], 'Hello', 'Hi', err => {
-          if (err) {
-            console.log('ERROR SENDING EMAIL', error);
-          } else {
-            console.log('SUCCESS SENDING EMAIL');
-          }
-        });
+        const userEmail = user.attributes.email;
+        const hostEmail = host.email;
+        console.log('USER!!', user);
+        // sends an email from me to the host and me
+        mg.sendText('bmoorebrian53@gmail.com', [hostEmail], 'Someone joined your spread!', `Hi, ${userEmail} joined your spread`, 
+          err => {
+            if (err) {
+              console.log('ERROR SENDING EMAIL', error);
+            } else {
+              console.log('SUCCESS SENDING EMAIL');
+            }
+          });
         res.status(200).send(user);
       }
     })

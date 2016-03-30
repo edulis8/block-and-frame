@@ -52,8 +52,8 @@ const eventHelpers = {
     });
   },
   // wrap blobSender and joinEvent in third function
-  joinEventWithContributions(eventId, contributions, callback) {
-    eventHelpers.joinEvent(eventId, callback);
+  joinEventWithContributions(eventId, contributions, callback, host) {
+    eventHelpers.joinEvent(eventId, callback, host);
     // return this?
     eventHelpers.contributionsSave(contributions, eventId, callback);
   },
@@ -75,7 +75,7 @@ const eventHelpers = {
       console.log(error);
     });
   },
-  joinEvent(eventId, callback) {
+  joinEvent(eventId, callback, host) {
     const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('id');
     return axios({
@@ -83,6 +83,7 @@ const eventHelpers = {
       method: 'put',
       data: {
         userId,
+        host,
       },
       headers: { Authorization: token },
     })
