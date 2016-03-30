@@ -50,7 +50,6 @@ class EventList extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     const eventNodes = this.state.filtered.sort((eventA, eventB) => {
       eventA.dateTime = moment(eventA.date)
       .set({
@@ -72,6 +71,11 @@ class EventList extends React.Component {
       }
       return 0;
     }).map((event) => {
+      const markers = [];
+      const location = {};
+      location.lat = Number(event.coordinates.split(',').shift());
+      location.lng = Number(event.coordinates.split(',').pop());
+      markers.push({ position: location });
       return (
         <Event
           key={event.id}
@@ -86,7 +90,8 @@ class EventList extends React.Component {
           creatorInstaname={eventHelpers.findCreator(event.users).instagram_username }
           creatorInstaPic={eventHelpers.findCreator(event.users).instagram_profile_pic }
           numAttendees={event.users.length}
-
+          markers={markers}
+          center={location}
         />
       );
     });
