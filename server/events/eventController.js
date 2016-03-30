@@ -122,7 +122,7 @@ const eventController = {
   },
 
   joinEvent(req, res) {
-    userController.emailHost(req.body.userId, req.body.host);
+    userController.emailHost(req.body);
     Event.fetchAndPopulate({ id: req.params.eventId })
     .then((event) => {
       event
