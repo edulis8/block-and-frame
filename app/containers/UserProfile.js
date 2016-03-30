@@ -69,10 +69,20 @@ class UserProfile extends Component {
       <div>
         <MenuBar />
         <br />
-        <div className="ui two column stackable grid container">
+        <div className="ui three column stackable grid container">
           <div className="sixteen wide column"><br /></div>
-          <div className="six wide column">
+          <div className="four wide column">
           <UserInfo user={this.state} avatarURL={this.state.avatarURL} />
+          
+          </div>
+          <div className="nine wide column">
+            <div className="ui centered large header">My Spreads</div>
+            <div className="ui segment">
+              <UserEventList events={this.state.events} />
+            </div>
+          </div>
+          <div className="two wide column">
+          </div>
           {this.state.allThisUsersInstaPics.map((object, index) => {
             // here is where can set #tag we want:
             if (
@@ -89,14 +99,6 @@ class UserProfile extends Component {
               );
             }
           })} 
-          </div>
-          <div className="ten wide column">
-            <div className="ui centered large header">My Spreads</div>
-            <div className="ui segment">
-              <UserEventList events={this.state.events} />
-            </div>
-          </div>
-
         </div>
       </div>
     );
