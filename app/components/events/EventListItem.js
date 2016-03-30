@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
 import instaHelpers from '../../utils/instaHelpers';
+import UniqueMapView from './UniqueMapView';
 
 class Event extends React.Component {
   constructor(props) {
@@ -35,6 +36,9 @@ class Event extends React.Component {
       minute: this.props.time.split(':')[1],
     })
     .add(1, 'day'); // not sure why a day has to be added
+    const style = {
+      height: '250px'
+    }
     
     return (
           <div className="ui green centered card">
@@ -45,12 +49,28 @@ class Event extends React.Component {
                 <div className="image host">
                   <img className="ui avatar image" src={this.props.creatorInstaPic} />
                   <div>Host: {this.props.creatorName} </div>
-                  <i className="tiny instagram icon"></i> @{this.props.creatorInstaname}
+                  {
+                    this.props.creatorInstaname ? 
+                      <div><i className="tiny instagram icon"></i> @{this.props.creatorInstaname}</div>
+                    :
+                      null
+                  }
+                  
                 </div> 
             </div>
 
             <div className="image event-image">
-              <img className="eventlist-image" src={this.state.tagArray[this.state.random] || 'http://placehold.it/50x50'} />
+            {
+              this.state.tagArray.length > 0 ? 
+                <img className="eventlist-image" src={this.state.tagArray[this.state.random]} />
+              :
+                <UniqueMapView
+                  center={this.props.center}
+                  markers={this.props.markers}
+                />
+            }
+              
+              
             </div>
 
             <div className="content">
@@ -81,4 +101,3 @@ class Event extends React.Component {
 }
 
 export default Event;
-

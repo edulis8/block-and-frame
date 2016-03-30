@@ -25,6 +25,14 @@ const UniqueEventView = (props) => {
     );
   }
 
+  const dateTime = moment(props.date)
+    .set({
+      hour: props.time.split(':')[0],
+      minute: props.time.split(':')[1],
+    })
+    .add(1, 'day'); // not sure why a day has to be added
+    
+
   return (
     <div className="ui items">
       <div className="eventName ui item">
@@ -39,7 +47,7 @@ const UniqueEventView = (props) => {
 
       <div className="date item">
         <div className="ui small header">
-          <p>{moment(props.date).format('MMM Do YYYY')} at {moment(props.time, ['H:mm']).format('hh:mm A')}</p>
+          <p>{dateTime.format('MMMM Do YYYY, h:mm:ss a')} at {moment(props.time, ['H:mm']).format('hh:mm A')}</p>
         </div>
       </div>
 
