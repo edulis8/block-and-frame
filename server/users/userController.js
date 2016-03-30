@@ -176,7 +176,8 @@ module.exports = {
         res.status(404).send('User not found');
       } else {
         // send curl here
-        const userEmail = user.attributes.email;
+        // const userEmail = user.attributes.email;
+        // currently sends an email to myself
         mg.sendText('bmoorebrian53@gmail.com', ['bmoorebrian53@gmail.com'], 'Hello', 'Hi', err => {
           if (err) {
             console.log('ERROR SENDING EMAIL', error);
