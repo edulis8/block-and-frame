@@ -123,7 +123,6 @@ const eventController = {
 
   joinEvent(req, res) {
     userController.emailHost(req.body.userId);
-    console.log('USERID', req.body);
     Event.fetchAndPopulate({ id: req.params.eventId })
     .then((event) => {
       event
