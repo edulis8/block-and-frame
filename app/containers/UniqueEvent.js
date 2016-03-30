@@ -267,7 +267,8 @@ class UniqueEvent extends React.Component {
             }
           </div>
           <div className="two wide column">
-            <HashTagPicsContainer 
+            <HashTagPicsContainer
+              hashtag = {this.state.hashtag} 
               hashTagPics = {this.state.tagArray}
             /> 
           </div>

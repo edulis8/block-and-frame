@@ -67,7 +67,7 @@ class EventList extends React.Component {
           time={event.time}
           id={event.id}
           creator_name={event.users[0] ? event.users[0].username : 'Anonymous' }
-          creator_email={event.users[0] ? event.users[0].email : ''}
+          creator_email={event.users[0] ? event.users[0].instagram_username : ''}
         />
       );
     });

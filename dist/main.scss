@@ -5,6 +5,7 @@ body {
   font-family: Roboto, sans-serif;
   font-weight: 100;
   line-height: 1;
+  word-wrap: break-word;
 }
 
 .instructions {
@@ -123,3 +124,5 @@ body {
 .bringer-line-item {
   display: inline-block
 }
+
+
