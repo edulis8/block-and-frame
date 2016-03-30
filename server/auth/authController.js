@@ -45,9 +45,7 @@ module.exports = {
         });
         newUser.save()
         .then((createdUser) => {
-          const token = jwt.sign(user, process.env.SECRET, {
-            expiresIn: 10080,
-          });
+          const token = jwt.sign(createdUser, process.env.SECRET, { expiresIn: 10080 });
           res.json({ success: true, token: `JWT ${token}`, id: createdUser.get('id') });
         })
         .catch((err) => {
@@ -57,4 +55,3 @@ module.exports = {
     });
   },
 };
-

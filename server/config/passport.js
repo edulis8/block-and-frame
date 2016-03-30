@@ -4,11 +4,13 @@ const InstagramStrategy = require('passport-instagram').Strategy;
 const User = require('../users/userModel').User;
 
 module.exports = (passport) => {
-  const options = {
+  passport.use(new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
     secretOrKey: process.env.SECRET,
-  };
-  passport.use(new JwtStrategy(options, (jwtPayload, done) => {
+  },
+  (jwtPayload, done) => {
+    console.log('\tjwt Strategy Auth');
+    console.log('jtwPayload', jwtPayload);
     User.where({ id: jwtPayload.id })
       .fetch().then((user) => {
         if (user) {
@@ -28,6 +30,7 @@ module.exports = (passport) => {
     scope: 'public_content',
   },
   (accessToken, refreshToken, profile, done, res, req, next) => {
+    console.log('\tinstagram Strategy Auth');
     console.log("token is", accessToken);
     console.log("refreshtoken is", refreshToken);
     console.log("profile is", profile);
@@ -73,7 +76,7 @@ module.exports = (passport) => {
           });
         }
         // this breaks things:
-        return done(null, false);
+        // return done(null, false);
       })
       .catch((err) => {
         return done(err, false);
