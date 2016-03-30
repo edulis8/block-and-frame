@@ -22,14 +22,18 @@ module.exports = {
         res.status(404).send('User not found');
       } else {
         const accessToken = user.get('instagram_token');
-        axios.get(`https://api.instagram.com/v1/tags/${hashtag}/media/recent?access_token=${accessToken}`)
-        .then((data) => {
-          res.status(201).send(data);
-        })
-        .catch((err) => {
-          console.error(err);
-          res.sendStatus(500);
-        });
+        if (accessToken) {
+          axios.get(`https://api.instagram.com/v1/tags/${hashtag}/media/recent?access_token=${accessToken}`)
+          .then((data) => {
+            res.status(201).send(data);
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+          }); 
+        } else {
+          res.status(404).send('User does not have Instagram access token');
+        }
       }
     })
     .catch((err) => {

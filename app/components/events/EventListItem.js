@@ -1,8 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
+import instaHelpers from '../../utils/instaHelpers';
 
 class Event extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tagArray: [],
+      randomPic: '',
+      random: 0,
+    };
+  }
+   
+  componentWillMount() {
+    if (this.props.hashtag) {
+      instaHelpers.getUniqueTagPics(this.props.hashtag)
+        .then((tagObject) => {
+          const data = tagObject.data.data.data;
+          this.setState({
+            tagArray: data.map((tagObj) => {
+              return tagObj.images.thumbnail.url;
+            }),
+            random: Math.floor((Math.random() * data.length)),
+          });        
+        });
+    }
+  }
+
   render() {
     const dateTime = moment(this.props.date)
     .set({
@@ -17,35 +42,39 @@ class Event extends React.Component {
               <div className="right floated meta">
                 <div>{dateTime.format('MMMM Do YYYY, h:mm:ss a')}</div>
               </div>
-              <div className="image host">
-                <img className="ui avatar image" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=20&h=20" />
-                <div>Hosted by: {this.props.creator_name || this.props.creator_email}</div>
-              </div> 
+                <div className="image host">
+                  <img className="ui avatar image" src={this.props.creatorInstaPic} />
+                  <div>Host: {this.props.creatorName} </div>
+                  <i className="tiny instagram icon"></i> @{this.props.creatorInstaname}
+                </div> 
             </div>
-            <div>
-              <div className="small image">
-                <img src="http://placehold.it/50x50" />
-              </div>
-              <div className="small image">
-                <img src="http://placehold.it/150x50" />
-              </div>
 
+            <div className="image event-image">
+              <img className="eventlist-image" src={this.state.tagArray[this.state.random] || 'http://placehold.it/50x50'} />
             </div>
 
             <div className="content">
-              <Link to={`/${this.props.id}`} className="header">{this.props.name}</Link>
-              <div className="location">{this.props.location}</div>
+              <Link to={`/${this.props.id}`} className="ui header">{this.props.name}</Link>
+              <div className="location">
+                {/* make sure the location and description get cut off if really long */}
+                <h5 className="ui header">
+                  {this.props.location.slice(0, 30)} {this.props.location.length > 30 && '...'}
+                </h5>
+
+              </div>
               <div className="description">
-                {this.props.description}
+                {/* this.props.description.slice(0, 30)} {this.props.description.length > 30 && '...' */}
+                
               </div>
               <div className="extra content">
-                 <i className="comment icon"></i>
-                  3 comments
+                <span className="right floated">
+                  <i className="users outline icon"></i>
+                  {this.props.numAttendees} signed up
+                 </span>
+               <i className="comment icon"></i>
+                <label>3 comments</label>
               </div>
-
-            </div>
-
-            
+            </div>  
           </div>
     );
   }
@@ -53,27 +82,3 @@ class Event extends React.Component {
 
 export default Event;
 
-// semantic card:
-// <div class="ui card">
-//   <div class="content">
-//     <div class="right floated meta">14h</div>
-//     <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
-//   </div>
-//   <div class="image">
-//     <img>
-//   </div>
-//   <div class="content">
-//     <span class="right floated">
-//       <i class="heart outline like icon"></i>
-//       17 likes
-//     </span>
-//     <i class="comment icon"></i>
-//     3 comments
-//   </div>
-//   <div class="extra content">
-//     <div class="ui large transparent left icon input">
-//       <i class="heart outline icon"></i>
-//       <input type="text" placeholder="Add Comment...">
-//     </div>
-//   </div>
-// </div>

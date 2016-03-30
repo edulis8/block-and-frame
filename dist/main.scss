@@ -158,4 +158,9 @@ span#bigger {
   font-size: 20px;
 }
 
+.eventlist-image {
+  &.social {
+    cursor: pointer;
+  }
+}
 
