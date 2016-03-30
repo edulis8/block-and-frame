@@ -5,8 +5,37 @@ body {
   font-family: Roboto, sans-serif;
   font-weight: 100;
   line-height: 1;
-  word-wrap: break-word;
+  // word-wrap: break-word;
 }
+
+
+.ui.menu .item img.logo {
+  margin-right: 1.5em;
+}
+
+.main.container {
+  margin-top: 7em;
+}
+
+.wireframe {
+  margin-top: 2em;
+}
+
+.ui.footer.segment {
+  margin: 10em 0em 0em;
+  padding: 3em 0em;
+  background-color: dimgrey;
+  button {
+    a {
+      .github {
+        color: rgba(0,0,0,.6);
+      }
+    }
+  }
+}
+
+
+
 
 .instructions {
   position: relative;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import Footer from '../components/Footer';
 
 class Site extends React.Component {
   componentDidMount() {
@@ -13,7 +14,10 @@ class Site extends React.Component {
   render() {
     return (
       <div>
-        {this.props.children}
+        <div>
+          {this.props.children}
+        </div>
+        <Footer />
       </div>
     );
   }
