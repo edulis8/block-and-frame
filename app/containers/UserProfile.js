@@ -5,7 +5,6 @@ import MenuBar from '../components/MenuBar';
 import UserInfo from '../components/users/UserInfo';
 import UserEventList from '../components/users/UserEventList';
 import instaHelpers from '../utils/instaHelpers';
-import InstaUserPics from '../components/instagram/InstaUserPics';
 import UserPicContainer from '../components/instagram/UserPicContainer';
 
 class UserProfile extends Component {

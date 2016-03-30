@@ -21,4 +21,3 @@ class HashTagPic extends Component {
 
 export default HashTagPic;
 
-

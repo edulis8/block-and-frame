@@ -1,7 +1,6 @@
 import React from 'react';
 
 const FlipPic = ({ data }) => {
-  console.log('dta', data)
   return (
     <div className="ui shape" id={data.id}>
       <div className="sides insta-fixed">
