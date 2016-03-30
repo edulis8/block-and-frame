@@ -90,10 +90,32 @@ const eventHelpers = {
       console.log(error);
     });
   },
+
   getAllEvents() {
     const token = window.localStorage.getItem('token');
     return axios({
       url: '/api/events/',
+      method: 'get',
+      headers: { Authorization: token },
+    });
+  },
+
+  addComment(comment, eventId) {
+    const token = window.localStorage.getItem('token');
+
+    return axios({
+      url: `/api/events/${eventId}/comments`,
+      method: 'post',
+      headers: { Authorization: token },
+      data: comment,
+    });
+  },
+
+  getComments(eventId) {
+    const token = window.localStorage.getItem('token');
+
+    return axios({
+      url: `/api/events/${eventId}/comments`,
       method: 'get',
       headers: { Authorization: token },
     });

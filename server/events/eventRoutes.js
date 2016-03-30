@@ -10,4 +10,8 @@ router.put('/:eventId', eventController.editEvent);
 router.put('/join/:eventId', eventController.joinEvent);
 router.delete('/:eventId', eventController.deleteEvent);
 
+// event comments
+router.get('/:eventId/comments', eventController.getComments);
+router.post('/:eventId/comments', eventController.addComment);
+
 module.exports = router;

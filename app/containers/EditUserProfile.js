@@ -121,7 +121,9 @@ class UserProfile extends React.Component {
         </div>
         <div className="ui raised very padded text container segment">
           <div className="ui container">
-            <ImageUpload />
+            <ImageUpload 
+              instagramProfilePic={this.state.instagramProfilePic}
+            />
             <UserProfileForm
               username={this.state.username}
               email={this.state.email}
@@ -140,7 +142,6 @@ class UserProfile extends React.Component {
             />
             <EditSuccess success={this.state.success} />
           </div>
-          <img src={this.state.instagramProfilePic} alt="" className="ui circular image" />
         </div>
       </div>
     );
