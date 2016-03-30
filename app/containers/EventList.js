@@ -89,7 +89,7 @@ class EventList extends React.Component {
             updateFiltered={this.updateFiltered}
           />
         </div>
-        <div className="ui segment">
+        <div className="ui two stackable cards">
           {eventNodes.length === 0 ? 'No events found :(' : eventNodes}
         </div>
       </div>
