@@ -11,6 +11,7 @@ class CreateMapView extends Component {
   }
 
   handlePlacesChanged() {
+    console.log('MAP POSITIONS', google.maps.ControlPosition);
     const places = this.refs.searchBox.getPlaces();
     const address = places[0].formatted_address;
     const lat = places[0].geometry.location.lat().toString();
@@ -24,6 +25,7 @@ class CreateMapView extends Component {
     return (
       <div>
         <GoogleMapLoader
+          options={{ mapTypeControl: false }}
           containerElement={
             <div
               {...this.props}
@@ -38,12 +40,13 @@ class CreateMapView extends Component {
               zoom={this.props.zoom}
               center={this.props.center}
               onClick={this.props.addMarker.bind(this)}
+              options={{ disableDefaultUI: true }}
             >
               <SearchBox
                 className="searchBox"
                 ref="searchBox"
                 bounds={this.props.bounds}
-                controlPosition={google.maps.ControlPosition.TOP_LEFT}
+                controlPosition={google.maps.ControlPosition.TOP_CENTER}
                 placeholder="Enter spread location (e.g. a park)"
                 onPlacesChanged={this.handlePlacesChanged.bind(this)}
               />
@@ -57,7 +60,6 @@ class CreateMapView extends Component {
             </GoogleMap>
           }
         />
-
       </div>
     );
   }

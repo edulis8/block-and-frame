@@ -182,7 +182,6 @@ class CreateEvent extends Component {
       const center = {};
       center.lat = position.coords.latitude;
       center.lng = position.coords.longitude;
-      console.log(center);
       this.setState({ center });
     });
   }
@@ -282,6 +281,7 @@ class CreateEvent extends Component {
           description={this.state.description}
           toBring={this.state.toBring}
           markers={this.state.markers}
+          missingItems={this.state.missingItems}
           minDate={now.format('YYYY-MM-DD')}
           bounds={this.state.bounds}
           center={this.state.center}
