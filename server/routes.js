@@ -9,5 +9,4 @@ router.use('/users', userRoutes);
 router.use('/events', eventRoutes);
 router.use('/insta', instaRoutes);
 
-
 module.exports = router;

@@ -28,12 +28,13 @@ module.exports = (passport) => {
     scope: 'public_content',
   },
   (accessToken, refreshToken, profile, done, res, req, next) => {
+    console.log("token is", accessToken);
+    console.log("refreshtoken is", refreshToken);
+    console.log("profile is", profile);
+    console.log("This is the req", req);
+    console.log("This is the res", res);
+    console.log("This is the next", next);
     process.nextTick(() => {
-      //console.log("This is the user", req.account);
-      console.log("token is", accessToken);
-      console.log("refreshtoken is", refreshToken);
-      //console.log("profile is", profile);
-      console.log('inside instagram ----------', profile.id);
       User.where({ instagram_id: profile.id })
       .fetch().then((user) => {
         if (user) {
@@ -47,9 +48,10 @@ module.exports = (passport) => {
           })
           .catch((err) => {
             console.log('Error saving user in passport.js', err);
-            return done(null, false);
+            return done(err, false);
           })
         } else {
+          // dont create use here?
           console.log('going to create an instagrammer');
 
           const newUser = new User({
@@ -67,11 +69,11 @@ module.exports = (passport) => {
           })
           .catch((err) => {
             console.log('Error saving user in passport.js', err);
-            return done(null, false);
+            return done(err, false);
           });
         }
         // this breaks things:
-        // return done(null, false);
+        return done(null, false);
       })
       .catch((err) => {
         return done(err, false);
