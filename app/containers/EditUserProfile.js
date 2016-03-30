@@ -35,18 +35,16 @@ class UserProfile extends React.Component {
     this.handleDeleteUser = this.handleDeleteUser.bind(this);
     this.preventDefaultSubmit = this.preventDefaultSubmit.bind(this);
   }
-  componentWillMount() {
-    // instagram sign in.
-    // server sends jwt and id as query string
-    if (location.href.indexOf('?') >= 0) {
-      const jwtAndId = location.href.split('?')[1];
-      const array = jwtAndId.split('&');
-      const jwt = `JWT '${array[0]}`;
-      const id = array[1];
-      authHelpers.storeToken(jwt, id); 
-    }
-    // TODO: get the jwt out of the href
-  }
+
+  // componentWillMount() {
+  //   // instagram sign in.
+  //   // server sends jwt and id as query string
+  //   const { token, userId } = this.props.location.query;
+  //   if (token && userId) {
+  //     authHelpers.storeToken(token, userId);
+  //   }
+  // }
+
   componentDidMount() {
     userHelpers.getCurrentUserData()
     .then((user) => {
@@ -148,5 +146,9 @@ class UserProfile extends React.Component {
     );
   }
 }
+
+UserProfile.contextTypes = {
+  router: React.PropTypes.object.isRequired,
+};
 
 export default UserProfile;

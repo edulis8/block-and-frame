@@ -12,7 +12,7 @@ router.post('/signup', authController.signup);
 
 // My try:
 router.get('/instagram',
-  passport.authorize('instagram', { session: false }),
+  passport.authenticate('instagram', { session: false }),
   (req, res) => {
     // The request will be redirected to Instagram for authentication, so this
     // function will not be called.
@@ -21,22 +21,24 @@ router.get('/instagram',
 const jwt = require('jsonwebtoken');
 
 router.get('/instagram/callback', (req, res, next) => {
-  passport.authorize('instagram', {
+  passport.authenticate('instagram', {
     scope: ['public_content'],
     failureRedirect: '/' },
   (err, user, info) => {
-    console.log('user', user, 'info', info);
-    if (err) { 
+    console.log('\tinside callback thingy')
+    console.log('this is user', user);
+    console.log('this is info', info);
+    if (err) {
       console.log('error', err);
-      return next(err); 
+      return next(err);
     }
-    if (!user) { 
+    if (!user) {
       console.log('no user!');
-      return res.redirect('/'); 
+      return res.redirect('/');
     }
     const token = jwt.sign(user, process.env.SECRET, { expiresIn: 10080 });
-    const id = user.get('id');
-    res.redirect(`/editprofile?${token}&${id}`);
+    const userId = user.get('id');
+    res.redirect(`/signin?token=${token}&userId=${userId}`);
   })(req, res, next);
 });
 

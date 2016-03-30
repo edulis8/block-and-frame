@@ -39,6 +39,8 @@ const eventController = {
   // For now event info should be in the body and creator id should be in params
   // Creates event and puts creator's user.id and the event.id in events_users, sets is_creator to true for user.id who created the event
   createEvent(req, res, next) {
+    const userId = req.user.get('id');
+
     if (req.body.hashtag[0] !== '#') {
       req.body.hashtag = `#${req.body.hashtag}`;
     }
@@ -56,7 +58,7 @@ const eventController = {
     .then((event) => {
       // create event and associate in junction table
       event.users()
-      .attach(req.params.userId)
+      .attach(userId)
       .then((eventUser) => {
         // update the "pivot" (the junction table)
         return eventUser.updatePivot({
@@ -65,7 +67,7 @@ const eventController = {
       })
       .then((pivotStatus) => {
         if (pivotStatus.add) {
-          // assign 
+          // assign
           req.eventId = event.id;
           // reuse same function to get same event again
           // to an event with the user relations populated
@@ -122,13 +124,18 @@ const eventController = {
   },
 
   joinEvent(req, res) {
-    userController.emailHost(req.body);
+    const userId = req.user.get('id');
+    const emailInfo = req.body;
+    emailInfo.userId = userId;
+
+    userController.emailHost(emailInfo);
+    
     Event.fetchAndPopulate({ id: req.params.eventId })
     .then((event) => {
       event
       .users()
       // attach pivot but leave is_creator null
-      .attach(req.body.userId)
+      .attach(userId)
       .then((pivotStatus) => {
         res.status(200).send(pivotStatus);
       })

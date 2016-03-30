@@ -77,7 +77,8 @@ module.exports = {
   },
 
   editUser(req, res) {
-    User.where({ id: req.params.userId })
+    const userId = req.user.get('id');
+    User.where({ id: userId })
     .fetch()
     .then((user) => {
       if (!user) {
@@ -103,7 +104,8 @@ module.exports = {
   },
 
   deleteUser(req, res) {
-    User.where({ id: req.params.userId })
+    const userId = req.user.get('id');
+    User.where({ id: userId })
     .fetch()
     .then((user) => {
       if (!user) {

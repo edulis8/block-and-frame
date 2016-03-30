@@ -22,25 +22,22 @@ const userHelpers = {
 
   updateUser(stateAsUserUpdates) {
     const token = window.localStorage.getItem('token');
-    const userId = window.localStorage.getItem('id');
 
     // Format for database
     stateAsUserUpdates.is_traveling = stateAsUserUpdates.isTraveling;
     delete stateAsUserUpdates.isTraveling;
 
-    console.log('updateUser called with:', stateAsUserUpdates);
     return axios({
-      url: `api/users/${userId}`,
+      url: 'api/users/',
       method: 'put',
       data: stateAsUserUpdates,
       headers: { Authorization: token },
     });
   },
   deleteUser() {
-    const userId = window.localStorage.getItem('id');
     const token = window.localStorage.getItem('token');
     return axios({
-      url: `api/users/${userId}`,
+      url: 'api/users/',
       method: 'delete',
       headers: { Authorization: token },
     });

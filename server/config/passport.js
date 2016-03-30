@@ -4,11 +4,13 @@ const InstagramStrategy = require('passport-instagram').Strategy;
 const User = require('../users/userModel').User;
 
 module.exports = (passport) => {
-  const options = {
+  passport.use(new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
     secretOrKey: process.env.SECRET,
-  };
-  passport.use(new JwtStrategy(options, (jwtPayload, done) => {
+  },
+  (jwtPayload, done) => {
+    console.log('\tjwt Strategy Auth');
+    console.log('jtwPayload', jwtPayload);
     User.where({ id: jwtPayload.id })
       .fetch().then((user) => {
         if (user) {
@@ -28,12 +30,11 @@ module.exports = (passport) => {
     scope: 'public_content',
   },
   (accessToken, refreshToken, profile, done, res, req, next) => {
+    console.log('\tinstagram Strategy Auth');
+    console.log("accessToken is", accessToken);
+    console.log("refreshToken is", refreshToken);
+    console.log("profile is", profile);
     process.nextTick(() => {
-      //console.log("This is the user", req.account);
-      console.log("token is", accessToken);
-      console.log("refreshtoken is", refreshToken);
-      //console.log("profile is", profile);
-
       User.where({ instagram_id: profile.id })
       .fetch().then((user) => {
         if (user) {
@@ -41,9 +42,16 @@ module.exports = (passport) => {
           // console.log('found user', user)
           user.save({
             instagram_token: accessToken || refreshToken.access_token,
-          });
-          return done(null, user);
+          })
+          .then((model) => {
+            return done(null, model);
+          })
+          .catch((err) => {
+            console.log('Error saving user in passport.js', err);
+            return done(err, false);
+          })
         } else {
+          // dont create use here?
           console.log('going to create an instagrammer');
 
           const newUser = new User({
@@ -61,10 +69,9 @@ module.exports = (passport) => {
           })
           .catch((err) => {
             console.log('Error saving user in passport.js', err);
-            return done(null, false);
+            return done(err, false);
           });
         }
-        console.log('failed to find an instagrammer');
         // this breaks things:
         // return done(null, false);
       })
@@ -74,4 +81,3 @@ module.exports = (passport) => {
     });
   }));
 };
-

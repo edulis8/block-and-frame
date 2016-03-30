@@ -3,7 +3,7 @@ language: node_js
 node_js:
 - "5.7"
 env:
-- DB_URL=127.0.0.1 DB_USER= DB_PASSWORD= DB_NAME=block_and_frame_test SECRET=youwillnevergetthis AWS_ACCESS_KEY=idontknowthis AWS_SECRET_KEY=idontknowthis S3_BUCKET=idontknowthis INSTAGRAM_CLIENT_ID=fdskjlfsdjklsfdsj;lk INSTAGRAM_CLIENT_SECRET=fdsjklfjkfadjkl CALLBACK_URL=http://spreadout.space/auth/instagram/callback
+- DB_URL=127.0.0.1 DB_USER= DB_PASSWORD= DB_NAME=block_and_frame_test SECRET=youwillnevergetthis AWS_ACCESS_KEY=idontknowthis AWS_SECRET_KEY=idontknowthis S3_BUCKET=idontknowthis INSTAGRAM_CLIENT_ID=fdskjlfsdjklsfdsj;lk INSTAGRAM_CLIENT_SECRET=fdsjklfjkfadjkl CALLBACK_URL=http://spreadout.space/auth/instagram/callback MAILGUN_KEY=asdfasdfasdfasdfasdfasdfasdfa
 
 services:
 - postgresql

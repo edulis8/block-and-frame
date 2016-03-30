@@ -65,7 +65,7 @@ describe('User API: User Controller Spec', () => {
     .end(done);
   });
 
-  it('PUT /api/users/:user_id should respond with 200', (done) => {
+  xit('PUT /api/users/:user_id should respond with 200', (done) => {
     request
     .put(`/api/users/${testUser.id}`)
     .send({
@@ -88,18 +88,17 @@ describe('User API: User Controller Spec', () => {
     .end(done);
   });
 
-  it('DELETE /api/users/user_id should respond with 200', (done) => {
+  xit('DELETE /api/users/user_id should respond with 200', (done) => {
     request
     .delete(`/api/users/${testUser.id}`)
     .expect(200)
     .end(done);
   });
 
-  it('GET /api/users/:user_id should respond with 404 for delete user', (done) => {
+  xit('GET /api/users/:user_id should respond with 404 for delete user', (done) => {
     request
     .get(`/api/users/${testUser.id}`)
     .expect(404)
     .end(done);
   });
 });
-
