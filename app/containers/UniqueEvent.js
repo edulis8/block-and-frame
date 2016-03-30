@@ -150,7 +150,7 @@ class UniqueEvent extends React.Component {
 
   handleJoinEventWithContributions(eventId, contributions) {
     this.setState({ msgDivClass: 'positive' });
-    eventHelpers.joinEventWithContributions(eventId, contributions, this.initializePage);
+    eventHelpers.joinEventWithContributions(eventId, contributions, this.initializePage, this.state.host);
   }
 
   editState(e) {
