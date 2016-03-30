@@ -15,7 +15,6 @@ module.exports = {
   },
   getUniqueTagPics(req, res) {
     const hashtag = req.body.hashtag;
-
     User.where({ id: req.body.userId })
     .fetch()
     .then((user) => {
@@ -23,10 +22,8 @@ module.exports = {
         res.status(404).send('User not found');
       } else {
         const accessToken = user.get('instagram_token');
-        console.log('accessToken', accessToken)
         axios.get(`https://api.instagram.com/v1/tags/${hashtag}/media/recent?access_token=${accessToken}`)
         .then((data) => {
-          console.log(data)
           res.status(201).send(data);
         })
         .catch((err) => {

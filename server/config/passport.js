@@ -33,7 +33,7 @@ module.exports = (passport) => {
       console.log("token is", accessToken);
       console.log("refreshtoken is", refreshToken);
       //console.log("profile is", profile);
-
+      console.log('inside instagram ----------', profile.id);
       User.where({ instagram_id: profile.id })
       .fetch().then((user) => {
         if (user) {
@@ -41,8 +41,14 @@ module.exports = (passport) => {
           // console.log('found user', user)
           user.save({
             instagram_token: accessToken || refreshToken.access_token,
-          });
-          return done(null, user);
+          })
+          .then((model) => {
+            return done(null, model);
+          })
+          .catch((err) => {
+            console.log('Error saving user in passport.js', err);
+            return done(null, false);
+          })
         } else {
           console.log('going to create an instagrammer');
 
@@ -64,7 +70,6 @@ module.exports = (passport) => {
             return done(null, false);
           });
         }
-        console.log('failed to find an instagrammer');
         // this breaks things:
         // return done(null, false);
       })
@@ -74,4 +79,3 @@ module.exports = (passport) => {
     });
   }));
 };
-

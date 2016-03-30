@@ -1,12 +1,19 @@
 // https://api.instagram.com/v1/users/self/media/recent/?access_token=ACCESS-TOKEN
 import axios from 'axios';
 
-
 const instaHelpers = {
   getAllThisUsersPics(accessToken) {
-    return axios.post('api/insta/getUserPics', { accessToken });
+    const token = window.localStorage.getItem('token');
+    return axios({
+      url: 'api/insta/getUserPics',
+      method: 'post',
+      headers: { Authorization: token },
+      data: { accessToken },
+    });
   },
+
   getUniqueTagPics(hashtag) {
+    const token = window.localStorage.getItem('token');
     const userId = window.localStorage.getItem('id');
     console.log('getUniqueTagPics', hashtag);
     if (hashtag[0] === '#') {
@@ -14,7 +21,12 @@ const instaHelpers = {
       console.log(hashtag);
     }
     if (hashtag !== undefined) {
-      return axios.post('api/insta/getUniqueTagPics', { hashtag, userId });
+      return axios({
+        url: 'api/insta/getUniqueTagPics',
+        method: 'post',
+        headers: { Authorization: token },
+        data: { hashtag, userId },
+      });
     }
   },
 };
