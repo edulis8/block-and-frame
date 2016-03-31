@@ -2,6 +2,7 @@ import React from 'react';
 import update from 'react-addons-update';
 import eventHelpers from '../utils/eventHelpers';
 import imageHelpers from '../utils/imageHelpers';
+import userHelpers from '../utils/userHelpers';
 import UniqueEventEdit from '../components/events/UniqueEventEdit';
 import UniqueEventView from '../components/events/UniqueEventView';
 import MenuBar from '../components/MenuBar';
@@ -33,7 +34,8 @@ class UniqueEvent extends React.Component {
       msgDivClass: 'warning',
       coordinates: '',
       host: null,
-      avatarURL: 'https://s3.amazonaws.com/spreadout-img/avatar.png',
+      avatarURL: '',
+      instagramProfilePic: '',
       attendants: [],
       center: {},
       zoom: 3,
@@ -49,7 +51,6 @@ class UniqueEvent extends React.Component {
     this.loadMarker = this.loadMarker.bind(this);
     this.initializePage = this.initializePage.bind(this);
     this.determineCenter = this.determineCenter.bind(this);
-
     this.callbackRender = this.render.bind(this);
   }
 
@@ -63,6 +64,7 @@ class UniqueEvent extends React.Component {
     }
     this.setState({ showEdit: !this.state.showEdit });
   }
+
   initializePage() {
     eventHelpers.getEventbyId(this.state.url)
     .then((response) => {
@@ -93,6 +95,7 @@ class UniqueEvent extends React.Component {
         }
       });
 
+
       imageHelpers.getUserAvatar(tempHostId)
       .then((res) => {
         if (res.data.filepath) {
@@ -103,6 +106,17 @@ class UniqueEvent extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+
+      userHelpers.getAnyUserById(tempHostId)
+      .then((res) => {
+        if (!this.state.avatarURL) {
+          this.setState({ instagramProfilePic: res.data.instagram_profile_pic });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
 
       this.setState({
         eventName: response.data.name,
@@ -215,7 +229,11 @@ class UniqueEvent extends React.Component {
       <div className="ui three column stackable grid">
         <div className="sixteen wide column"><br /></div>
           <div className="four wide column">
-            <UserInfo user={this.state.host || {}} avatarURL={this.state.avatarURL} />
+            <UserInfo
+              user={this.state.host || {}}
+              avatarURL={this.state.avatarURL}
+              instagramProfilePic={this.state.instagramProfilePic} 
+            />
             <UniqueMapView
               markers={this.state.markers}
               center={this.state.center}
