@@ -11,9 +11,7 @@ class BringerView extends Component {
   } 
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps);
     this.setState({ bringer: nextProps.info });
-    console.log('STATE', this.state);
     this.forceUpdate();
   }
 

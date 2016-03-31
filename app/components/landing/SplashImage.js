@@ -10,8 +10,8 @@ class SplashImage extends Component {
     return (
       <div className="splash">
         <div className="splashBlurb">
-          <h1 className="ui header">Introducing Spread Out</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit voluptate molestias maxime, iusto dolore voluptatum. Officiis consequuntur iusto saepe doloremque velit architecto, cupiditate, molestias, consequatur iste odit rem illum repellendus.</p>
+          <h1 className="ui introduction header">Introducing Spread Out</h1>
+          <h2 className="ui subheader header">Bringing together love of food, exploration and friends you haven't met yet</h2>
         </div>
         <img id="p1" src="https://s3.amazonaws.com/spreadout-img/LandingPage/img1.png" />
         <img id="t1" src="https://s3.amazonaws.com/spreadout-img/LandingPage/t1.png" />

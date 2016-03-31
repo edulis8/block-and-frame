@@ -41,7 +41,7 @@ class ContributionList extends Component {
           /> : null}
 
           <div className="ui divider"></div>
-            <div className="ui centered cards">
+            <div className="ui two cards">
               {this.props.contributions.map((contrib, index) =>
                 <Contribution
                   key={index}
