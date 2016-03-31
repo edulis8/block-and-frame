@@ -23,7 +23,7 @@ class CreateMapView extends Component {
 
   render() {
     return (
-      <div>
+      <div className="ui card">
         <GoogleMapLoader
           options={{ mapTypeControl: false }}
           containerElement={

@@ -5,9 +5,9 @@ import CreateMapView from './CreateMapView';
 class CreateEventForm extends Component {
   render() {
     return (
-      <div className="ui container">
+      <div className="ui container top-margin-bit">
         <form
-          className="ui form"
+          className="ui form top-margin-bit"
           onSubmit={this.props.preventDefaultSubmit}
         >
           <div className="ui very padded raised segments">
@@ -17,7 +17,7 @@ class CreateEventForm extends Component {
                   <label>Name of your Spread:</label>
                   <input
                     className="name"
-                    placeholder="Give your spread a name!"
+                    placeholder="Name the spread!"
                     value={this.props.name}
                     onChange={this.props.editState}
                   />
@@ -32,7 +32,7 @@ class CreateEventForm extends Component {
                   </label>
                   <input
                     className="hashtag"
-                    placeholder="e.g.: #spreadOutProspectParkMar31, #KeckParkSpeadMay20"
+                    placeholder="e.g.: #HRRB13MonthlyReunion, #KeckParkSpreadMay20"
                     value={this.props.hashtag}
                     onChange={this.props.editState}
                   />
@@ -41,12 +41,10 @@ class CreateEventForm extends Component {
                   </div>
                 </div>
               </div>
-
             </div>
 
-
           <div className="map field ui basic segment">
-            <label>Select where you're hosting this spread by typing in the location!</label>
+            <h3>Where are you hosting this spread?</h3>
             <CreateMapView
               markers={this.props.markers}
               addMarker={this.props.addMarker}
@@ -138,7 +136,8 @@ class CreateEventForm extends Component {
           </div>
 
           <button
-            className="ui button"
+            id="create-event-button"
+            className="ui button fluid big centered"
             onClick={this.props.onEventSubmit}
           >
             Create the Spread!

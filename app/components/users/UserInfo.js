@@ -25,7 +25,7 @@ const UserInfo = ({ user, avatarURL, instagramProfilePic }) => {
           </div>
         </div>
       </div>
-      <div className="ui card">
+      <div className="ui card" id="bio">
         <div className="content">
         {user.bio || `${(user.username || user.email)} hasnt filled out thier bio`}
       </div>

@@ -3,13 +3,13 @@ import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
 
 const UniqueMapView = (props) => {
   return (
-    <div>
+    <div className="ui card">
       <GoogleMapLoader
         containerElement={
           <div
             {...props}
             style={{
-              height: '350px',
+              height: '250px',
               width: '100%',
             }}
           />

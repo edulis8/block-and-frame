@@ -28,12 +28,14 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div className="ui icon transparent input">
+      <div className="ui icon focus input" id="searchbar">
         <input
-          placeholder="Search"
+          type="text"
+          className="ui field"
+          placeholder="Search..."
           onChange={this.onSearchInput}
         />
-        <i className="search icon"></i>
+      <i className="inverted circular search link icon"></i>
       </div>
     );
   }

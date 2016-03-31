@@ -115,13 +115,13 @@ class UserProfile extends React.Component {
     return (
       <div>
         <MenuBar />
-        <div className="ui container">
+        <div className="ui container top-margin-bit">
           <h1 className="ui dividing header" id="editprofileheader">
             Edit Profile:
           </h1>
         </div>
-        <div className="ui raised very padded text container segment">
-          <div className="ui container">
+        <div className="ui raised text container segment">
+          <div className="ui container centered">
             <ImageUpload
               avatarId={this.state.avatarId}
               instagramProfilePic={this.state.instagramProfilePic}
