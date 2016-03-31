@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
 import instaHelpers from '../../utils/instaHelpers';
+import eventHelpers from '../../utils/eventHelpers';
 import UniqueMapView from './UniqueMapView';
 
 class Event extends React.Component {
@@ -11,22 +12,35 @@ class Event extends React.Component {
       tagArray: [],
       randomPic: '',
       random: 0,
+      comments: 0,
     };
   }
 
   componentWillMount() {
     if (this.props.hashtag) {
       instaHelpers.getUniqueTagPics(this.props.hashtag)
-        .then((tagObject) => {
-          const data = tagObject.data.data.data;
-          this.setState({
-            tagArray: data.map((tagObj) => {
-              return tagObj.images.thumbnail.url;
-            }),
-            random: Math.floor((Math.random() * data.length)),
-          });
+      .then((tagObject) => {
+        const data = tagObject.data.data.data;
+        this.setState({
+          tagArray: data.map((tagObj) => {
+            return tagObj.images.thumbnail.url;
+          }),
+          random: Math.floor((Math.random() * data.length)),
         });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     }
+
+    // Get ammount of comments for event
+    eventHelpers.getComments(this.props.id)
+    .then((res) => {
+      this.setState({ comments: res.data.length });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   render() {
@@ -82,7 +96,7 @@ class Event extends React.Component {
                   {this.props.numAttendees} signed up
                  </span>
                <i className="comment icon"></i>
-                <label>3 comments</label>
+                <label>{this.state.comments} comments</label>
               </div>
             </div>
           </div>

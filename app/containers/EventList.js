@@ -34,7 +34,7 @@ class EventList extends React.Component {
         data: response.data,
         filtered: response.data,
       });
-
+      console.log('data', response.data);
       this.setState({
         hashtags: response.data.map((event) => {
           return event.hashtag;
