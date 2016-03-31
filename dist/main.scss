@@ -82,7 +82,7 @@ body {
 .ui.footer.segment {
   margin: 10em 0em 0em;
   padding: 3em 0em;
-  background-color: dimgrey;
+  //background-color: dimgrey;
   button {
     a {
       .github {
@@ -320,3 +320,21 @@ html, body {
 
 }
 
+.devices {
+  text-align: center;
+}
+
+.introduction {
+  text-align: center;
+  color: ghostwhite !important;
+  font-size: 3.125rem !important;
+}
+
+.subheader {
+  text-align: center;
+  color: ghostwhite !important;
+}
+
+.svgs {
+  margin-top: 48px !important;
+}

@@ -97,7 +97,7 @@ class EventList extends React.Component {
 
             <div className="ui three stackable cards">
               {eventNodes.length === 0 ? 
-                <div className="ui large header">No events found <i className="thumbs down icon"></i><i className="frown icon"></i></div> : eventNodes}
+                <div></div> : eventNodes}
             </div>
         </div>
       </div>

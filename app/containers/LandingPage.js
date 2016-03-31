@@ -49,12 +49,32 @@ class LandingPage extends Component {
           </div>
         </div>
         <SplashImage />
-        <div className="ui main text container">
-          <Instructions />
+        <div className="ui main text container text centered">
+          <div className="ui sixteen wide grid huge header centered">The app for communal food-centered experiences and connecting people.</div>
+          <br />
+          <div className="ui grid svgs">
+            <div className="five wide column centered">
+              <div className="devices centered">
+                <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSX-3wf8Zwhqz69pblHcru56FnA-qr8_VXGc9xR31eDkimrohryRuYDbPA" width= "127px" />
+                <h3>Choose a Spread and an Item to Contribute</h3>
+              </div>
+            </div>
+
+            <div className="five wide column centered">
+            <div className="devices"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Food_Bank_icon.svg/2000px-Food_Bank_icon.svg.png" width= "127px" /><h3>Explore, Forage, Procure</h3></div>
+
+            </div>
+
+            <div className="five wide column centered">
+             <div className="devices"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQmmz2PrZrW6160Wlq4afBh8d5UI10X2O96NQ0Mt96gtKc7UJZi" width= "127px" /><h3>Share and Enjoy with New Friends</h3></div>
+
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 }
+      
 
 export default LandingPage;

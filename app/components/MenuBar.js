@@ -4,7 +4,7 @@ import authHelpers from '../utils/authHelpers';
 
 const MenuBar = () => {
   return (
-  <div className="ui attached stackable menu">
+  <div className="ui attached stackable menu inverted">
 
     <Link
       className="item"
