@@ -30,7 +30,7 @@ webpack
 
 ## Roadmap
 
-See our roadmap on this project at [GitHub Issues](https://github.com/Block-and-Frame/block-and-frame/issues).
+See our roadmap for this project at [GitHub Issues](https://github.com/Block-and-Frame/block-and-frame/issues).
 
 ## Contributing
 
