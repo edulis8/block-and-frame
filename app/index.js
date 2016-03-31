@@ -29,7 +29,7 @@ import About from './containers/About';
 // TODO: Index Route may change - whatever we want to render
 // on visiting the site home path '/'
 const routes = (
-  <Router history={browserHistory}>
+  <Router onUpdate={() => window.scrollTo(0, 0)} history={browserHistory}>
     <Route path="/" component={Site} >
       <IndexRoute component={LandingPage} />
       <Route path="signin" component={Signin} />
