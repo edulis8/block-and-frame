@@ -8,7 +8,7 @@ class UserEventListItem extends Component {
     const myContributions = this.props.contributions.filter((contribution) => {
       return contribution.bringer === String(this.props.userId);
     }).map((contribution) => {
-      return (<div className="item">{contribution.item}</div>);
+      return (<div className="ui hoizontal label">{contribution.item}</div>);
     });
 
     // Format tense of header
@@ -26,11 +26,12 @@ class UserEventListItem extends Component {
             </Link>
             {dateTime.fromNow()}
           </div>
-          <p className="extra">{this.props.location}</p>
+          <div className="extra">{this.props.location}</div>
+          <div>{this.props.hashtag}</div>
           {myContributions.length > 0 ?
             <div>
               <span>My contributions: </span>
-              <div className="ui horizontal bulleted list">{myContributions}</div>
+              <div className="ui horizontal list">{myContributions}</div>
             </div>
           : null}
         </div>
