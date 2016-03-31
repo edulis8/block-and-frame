@@ -33,12 +33,14 @@ class LandingPage extends Component {
           <div className="ui fixed inverted menu">
             <div className="ui container">
               <a href="#" className="header item">
-                <img className="logo" src="" />
-                SpreadOut
+                Spread Out
               </a>
-              <a onClick={this.signinClick} href="#" className="item">Sign In</a>
-              <a onClick={this.signupClick} href="#" className="item" >Sign Up</a>
-              <a href="/about" className="item" >About</a>
+              <div className="right menu">
+                <a onClick={this.signinClick} href="#" className="item right">Sign In</a>
+                <a onClick={this.signupClick} href="#" className="item" >Sign Up</a>
+                <a href="/about" className="item" >About</a>
+
+              </div>
             </div>
           </div>
           <div className="popup" > 
