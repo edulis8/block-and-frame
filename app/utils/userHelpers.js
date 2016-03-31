@@ -34,6 +34,7 @@ const userHelpers = {
       headers: { Authorization: token },
     });
   },
+  
   deleteUser() {
     const token = window.localStorage.getItem('token');
     return axios({

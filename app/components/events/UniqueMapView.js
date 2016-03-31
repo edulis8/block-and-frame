@@ -3,7 +3,7 @@ import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
 
 const UniqueMapView = (props) => {
   return (
-    <div className="ui card">
+    <div>
       <GoogleMapLoader
         containerElement={
           <div

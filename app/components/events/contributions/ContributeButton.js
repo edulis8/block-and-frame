@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import browserHistory from 'react-router';
 // import eventHelpers from '../../../utils/eventHelpers';
 
 class ContributeButton extends Component {
@@ -10,6 +11,7 @@ class ContributeButton extends Component {
   onClick(e) {
     e.preventDefault();
     this.props.onClick(e);
+    browserHistory.push(`/${this.props.eventId}`);
   }
 
   render() {

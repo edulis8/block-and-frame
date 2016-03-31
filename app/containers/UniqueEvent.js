@@ -226,6 +226,7 @@ class UniqueEvent extends React.Component {
     return (
     <div>
       <MenuBar />
+      <br />
       <div className="ui container">
       <div className="ui three column stackable grid">
         <div className="sixteen wide column"><br /></div>

@@ -10,9 +10,9 @@ class JoinEventButton extends Component {
 
   onJoinEventWithContributions(e) {
     e.preventDefault();
-    console.log('Here');
     // eventHelpers.joinEventWithContributions(this.props.eventId, this.props.contributions);
     this.props.handleJoinEventWithContributions(this.props.eventId, this.props.contributions);
+    browserHistory.push(`/${this.props.eventId}`);
   }
 
   render() {
