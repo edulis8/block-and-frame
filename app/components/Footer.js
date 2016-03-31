@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Footer extends Component {
   render() {
     return (
-      <div className="ui  vertical footer inverted segment">
+      <div className="ui vertical footer inverted segment" id="footer">
           <div className="ui center aligned container">
             <div className="ui inverted stackable divided grid">
             
