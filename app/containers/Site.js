@@ -6,7 +6,7 @@ class Site extends React.Component {
   componentDidMount() {
     const path = location.href.split('/').pop();
     // check if have a cookie:
-    if (path !== 'signup' && !window.localStorage.token) {
+    if (path !== 'signup' && path !== '' && path !== 'about' && !window.localStorage.token) {
       browserHistory.push('/signin');
     }
   }
