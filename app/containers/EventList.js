@@ -27,9 +27,6 @@ class EventList extends React.Component {
     if (token && userId) {
       authHelpers.storeToken(token, userId, instaUser);
     }
-
-
-
     eventHelpers.getAllEvents()
     .then((response) => {
       this.setState({

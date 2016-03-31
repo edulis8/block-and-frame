@@ -228,10 +228,6 @@ class UniqueEvent extends React.Component {
   }
 
   render() {
-    // console.log('host id: ', this.state.hostId);
-    console.log('RENDERING ', this.state.contributions);
-    console.log('state at page load unique event', this.state);
-
     this.state.contributions = this.state.contributions || [];
     return (
     <div>
