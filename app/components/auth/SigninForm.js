@@ -5,7 +5,7 @@ import InstaButton from './InstaButton';
 
 const SigninForm = (props) => {
   return (
-    <div>
+    <div className="top-margin-bit">
       <div className="ui centered padded container raised segment">
         <h1 className="ui header center aligned">Spread Out</h1>
         <div className="ui attached message">

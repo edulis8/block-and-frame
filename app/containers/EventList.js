@@ -88,16 +88,18 @@ class EventList extends React.Component {
     return (
       <div>
         <MenuBar />
-        <div className="ui container">
-          <h1 className="ui dividing header">Local Spreads</h1>
-          <SearchBar
-            items={this.state.data}
-            updateFiltered={this.updateFiltered}
-          />
-        <div className="ui three stackable cards">
-          {eventNodes.length === 0 ? 'No events found :(' : eventNodes}
+          <div className="ui container" id="event-list-container">
+            <h1 className="ui dividing header">Local Spreads</h1>
+            <SearchBar
+              items={this.state.data}
+              updateFiltered={this.updateFiltered}
+            />
+
+            <div className="ui three stackable cards">
+              {eventNodes.length === 0 ? 
+                <div className="ui large header">No events found <i className="thumbs down icon"></i><i className="frown icon"></i></div> : eventNodes}
+            </div>
         </div>
-      </div>
       </div>
     );
   }

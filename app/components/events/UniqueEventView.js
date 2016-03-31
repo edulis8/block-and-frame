@@ -33,8 +33,10 @@ const UniqueEventView = (props) => {
         </div>
       </div>
 
-      <div className="eventHashtag ui item ">
-        <h3><i className="instagram small icon"></i>Tag your pics with <span id="bigger">{props.hashtag} </span> to post them here.</h3>
+      <div className="eventHashtag ui item">
+        <div className="ui medium header">
+          {props.hashtag}
+        </div>
       </div>
 
       <div className="date item">

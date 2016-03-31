@@ -85,9 +85,9 @@ class UserProfile extends Component {
     return (
       <div>
         <MenuBar />
-        <br />
+        <div className="ui container">
         <div className="ui three column stackable grid">
-          <div className="sixteen wide column"><br /></div>
+          <div className="sixteen wide column"></div>
           <div className="four wide column">
           <UserInfo
             user={this.state}
@@ -96,7 +96,7 @@ class UserProfile extends Component {
           </div>
           <div className="nine wide column">
             <div className="ui centered large header">My Spreads</div>
-            <div className="ui segment">
+            <div className="ui raised padded segment">
               <UserEventList
                 events={this.state.events}
                 userId={this.state.id}
@@ -111,26 +111,10 @@ class UserProfile extends Component {
           </div>
         </div>
       </div>
+      </div>
     );
   }
 }
-
-    // {this.state.allThisUsersInstaPics.map((object, index) => {
-    //         // here is where can set #tag we want:
-    //         if (
-    //           object.tags.indexOf('spread_out_space') >= 0 ||
-    //           object.tags.indexOf('spreadoutspace') >= 0
-    //           ) {
-    //           return (
-    //             <div className="">
-    //               <InstaUserPics
-    //                 key={index}
-    //                 data={object}
-    //               />
-    //             </div>
-    //           );
-    //         }
-    //       })}
 
 export default UserProfile;
 

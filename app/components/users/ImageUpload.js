@@ -12,8 +12,8 @@ const ImageUpload = ({ filename, avatarURL, handleSubmit, handleUploadClick }) =
       
       <form onSubmit={(e) => {e.preventDefault(); }}>
         <button
-          className="ui tiny button"
-          onClick={handleUploadClick}
+          className="ui small button"
+          onClick={props.handleUploadClick}
         >Select Profile Image
         </button>
         
@@ -33,10 +33,10 @@ const ImageUpload = ({ filename, avatarURL, handleSubmit, handleUploadClick }) =
           placeholder="upload image"
           style={{ display: 'none' }}
         />
-        <button
-          className="ui tiny button"
-          onClick={handleSubmit}
-        >
+         <button
+           className="ui small button"
+           onClick={props.handleSubmit}
+         >
           <i className="plus square icon"></i>
           Upload
         </button>

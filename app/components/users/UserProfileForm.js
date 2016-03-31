@@ -73,7 +73,7 @@ class UserProfileForm extends Component {
           </div>
 
             <button
-              className="ui button"
+              className="ui big button"
               onClick={this.props.onProfileSubmit}
             >
               <i className="icon save"></i>
@@ -82,7 +82,7 @@ class UserProfileForm extends Component {
 
 
           <button
-            className="ui basic button"
+            className="ui basic big button right floated"
             onClick={this.props.onDeleteUser}
           >
             Delete Account
