@@ -1,5 +1,5 @@
-# block-and-frame
-Meals and traveling and sharing
+# Spreadout
+App building a community of travelers through the love of food and travel.
 
 ## Team
 
@@ -26,6 +26,15 @@ From inside the root directory, run:
 ```sh
 npm install
 webpack
+```
+
+## Command Line
+
+```sh
+npm test -- run code through tests using Mocha
+npm start -- start the server locally
+npm run lint -- run code through ESLint with AirBnB style guidelines
+npm run nodemon -- start server using nodemon
 ```
 
 ## Roadmap
