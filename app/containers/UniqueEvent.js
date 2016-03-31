@@ -134,16 +134,27 @@ class UniqueEvent extends React.Component {
         joinable: tempJoinable,
         attendants: tempAttendants,
       });
+<<<<<<< 034ba1ea5a50281231c42f77dc4b7b1b4015afaf
       instaHelpers.getUniqueTagPics(this.state.hashtag)
       .then((tagObject) => {
         this.setState({
           tagArray: tagObject.data.data.data,
+=======
+      if (window.localStorage.instaUser) {
+        instaHelpers.getUniqueTagPics(this.state.hashtag)
+        .then((tagObject) => {
+          // console.log('tag data', tagObject.data.data.data);
+          this.setState({
+            tagArray: tagObject.data.data.data,
+          });
+>>>>>>> (fix) non-instagram user will not make instagram api calls
         });
-      });
+      }
     })
     .catch((error) => {
-      console.log(error);
+      console.log('catches err in eventHelpers.getEventbyId ', error);
     });
+
     setTimeout(this.loadMarker, 500);
     setTimeout(this.determineCenter, 750);
   }
@@ -287,8 +298,8 @@ class UniqueEvent extends React.Component {
             <Comments />
           </div>
           <div className="two wide column">
-            <HashTagPicsContainer
-              hashTagPics = {this.state.tagArray}
+            <HashTagPicsContainer 
+              hashTagPics = {this.state.tagArray || []}
               hashtag = {this.state.hashtag}
             /> 
           </div>

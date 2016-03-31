@@ -17,7 +17,7 @@ class Event extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.hashtag) {
+    if (this.props.hashtag && window.localStorage.instaUser) {
       instaHelpers.getUniqueTagPics(this.props.hashtag)
       .then((tagObject) => {
         const data = tagObject.data.data.data;
