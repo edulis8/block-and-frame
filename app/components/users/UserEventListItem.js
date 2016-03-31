@@ -4,13 +4,6 @@ import moment from 'moment';
 
 class UserEventListItem extends Component {
   render() {
-    const dateTime = moment(this.props.date)
-    .set({
-      hour: this.props.time.split(':')[0],
-      minute: this.props.time.split(':')[1],
-    })
-    .add(1, 'day'); // not sure why a day has to be added
-
     // Filter out users contributions
     const myContributions = this.props.contributions.filter((contribution) => {
       return contribution.bringer === String(this.props.userId);
@@ -19,6 +12,7 @@ class UserEventListItem extends Component {
     });
 
     // Format tense of header
+    const dateTime = moment(`${this.props.date} ${this.props.time}`);
     let status = this.props.isHost ? 'host' : 'attend';
     status = moment() > dateTime ? `I ${status}ed` : `I'm going to ${status}`;
 
