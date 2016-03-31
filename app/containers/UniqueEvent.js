@@ -134,12 +134,7 @@ class UniqueEvent extends React.Component {
         joinable: tempJoinable,
         attendants: tempAttendants,
       });
-<<<<<<< 034ba1ea5a50281231c42f77dc4b7b1b4015afaf
-      instaHelpers.getUniqueTagPics(this.state.hashtag)
-      .then((tagObject) => {
-        this.setState({
-          tagArray: tagObject.data.data.data,
-=======
+
       if (window.localStorage.instaUser) {
         instaHelpers.getUniqueTagPics(this.state.hashtag)
         .then((tagObject) => {
@@ -147,7 +142,6 @@ class UniqueEvent extends React.Component {
           this.setState({
             tagArray: tagObject.data.data.data,
           });
->>>>>>> (fix) non-instagram user will not make instagram api calls
         });
       }
     })
