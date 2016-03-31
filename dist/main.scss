@@ -164,3 +164,41 @@ span#bigger {
   }
 }
 
+
+
+
+
+
+
+
+
+
+// STICKY FOOTER
+
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -142px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+#footer, .page-wrap:after {
+  height: 300px; 
+}
+
+// STICKY FOOTER FOR SMALL SCREENS
+
+@media screen and (max-width: 768px) {
+
+  #footer {
+   height: 638px !important;
+  }
+}
