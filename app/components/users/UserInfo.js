@@ -1,7 +1,6 @@
 import React from 'react';
 
 const UserInfo = ({ user, avatarURL, instagramProfilePic }) => {
-  console.log(user);
   return (
     <div>
       <div className="ui card">

@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import ErrorMessage from './ErrorMessage';
 import InstaButton from './InstaButton';
 
-
 const SignupForm = (props) => {
   return (
     <div className="top-margin-bit">

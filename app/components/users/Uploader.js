@@ -23,7 +23,6 @@ class Uploader extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('NEXT', nextProps);
     if (nextProps.avatarId) {
       this.setState({ avatarId: nextProps.avatarId });
       this.getAvatar();

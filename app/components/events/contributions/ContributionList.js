@@ -3,9 +3,7 @@ import Contribution from './ContributionListItem';
 import ContributeButton from './ContributeButton';
 
 class ContributionList extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+
   componentDidMount() {
     $('.message .close').on('click', function () {
       $(this).closest('.message').transition('fade');
@@ -19,6 +17,7 @@ class ContributionList extends Component {
       }
       return prev;
     }, false);
+
     return (
       <div>
         {!this.props.isAttending ?
@@ -38,6 +37,7 @@ class ContributionList extends Component {
           {this.props.isAttending && openContributions ?
           <ContributeButton
             onClick={this.props.onContributionUpdate}
+            eventId={this.props.eventId}
           /> : null}
 
           <div className="ui divider"></div>

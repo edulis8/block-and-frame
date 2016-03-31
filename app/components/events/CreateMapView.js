@@ -11,7 +11,6 @@ class CreateMapView extends Component {
   }
 
   handlePlacesChanged() {
-    console.log('MAP POSITIONS', google.maps.ControlPosition);
     const places = this.refs.searchBox.getPlaces();
     const address = places[0].formatted_address;
     const lat = places[0].geometry.location.lat().toString();

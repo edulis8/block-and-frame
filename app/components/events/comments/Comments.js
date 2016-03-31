@@ -54,7 +54,6 @@ class Comments extends Component {
 
     // get eventId
     const eventId = Number(location.href.split('/').pop().trim());
-    console.log('ID', eventId);
 
     // add to state for automatic update without page reload
     const newCommentData = this.state.commentData.concat([commentToSubmit]);

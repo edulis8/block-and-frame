@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BringerView from '../BringerView.js';
+import BringerView from './BringerView.js';
 import userHelpers from '../../../utils/userHelpers';
 
 class Contribution extends Component {
@@ -16,13 +16,13 @@ class Contribution extends Component {
     };
 
     this._onCheckBoxClick = this._onCheckBoxClick.bind(this);
+    this.setCurrentUserAsBringing = this.setCurrentUserAsBringing.bind(this);
   }
 
   componentDidMount() {
     if (this.props.bringer) {
       userHelpers.getAnyUserById(this.props.bringer)
       .then((user) => {
-        console.log('indiv user in ContributionListItem ajax calls', user);
         this.setState({
           userEmail: user.data.email,
           username: user.data.username,
@@ -35,8 +35,27 @@ class Contribution extends Component {
     }
   }
 
+  setCurrentUserAsBringing() {
+    userHelpers.getCurrentUserData()
+    .then((user) => {
+      this.setState({
+        userEmail: user.data.email,
+        username: user.data.username,
+        isTraveling: user.data.is_traveling,
+        userLocation: user.data.location,
+        instagramPic: user.data.instagram_profile_pic,
+        instagramUsername: user.data.instagram_username,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
   _onCheckBoxClick(e) {
     this.props._onCheckBoxClick(e, this.props.index);
+    // func below only sets temporarily, saves to db elsewhere
+    this.setCurrentUserAsBringing();
   }
 
   render() {
