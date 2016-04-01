@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Signin from './Signin';
 import Signup from './Signup';
-import Instructions from '../components/landing/Instructions';
 import SplashImage from '../components/landing/SplashImage';
 
 class LandingPage extends Component {
@@ -43,7 +42,7 @@ class LandingPage extends Component {
               </div>
             </div>
           </div>
-          <div className="popup" > 
+          <div className="popup" >
             {this.state.showSignin ? <Signin /> : null}
             {this.state.showSignup ? <Signup /> : null}
           </div>
@@ -75,6 +74,6 @@ class LandingPage extends Component {
     );
   }
 }
-      
+
 
 export default LandingPage;

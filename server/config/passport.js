@@ -3,6 +3,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const InstagramStrategy = require('passport-instagram').Strategy;
 const User = require('../users/userModel').User;
 
+// JWT strategy for regular sign up/in
 module.exports = (passport) => {
   passport.use(new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
@@ -17,11 +18,12 @@ module.exports = (passport) => {
       return done(null, false);
     })
     .catch((err) => {
-      console.log('JWT Strategy: ', err);
+      console.error('JWT Strategy: ', err);
       return done(err, false);
     });
   }));
 
+  // Instagram authentication
   passport.use(new InstagramStrategy({
     clientID: process.env.INSTAGRAM_CLIENT_ID,
     clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
@@ -30,6 +32,7 @@ module.exports = (passport) => {
   },
   (accessToken, refreshToken, profile, done, res, req, next) => {
     process.nextTick(() => {
+      // Try to find user in database and pass along
       User.where({ instagram_id: profile.id })
       .fetch()
       .then((user) => {
@@ -41,10 +44,11 @@ module.exports = (passport) => {
             return done(null, model);
           })
           .catch((err) => {
-            console.log('Instagram Strategy: ', err);
+            console.error('Instagram Strategy: ', err);
             return done(err, false);
           })
         } else {
+          // If not found in database create and store new instagram user
           const newUser = new User({
             username: profile.displayName,
             instagram_token: accessToken || refreshToken.access_token,
@@ -58,13 +62,13 @@ module.exports = (passport) => {
             return done(null, createdUser);
           })
           .catch((err) => {
-            console.log('Instagram Strategy: ', err);
+            console.error('Instagram Strategy: ', err);
             return done(err, false);
           });
         }
       })
       .catch((err) => {
-        console.log('Instagram Strategy: ', err);
+        console.error('Instagram Strategy: ', err);
         return done(err, false);
       });
     });

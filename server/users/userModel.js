@@ -8,21 +8,23 @@ const User = bookshelf.Model.extend({
   initialize() {
     this.on('creating', this.hashPassword, this);
   },
-
+  // Related events (many to many)
   events() {
     const Event = require('../events/eventModel');
     return this.belongsToMany(Event).withPivot(['is_creator']);
   },
 
+  // Related images
   image() {
     return this.hasOne(Image);
   },
+
 
   hashPassword(model) {
     return new Promise((resolve, reject) => {
       bcrypt.hash(model.get('password'), null, null, (err, hash) => {
         if (err) {
-          console.log('Error here in hashPassword');
+          console.error('Password hashing:', err);
           reject(err);
         }
         model.set('password', hash);
@@ -30,7 +32,7 @@ const User = bookshelf.Model.extend({
       });
     });
   },
-  
+
   comparePassword(password, hash) {
     return new Promise((resolve, reject) => {
       bcrypt.compare(password, hash, (err, isMatch) => {

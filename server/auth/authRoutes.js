@@ -7,7 +7,7 @@ const authController = require('./authController');
 router.post('/signin', authController.signin);
 router.post('/signup', authController.signup);
 
-// Instagram authentication
+// Instagram authentication route and callback
 router.get('/instagram', passport.authenticate('instagram', { session: false }));
 router.get('/instagram/callback', (req, res, next) => {
   passport.authenticate('instagram', {

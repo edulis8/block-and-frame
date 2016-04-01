@@ -7,24 +7,24 @@ const eventController = {
   getAllEvents(req, res) {
     Event.fetchAll({
       withRelated: [{ users(qb) {
-        // NOTE Omiting password
+        // Omiting password
         qb.column('email', 'username', 'bio', 'is_traveling', 'location', 'instagram_username', 'instagram_profile_pic', 'instagram_id');
       } }],
     })
     .then((events) => {
-      // events have related users and can be found thru .relations
-      // for example events.models[0].relations.users.models[0]
-      // the user that created the event is indicated by "_pivot_is_creator": true
+      // Events have related users and can be found thru .relations
+      // For example events.models[0].relations.users.models[0]
+      // The user that created the event is indicated by "_pivot_is_creator": true
       res.status(200).send(events.models);
     })
     .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
+      res.staus(500).send(err);
     });
   },
 
   getEventbyId(req, res) {
-    // main use is req.params.evenId
+    // Check if req has event id if not check params
+    // createEvent reuses this method by sending req with an eventId
     Event.fetchAndPopulate({ id: req.eventId || req.params.eventId })
     .then((event) => {
       if (!event) {
@@ -38,8 +38,6 @@ const eventController = {
     });
   },
 
-  // For now event info should be in the body and creator id should be in params
-  // Creates event and puts creator's user.id and the event.id in events_users, sets is_creator to true for user.id who created the event
   createEvent(req, res, next) {
     const userId = req.user.get('id');
 
@@ -58,21 +56,20 @@ const eventController = {
     })
     .save()
     .then((event) => {
-      // create event and associate in junction table
+      // Create event and associate user in join table
       event.users()
       .attach(userId)
       .then((eventUser) => {
-        // update the "pivot" (the junction table)
+        // Update record to reflect user is host
         return eventUser.updatePivot({
           is_creator: true,
         });
       })
       .then((pivotStatus) => {
         if (pivotStatus.add) {
-          // assign
           req.eventId = event.id;
-          // reuse same function to get same event again
-          // to an event with the user relations populated
+          // Reuse same function to get same event again
+          // To an event with the user relations populated
           eventController.getEventbyId(req, res, next);
         } else {
           res.status(500).send(pivotStatus);
@@ -134,7 +131,7 @@ const eventController = {
     .then((event) => {
       event
       .users()
-      // attach pivot but leave is_creator null
+      // Attach pivot but leave is_creator null
       .attach(userId)
       .then((pivotStatus) => {
         res.status(200).send(pivotStatus);
@@ -158,7 +155,7 @@ const eventController = {
     // Find the user who comment belongs to
     User.where({ id: req.body.userId })
     .fetch().then((foundUser) => {
-      // save the comment
+      // Save the comment
       new Comment({
         user_id: req.body.userId,
         text: req.body.text,
@@ -175,11 +172,10 @@ const eventController = {
   },
 
   getComments(req, res) {
-    // comment has everything on retrieval from db
-    // except the avatar url
+    // Comment has everything on retrieval from db
+    // Except the avatar url
     Comment.where({ event_id: req.params.eventId })
     .fetchAll().then((comments) => {
-      console.log('COMMENTS');
       const commentData = comments.models.map((comment) => {
         return {
           id: comment.attributes.user_id,

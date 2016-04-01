@@ -14,13 +14,13 @@ module.exports = {
       res.status(200).send(users.models);
     })
     .catch((err) => {
-      console.error(err);
       res.sendStatus(500);
     });
   },
 
   getUserbyId(req, res) {
     User.where({ id: req.params.userId })
+    // Populate user object with related event info
     .fetch({
       withRelated: ['events'],
       columns: [
@@ -55,18 +55,16 @@ module.exports = {
     .fetch()
     .then((user) => {
       if (!user) {
-        const newUser = new User({
+        new User({
           username,
           password,
           email,
           bio,
           city,
           country,
-        });
-
-        newUser.save()
+        })
+        .save()
         .then((createdUser) => {
-          // TODO: omit password
           res.status(200).send(createdUser);
         })
         .catch((err) => {
@@ -76,6 +74,7 @@ module.exports = {
     });
   },
 
+  // Only edit user using user info from JWT token
   editUser(req, res) {
     const userId = req.user.get('id');
     User.where({ id: userId })
@@ -95,7 +94,6 @@ module.exports = {
       }
     })
     .then((user) => {
-      // TODO: why is this undefined?
       res.status(200).send(user);
     })
     .catch((err) => {
@@ -103,17 +101,18 @@ module.exports = {
     });
   },
 
+  // Only delete user using user info from JWT token
   deleteUser(req, res) {
     const userId = req.user.get('id');
     User.where({ id: userId })
     .fetch()
     .then((user) => {
       if (!user) {
-        res.status(404).send('User not found');
+        res.sendStatus(404);
       } else {
         user.destroy()
         .then(() => {
-          res.status(200).send('User deleted');
+          res.sendStatus(200);
         });
       }
     })
@@ -135,17 +134,16 @@ module.exports = {
       .fetch()
       .then((user) => {
         if (!user) {
-          res.status(404).send('User not found');
+          res.sendStatus(404);
         } else {
           user.save({
             avatar_id: image.attributes.id,
           });
-          res.status(200).json('Avatar saved.');
+          res.sendStatus(200);
         }
       });
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).send(err);
     });
   },
@@ -161,7 +159,7 @@ module.exports = {
       });
     })
     .catch((err) => {
-      res.send(`User not found - ${err}`);
+      res.status(500).send(err);
     });
   },
 
@@ -175,16 +173,16 @@ module.exports = {
     })
     .then((user) => {
       if (!user) {
-        res.status(404).send('User not found');
+        res.sendStatus(404);
       } else {
         const userEmail = user.attributes.email;
         const hostEmail = userInfo.host.email;
         mg.sendText('bmoorebrian53@gmail.com', hostEmail, 'Someone joined your spread!', `Hi, ${userEmail} joined your spread`,
           err => {
             if (err) {
-              console.log('ERROR SENDING EMAIL', err);
+              console.error('Email: ', err);
             } else {
-              console.log('SUCCESS SENDING EMAIL');
+              console.log('Email sent');
             }
           });
         res.status(200).send(user);
@@ -195,8 +193,3 @@ module.exports = {
     });
   },
 };
-// to test edit
-// curl -H "Content-Type: application/json" -X PUT -d '{"password":"abddf"}' http://localhost:8080/api/users/2
-
-// to add a user
-// curl -H "Content-Type: application/json" -X POST -d '{"username":"User","password":"xyz","email":"example@example.com"}' http://localhost:8080/api/users
