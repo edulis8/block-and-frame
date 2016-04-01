@@ -1,3 +1,5 @@
+const isDeveloping = process.env.NODE_ENV !== 'production';
+const isTesting = process.env.NODE_ENV === 'test';
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -7,8 +9,6 @@ const routes = require('../routes.js');
 const authRoutes = require('../auth/authRoutes');
 const publicPath = path.resolve(__dirname, '/dist');
 const passportConfig = require('./passport');
-const isDeveloping = process.env.NODE_ENV !== 'production';
-const isTesting = process.env.NODE_ENV === 'test';
 const webpackConfig = require('../../webpack.config.js');
 const compiler = webpack(webpackConfig);
 const webpackHotMiddleware = require('webpack-hot-middleware')(compiler);

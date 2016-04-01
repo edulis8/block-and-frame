@@ -7,13 +7,10 @@ const knex = require('knex')({
     database: process.env.DB_NAME,
     charset: 'utf8',
   },
+  // Uncomment below to show database queries in console
   // debug: true,
 });
 const bookshelf = require('bookshelf')(knex);
-// const jsonColumns = require('bookshelf-json-columns');
-// bookshelf.plugin(jsonColumns);
-// As it creates a connection pool for the current database,
-// you should use the bookshelf instance returned throughout your library:
 
 // User schema
 bookshelf.knex.schema.hasTable('users').then((exists) => {
@@ -73,6 +70,7 @@ bookshelf.knex.schema.hasTable('events_users').then((exists) => {
   }
 });
 
+// Image table
 bookshelf.knex.schema.hasTable('images').then((exists) => {
   if (!exists) {
     bookshelf.knex.schema.createTable('images', (images) => {
@@ -84,6 +82,7 @@ bookshelf.knex.schema.hasTable('images').then((exists) => {
   }
 });
 
+// Comments table
 bookshelf.knex.schema.hasTable('comments').then((exists) => {
   if (!exists) {
     bookshelf.knex.schema.createTable('comments', (comments) => {
@@ -98,21 +97,5 @@ bookshelf.knex.schema.hasTable('comments').then((exists) => {
     });
   }
 });
-
-// Contribution
-// bookshelf.knex.schema.hasTable('contributions').then((exists) => {
-//   if (!exists) {
-//     bookshelf.knex.schema.createTable('contributions', (contribution) => {
-//       contribution.increments('id').primary();
-//       contribution.string('item', 100);
-//       contribution.string('description', 500);
-//       contribution.integer('event_id').references('events.id');
-//       contribution.integer('contributor_id').references('users.id');
-//       contribution.timestamps();
-//     }).then(() => {
-//       console.log('Created contributions table');
-//     });
-//   }
-// });
 
 module.exports = bookshelf;
