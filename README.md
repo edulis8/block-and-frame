@@ -1,4 +1,4 @@
-# Spreadout
+# Spread Out
 App building a community of travelers through the love of food and travel.
 
 ## Team
@@ -44,3 +44,5 @@ See our roadmap for this project at [GitHub Issues](https://github.com/Block-and
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+Deployed on AWS at http://www.spreadout.space :)
