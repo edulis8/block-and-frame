@@ -10,7 +10,7 @@ class AboutSpreadOut extends Component {
           </div>
           <div className="fifteen wide column" >
             <div className="ui text container">
-              <p>Cupcake ipsum dolor sit amet candy cake. Muffin carrot cake powder toffee. Sugar plum topping marzipan icing cake dragée dessert. Icing ice cream brownie jujubes sweet roll wafer jelly beans liquorice. Croissant danish cupcake donut lemon drops carrot cake cookie.Gummi bears sweet cotton candy marshmallow bear claw tootsie roll. Cupcake muffin candy canes dessert muffin cupcake brownie. Danish jelly tiramisu. Chocolate bar pie dragée topping jujubes cheesecake topping. Candy canes pastry fruitcake macaroon oat cake jujubes pastry tiramisu. Icing fruitcake lemon drops lollipop jelly-o powder pie jelly beans. Croissant powder candy danish carrot cake.
+              <p>Cupcake ipsum dolor sit amet candy cake. Muffin carrot cake powder toffee. Sugar plum topping marzipan icing cake dragée dessert. Icing ice cream brownie jujubes sweet roll wafer jelly beans liquorice. Croissant danish cupcake donut lemon drops carrot cake cookie.Gummi bears sweet cotton candy marshmallow bear claw tootsie roll. Cupcake muffin candy canes dessert muffin cupcake brownie. 
               </p>
             </div>
           </div>

@@ -6,7 +6,7 @@ import Carousel from './Carousel';
 class AboutUs extends Component {
   render() {
     return (
-      <div className="ui container">
+      <div className="ui container aboutus">
         <div className="ui two-column grid">
           <div className="column">
             <h2>Our Team</h2>
@@ -17,6 +17,7 @@ class AboutUs extends Component {
               <AboutEach key={el.name}
                 name={el.name}
                 role={el.role}
+                role2={el.role2}
                 imgSource={el.source} 
               />
             )}

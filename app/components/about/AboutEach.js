@@ -11,6 +11,7 @@ class AboutEach extends Component {
            <div className="nine wide column">
               <b>{this.props.name}</b>
               <p>{this.props.role}</p>
+              <p>{this.props.role2}</p>
             </div>
         </div>
       </div>
