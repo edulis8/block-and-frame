@@ -47,7 +47,7 @@ const SigninForm = (props) => {
             <div className="or"></div>
             <InstaButton />
           </div>
-          
+
         </form>
         <div className="ui bottom attached warning message">
           <i className="icon help"></i>
