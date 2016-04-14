@@ -20,10 +20,16 @@ class LandingPage extends Component {
     $('.ui.modal').modal();
   }
   signinClick() {
-    this.setState({ showSignin: !!!this.state.showSignin });
+    this.setState({
+      showSignin: !!!this.state.showSignin,
+      showSignup: false,
+    });
   }
   signupClick() {
-    this.setState({ showSignup: !!!this.state.showSignup });
+    this.setState({
+      showSignup: !!!this.state.showSignup,
+      showSignin: false,
+    });
   }
   render() {
     return (
@@ -42,7 +48,7 @@ class LandingPage extends Component {
               </div>
             </div>
           </div>
-          <div className="popup" >
+          <div id="popup" className="container centered">
             {this.state.showSignin ? <Signin /> : null}
             {this.state.showSignup ? <Signup /> : null}
           </div>
