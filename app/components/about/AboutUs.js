@@ -6,18 +6,19 @@ import Carousel from './Carousel';
 class AboutUs extends Component {
   render() {
     return (
-      <div className="ui container">
+      <div className="ui container aboutus">
         <div className="ui two-column grid">
           <div className="column">
             <h2>Our Team</h2>
           </div>
           <div className="column"></div>
-          <div className="four wide column">
+          <div className="five wide column">
             { AboutUsText.map(el => 
               <AboutEach key={el.name}
                 name={el.name}
                 role={el.role}
-                imgSource={el.source} 
+                role2={el.role2}
+                imgSource={el.source}
               />
             )}
           </div>

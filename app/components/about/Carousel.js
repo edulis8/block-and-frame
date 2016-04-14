@@ -5,7 +5,7 @@ import CarouselItem from './CarouselItem';
 class Carousel extends Component {
   render() {
     return (
-      <div className="carousel ui raised rounded padded container segment" >
+      <div className="carousel ui raised rounded container segment" >
         <ul className="carousel__panes">
           { AboutUsText.map(el => 
             <CarouselItem key={el.name}
@@ -13,7 +13,7 @@ class Carousel extends Component {
               role={el.role}
               role2={el.role2}
               imgSource={el.source}
-              blurb={el.blurb} 
+              blurbs={el.blurbs}
             />
           )}
         </ul>

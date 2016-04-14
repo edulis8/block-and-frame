@@ -2,17 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 // Sass file imported:
-import '../dist/main.scss';
-
-// Moved to index.html
-// jQuery and CDN for Semantic-UI
-// import $ from 'jquery';
-// import jQuery from 'jquery';
-// window.$ = $;
-// window.jQuery = jQuery;
-// $('head').append($('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">'));
-// $('body').append($('<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>'));
-// $('body').append($('<script src="../app/csstemp/main.css"></script>'));
+import './main.scss';
 
 import Site from './containers/Site';
 import EventList from './containers/EventList';
@@ -24,7 +14,6 @@ import EditUserProfile from './containers/EditUserProfile';
 import UniqueEvent from './containers/UniqueEvent';
 import LandingPage from './containers/LandingPage';
 import About from './containers/About';
-
 
 // TODO: Index Route may change - whatever we want to render
 // on visiting the site home path '/'

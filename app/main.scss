@@ -4,12 +4,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 @mixin transform ($opacity, $direction, $amount...) {
    transform: #{$direction($amount)};
    opacity: $opacity;
 }
-
 @mixin radial-gradient($from, $to) {
   background: -moz-radial-gradient(center, circle cover, $from 0%, $to 100%);
   background: -webkit-gradient(radial, top right, 0px, center center, 100%, color-stop(0%, $from), color-stop(100%, $to));
@@ -55,13 +53,14 @@
   }
 }
 
-$color: white;
-$color1: #558B2F;
-$color2: #FF5252;
-$color3: #EF9A9A;
+$color1: white;
+$color2: #39FF58;
+$color3: #166322;
+$color4: adjust-color($color3,$lightness:25%);
+$color5: desaturate($color4, 85%);
 
 body {
-  background-color: $color;
+  background: url('https://s3.amazonaws.com/spreadout-img/LandingPage/net.png');
   font-family: Roboto, sans-serif;
   font-weight: 100;
   line-height: 1;
@@ -70,15 +69,12 @@ body {
 .ui.menu .item img.logo {
   margin-right: 1.5em;
 }
-
 .main.container {
   margin-top: 7em;
 }
-
 .wireframe {
   margin-top: 2em;
 }
-
 .ui.footer.segment {
   margin: 10em 0em 0em;
   padding: 3em 0em;
@@ -115,9 +111,9 @@ body {
 
 .about {
   margin: 3rem;
-  padding: 1rem 5rem 1rem 8rem;
+  padding: 1rem 3rem 1rem 5rem;
   .divider {
-    margin: 2em;
+    margin: 1.3em;
   }
 }
 
@@ -137,17 +133,18 @@ body {
     animation: carousel 12s alternate infinite;
   }
   .carousel__pane {
-    padding: 0px 30px 0px 30px;
+    padding: 5px 8px 0px 8px;
     position: relative;
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: top;
     text-align: left;
     width: 15%;
-    h3, i {
+    h3, i, p {
       vertical-align: middle;
     }
   }
 }
+
 
 .insta-fixed {
   cursor: pointer;
@@ -238,7 +235,7 @@ $color12: desaturate($color11, 85%);
   position: relative;
   width: 100%;
   height: 38em;
-  @include radial-gradient(#39FF58, $color12);
+  @include radial-gradient($color2, $color5);
   .splashBlurb {
     position: absolute;
     @include centerer;
@@ -259,10 +256,6 @@ $color12: desaturate($color11, 85%);
   left: 75%;
   top: 33%;
 }
-
-
-
-
 
 // STICKY FOOTER
 
@@ -286,14 +279,12 @@ html, body {
 }
 
 // STICKY FOOTER FOR SMALL SCREENS
-
 @media screen and (max-width: 768px) {
-
   #footer {
    height: 638px !important;
   }
 }
-//
+
 #event-list-container {
   margin-top: 25px;
   padding-bottom: 235px;
@@ -309,7 +300,6 @@ html, body {
 
 #bio {
   margin-bottom: 25px;
-
 }
 
 .left-margin {

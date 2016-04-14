@@ -39,7 +39,7 @@ module.exports = {
       {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass'],
-        include: [PATHS.app, PATHS.dist],
+        include: [PATHS.app],
       },
     ],
   },
