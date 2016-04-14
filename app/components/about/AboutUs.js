@@ -12,13 +12,13 @@ class AboutUs extends Component {
             <h2>Our Team</h2>
           </div>
           <div className="column"></div>
-          <div className="four wide column">
+          <div className="five wide column">
             { AboutUsText.map(el => 
               <AboutEach key={el.name}
                 name={el.name}
                 role={el.role}
                 role2={el.role2}
-                imgSource={el.source} 
+                imgSource={el.source}
               />
             )}
           </div>

@@ -17,7 +17,9 @@ class CarouselItem extends Component {
           </div>
           <br /><br />
           <div>
-            <p>{this.props.blurb}</p>
+            {this.props.blurbs.map(blurb =>          
+              <p>{blurb}</p>
+            )}
           </div>
         </div>
       </div>

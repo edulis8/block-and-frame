@@ -111,9 +111,9 @@ body {
 
 .about {
   margin: 3rem;
-  padding: 1rem 5rem 1rem 8rem;
+  padding: 1rem 3rem 1rem 5rem;
   .divider {
-    margin: 2em;
+    margin: 1.3em;
   }
 }
 
@@ -133,13 +133,13 @@ body {
     animation: carousel 12s alternate infinite;
   }
   .carousel__pane {
-    padding: 0px 30px 0px 30px;
+    padding: 5px 8px 0px 8px;
     position: relative;
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: top;
     text-align: left;
     width: 15%;
-    h3, i {
+    h3, i, p {
       vertical-align: middle;
     }
   }
